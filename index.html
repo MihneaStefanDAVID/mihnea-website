@@ -1,0 +1,2134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="The personal website of Mihnea-Stefan David." />
+    <title>Mihnea-Stefan David</title>
+    <link rel="icon" href="assets/msd-favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20260611-portfolio8" />
+    <script src="teaching-library.js" defer></script>
+    <script src="script.js?v=20260611-portfolio7" defer></script>
+  </head>
+  <body>
+    <header class="menu-bar">
+      <button class="menu-brand" data-open="welcome"><span>MSD</span> Mihnea-Stefan David</button>
+      <nav>
+        <button data-open="about">About</button>
+        <button data-open="research">Research</button>
+        <button data-open="engineering">Engineering</button>
+        <button data-open="teaching">Teaching</button>
+        <button data-open="community">Community</button>
+        <button data-open="notes">Journal</button>
+      </nav>
+      <div class="menu-status"><span class="online-dot"></span><span>Zürich</span><span id="time">--:--</span></div>
+    </header>
+
+    <main class="desktop">
+      <section class="desktop-intro">
+        <div class="intro-pill"><span></span> Personal system online</div>
+        <h1>I make sense of<br /><em>complex things.</em></h1>
+        <button data-open="welcome">Enter my world <span>↗</span></button>
+      </section>
+
+      <section class="desktop-icons" aria-label="Desktop folders">
+        <button class="desktop-icon" data-open="about">
+          <span class="folder-graphic"><i></i></span><strong>About me</strong><small>Profile</small>
+        </button>
+        <button class="desktop-icon" data-open="research">
+          <span class="folder-graphic violet"><i></i></span><strong>Research</strong><small>Learning theory</small>
+        </button>
+        <button class="desktop-icon" data-open="engineering">
+          <span class="folder-graphic green"><i></i></span><strong>Engineering</strong><small>Projects & work</small>
+        </button>
+        <button class="desktop-icon" data-open="teaching">
+          <span class="folder-graphic blue"><i></i></span><strong>Teaching</strong><small>ETH Zürich</small>
+        </button>
+        <button class="desktop-icon" data-open="community">
+          <span class="folder-graphic coral"><i></i></span><strong>Community</strong><small>Leadership</small>
+        </button>
+        <button class="desktop-icon" data-open="notes">
+          <span class="folder-graphic yellow"><i></i></span><strong>Journal</strong><small>Writing</small>
+        </button>
+      </section>
+
+      <section class="app-window content-window" id="content-window" aria-live="polite">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-window" aria-label="Close window"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><strong id="window-title">Welcome</strong></div>
+          <button class="ask-shortcut open-ai">Ask Solvy</button>
+        </div>
+
+        <div class="window-body">
+          <article class="panel active" id="panel-welcome">
+            <div class="welcome-main">
+              <div class="welcome-copy">
+                <span class="file-label">START_HERE.MIHNEA</span>
+                <h2>Ideas, systems<br />& <em>meaningful impact.</em></h2>
+                <p>
+                  I'm Mihnea. I move between computer science, education, markets,
+                  and public life, guided by curiosity and the belief that difficult
+                  systems can be understood and improved.
+                </p>
+                <div class="welcome-actions"><button data-open="about">Meet Mihnea ↗</button><button class="open-ai secondary">Ask Solvy</button></div>
+              </div>
+              <div class="identity-atom" aria-label="Words that describe Mihnea">
+                <div class="atom-core"><strong>MSD</strong><small>explore · understand · build</small></div>
+                <div class="atom-orbit orbit-inner">
+                  <span class="atom-word word-a">curiosity</span>
+                  <span class="atom-word word-b">clarity</span>
+                  <span class="atom-word word-c">empathy</span>
+                  <i class="electron electron-a"></i>
+                  <i class="electron electron-b"></i>
+                  <i class="electron electron-c"></i>
+                </div>
+                <div class="atom-orbit orbit-middle">
+                  <span class="atom-word word-a">research</span>
+                  <span class="atom-word word-b">education</span>
+                  <span class="atom-word word-c">markets</span>
+                  <span class="atom-word word-d">public life</span>
+                  <span class="atom-word word-e">algorithms</span>
+                  <span class="atom-word word-f">systems</span>
+                  <i class="electron electron-a"></i>
+                  <i class="electron electron-b"></i>
+                  <i class="electron electron-c"></i>
+                  <i class="electron electron-d"></i>
+                </div>
+                <div class="atom-orbit orbit-outer">
+                  <span class="atom-word word-a">rigorous</span>
+                  <span class="atom-word word-b">civic-minded</span>
+                  <span class="atom-word word-c">ambitious</span>
+                  <span class="atom-word word-d">collaborative</span>
+                  <span class="atom-word word-e">explorer</span>
+                  <span class="atom-word word-f">builder</span>
+                  <i class="electron electron-a"></i>
+                  <i class="electron electron-b"></i>
+                  <i class="electron electron-c"></i>
+                  <i class="electron electron-d"></i>
+                  <i class="electron electron-e"></i>
+                </div>
+              </div>
+            </div>
+            <div class="welcome-contact">
+              <div class="contact-message">
+                <span class="availability"><i></i> Open to conversations</span>
+                <h3>Let's talk<span>!</span></h3>
+                <p>
+                  I am always happy to discuss interesting ideas, research,
+                  technology, education, markets, or potential collaborations.
+                </p>
+              </div>
+              <div class="contact-channels">
+                <a class="channel email-channel" href="mailto:mihdavid@ethz.ch?subject=Hello%20Mihnea">
+                  <span class="channel-icon">@</span>
+                  <span class="channel-copy"><small>Email</small><strong>mihdavid@ethz.ch</strong><em>Best way to reach me</em></span>
+                  <b>↗</b>
+                </a>
+                <a class="channel instagram-channel" href="https://www.instagram.com/david_mihnea/" target="_blank" rel="noreferrer">
+                  <span class="channel-icon">IG</span>
+                  <span class="channel-copy"><small>Instagram</small><strong>@david_mihnea</strong><em>Follow along</em></span>
+                  <b>↗</b>
+                </a>
+                <a class="channel linkedin-channel" href="https://www.linkedin.com/in/mihnea-stefan-david-950893268/" target="_blank" rel="noreferrer">
+                  <span class="channel-icon">in</span>
+                  <span class="channel-copy"><small>LinkedIn</small><strong>Mihnea-Stefan David</strong><em>Let's connect</em></span>
+                  <b>↗</b>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" id="panel-about">
+            <header class="about-hero">
+              <div>
+                <span class="file-label">ABOUT/MIHNEA-STEFAN-DAVID</span>
+                <h2>Curious about systems.<br /><em>Committed to people.</em></h2>
+              </div>
+              <p class="about-lead">
+                I am a Computer Science student at ETH Zürich, but the questions that
+                interest me rarely stay within one discipline. I am drawn to the rigor
+                of mathematics, the mysteries of physics, the power of computation,
+                and the ways education and public institutions shape people's lives.
+              </p>
+            </header>
+
+            <section class="about-story">
+              <div class="story-label">My story</div>
+              <div class="story-copy">
+                <p>
+                  Since childhood, I have been fascinated by the elegance of mathematics
+                  and the explanatory power of physics. Computer science became the place
+                  where that fascination could turn into something constructive: a way to
+                  move between theory and implementation, abstract ideas and real systems.
+                </p>
+                <p>
+                  At ETH Zürich, I have explored this spectrum through theoretical computer
+                  science, algorithms, numerical methods, systems, formal methods, machine
+                  learning, and research in differential privacy. Alongside my studies, I
+                  have worked as a Teaching Assistant for Algorithms and Data Structures,
+                  Algorithms and Probability, and Numerical Methods for Computer Science.
+                  I have also supported students as a Coding Assistant and served as an
+                  Academic Facilitator for ETH's intensive PVK exam-preparation program.
+                  My exchange at the University of Pennsylvania immersed me in a different
+                  academic culture and brought new perspectives to my work.
+                </p>
+                <p>
+                  My commitment to education extends beyond the classroom. I care deeply
+                  about educational sciences, political science, civic participation, and
+                  the institutions through which communities make decisions. From national
+                  student representation to organizing programming contests, conferences,
+                  and academic initiatives, I have learned that meaningful change requires
+                  both ideas and the patience to bring people together.
+                </p>
+                <p>
+                  I thrive where innovation meets impact. Whether I am investigating a
+                  theoretical guarantee, debugging a program, designing a learning
+                  experience, or coordinating a public initiative, I am motivated by the
+                  same instinct: understand the system carefully, then make it better.
+                </p>
+                <p>
+                  I am also deeply interested in economics and financial markets,
+                  especially market making. I find the field compelling because it brings
+                  together probability, algorithms, strategic decision-making, and the
+                  behavior of complex systems in real time. My next chapter at IMC in
+                  Amsterdam will let me explore that intersection from within.
+                </p>
+              </div>
+            </section>
+
+            <section class="interest-map">
+              <div class="interest-center"><span>MSD</span><small>at the intersection of</small></div>
+              <article><span>01</span><h3>Computer Science</h3><p>Theory, algorithms, systems and responsible AI.</p></article>
+              <article><span>02</span><h3>Education</h3><p>Teaching, learning design and access to high-quality education.</p></article>
+              <article><span>03</span><h3>Public Life</h3><p>Political science, institutions and meaningful civic participation.</p></article>
+              <article><span>04</span><h3>Markets</h3><p>Economics, market making and decision-making under uncertainty.</p></article>
+              <article><span>05</span><h3>Leadership</h3><p>Turning shared ambitions into programs, events and communities.</p></article>
+              <article><span>06</span><h3>Science & Discovery</h3><p>Mathematics, physics and the curiosity to understand how the world works.</p></article>
+            </section>
+
+            <section class="journey">
+              <header class="journey-heading">
+                <span>MY JOURNEY</span>
+                <h3>Places that shaped<br /><em>how I think.</em></h3>
+              </header>
+              <div class="journey-route">
+                <article class="journey-stop completed">
+                  <div class="route-marker"><span>RO</span></div>
+                  <div class="stop-copy">
+                    <small>Where it started</small>
+                    <h4>Bucharest</h4>
+                    <p>Romania · Mathematics, physics, olympiads, robotics and student representation.</p>
+                  </div>
+                </article>
+                <article class="journey-stop completed">
+                  <div class="route-marker"><span>CH</span></div>
+                  <div class="stop-copy">
+                    <small>Home base</small>
+                    <h4>Zürich</h4>
+                    <p>Switzerland · Computer science, research, teaching and intellectual independence at ETH.</p>
+                  </div>
+                </article>
+                <article class="journey-stop completed">
+                  <div class="route-marker"><span>US</span></div>
+                  <div class="stop-copy">
+                    <small>Exchange</small>
+                    <h4>Philadelphia</h4>
+                    <p>United States · New academic culture and perspectives at the University of Pennsylvania.</p>
+                  </div>
+                </article>
+                <article class="journey-stop next">
+                  <div class="route-marker"><span>NL</span></div>
+                  <div class="stop-copy">
+                    <small>Next stop</small>
+                    <h4>Amsterdam</h4>
+                    <p>Netherlands · My next chapter at IMC, at the intersection of technology and financial markets.</p>
+                  </div>
+                </article>
+                <article class="journey-stop future">
+                  <div class="route-marker"><span>?</span></div>
+                  <div class="stop-copy">
+                    <small>The next frontier</small>
+                    <h4>Coming soon</h4>
+                    <p>The best part of a journey is not knowing exactly where curiosity will lead next.</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="about-footer">
+              <div>
+                <small>Languages</small>
+                <p>Romanian · Native &nbsp; English · C1 &nbsp; German · C1 / DSD II</p>
+              </div>
+              <div class="about-actions">
+                <button class="cv-link open-cv">Open CV.pdf <span>↗</span></button>
+                <a class="talk-link" href="mailto:mihdavid@ethz.ch?subject=Hello%20Mihnea">Let's talk! <span>↗</span></a>
+              </div>
+            </section>
+          </article>
+
+          <article class="panel" id="panel-research">
+            <header class="panel-heading compact research-heading">
+              <span>RESEARCH/OPEN-QUESTIONS</span>
+              <h2>Questions at the edge<br />of what we <em>understand.</em></h2>
+              <p>My interests span theoretical computer science and computing education. I am drawn to simple questions whose answers expose deeper tensions between information, efficiency, human reasoning and rigorous guarantees.</p>
+            </header>
+
+            <section class="research-current">
+              <div class="research-status"><i></i>Current exploration · Work in progress</div>
+              <div class="current-question">
+                <small>01 / Privacy × Mixing</small>
+                <h3>Can mixing create privacy?</h3>
+                <p>I am currently exploring connections between the convergence of Markov chains and differential privacy. The guiding question is whether a chain's mixing behaviour, usually controlled in total variation distance, can yield meaningful privacy guarantees expressed through stronger notions such as Rényi divergence.</p>
+              </div>
+              <div class="research-formula" aria-label="From mixing to privacy">
+                <span>mixing</span><b>→</b><span>stability</span><b>→</b><span>privacy</span>
+                <small>Total variation · Rényi DP · Markov chains</small>
+              </div>
+            </section>
+
+            <section class="research-path">
+              <div class="research-section-title">
+                <span>RESEARCH PATH</span>
+                <h3>Questions I have been following</h3>
+              </div>
+              <div class="research-grid">
+                <article>
+                  <small>02 / Foundations</small>
+                  <h4>Private PAC Learning</h4>
+                  <p>Understanding the sample complexity of private learners across realizable and agnostic settings, and how it is governed by combinatorial dimensions.</p>
+                  <div><span>VC dimension</span><span>Littlestone dimension</span><span>RepDim</span></div>
+                </article>
+                <article>
+                  <small>03 / Trade-offs</small>
+                  <h4>Samples vs. Computation</h4>
+                  <p>Investigating why information-theoretically elegant private learners can be computationally expensive, particularly for thresholds and halfspaces.</p>
+                  <div><span>Halfspaces</span><span>Runtime</span><span>Lower bounds</span></div>
+                </article>
+                <article>
+                  <small>04 / Toolkit</small>
+                  <h4>Geometry & Optimization</h4>
+                  <p>Learning from the roles of center points, convex geometry, quasi-concave optimization and private linear algebra in constructing private algorithms.</p>
+                  <div><span>Convexity</span><span>Tukey depth</span><span>Private optimization</span></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="research-genai">
+              <div class="genai-label">
+                <span>UPCOMING COLLABORATION</span>
+                <small>University of Pennsylvania</small>
+              </div>
+              <div class="genai-copy">
+                <small>05 / Computing Education × GenAI</small>
+                <h3>Programming & Problem Solving<br />in the Age of Generative AI</h3>
+                <p>Building on UPenn's open-ended Programming and Problem Solving course, I will investigate how generative AI changes the balance between algorithmic thinking, implementation, analysis and communication.</p>
+                <p>The goal is not simply to ask whether an AI system can outperform students. It is to understand where it contributes: generating strategies, translating ideas into code, debugging, evaluating experiments, reproducing an approach from a written report, and explaining why a solution works.</p>
+              </div>
+              <div class="genai-study">
+                <span class="study-title">PILOT STUDY</span>
+                <div><b>01</b><p>Current students and historical student solutions as a human baseline</p></div>
+                <div><b>02</b><p>Claude Code working from only the problem statement and simulator</p></div>
+                <div><b>03</b><p>Claude Code receiving a small set of high-level strategic hints</p></div>
+                <div><b>04</b><p>Students using AI while documenting their prompts and independent reasoning</p></div>
+                <div><b>05</b><p>Claude Code reproducing a previous team's strategy from its detailed report</p></div>
+                <footer>Strategy · Implementation · Evaluation · Communication</footer>
+              </div>
+            </section>
+
+            <section class="research-thesis">
+              <div>
+                <small>BACHELOR THESIS · COMING SOON</small>
+                <h3>A new theoretical question,<br />still taking shape.</h3>
+              </div>
+              <div>
+                <p>My bachelor thesis will be supervised by <strong>Prof. Dr. Johannes Lengler</strong>. The precise topic is still open, but it will live in theoretical computer science, with a likely focus on randomized algorithms and the mathematical ideas behind them.</p>
+                <span>Topic to be announced</span>
+              </div>
+            </section>
+
+            <footer class="research-note">
+              <span>STATUS</span>
+              <p>These are ongoing or upcoming, unpublished research directions. This page describes the questions that motivate me, not claimed results.</p>
+            </footer>
+          </article>
+
+          <article class="panel" id="panel-engineering">
+            <header class="engineering-hero">
+              <span>ENGINEERING / PROJECTS</span>
+              <div>
+                <h2>Problems explored<br />by <em>building.</em></h2>
+                <p>A collection of algorithmic experiments, interactive tools and software projects. Each began with a different question: how should a system communicate, compete, visualize or make a difficult idea easier to understand?</p>
+              </div>
+              <aside><b>07</b><small>SELECTED<br />PROJECTS</small></aside>
+            </header>
+
+            <section class="standalone-projects">
+              <article class="featured-project local-project" role="button" tabindex="0" aria-label="Open Local project">
+                <div class="featured-project-copy">
+                  <small>01 / PASSION PROJECT · ANDROID</small>
+                  <h3>Local</h3>
+                  <p>A privacy-first messenger where every connection begins face to face. No global search, no suggested contacts: two people become friends through an in-person cryptographic QR handshake.</p>
+                  <div><span>Kotlin</span><span>Jetpack Compose</span><span>End-to-end encryption</span><span>Firebase</span></div>
+                  <button class="local-case-link">Open project ↗</button>
+                </div>
+                <div class="local-mockup" aria-label="Abstract preview of the Local messaging application">
+                  <div class="local-sidebar"><i></i><i></i><i></i><i></i></div>
+                  <div class="local-chat"><span></span><p></p><p></p><p></p><em></em></div>
+                </div>
+              </article>
+            </section>
+
+            <section class="local-case-study" id="local-case-study" hidden>
+              <header class="local-case-hero">
+                <div class="local-case-title">
+                  <small>01 / PASSION PROJECT · VERSION 0.1.0</small>
+                  <div class="local-wordmark"><i>L</i><span>LOCAL</span></div>
+                  <h3>Stay safe.<br /><em>Stay Local.</em></h3>
+                  <p>A native Android messenger built around a simple boundary: you can only connect with someone you have physically met. Local combines product design, mobile engineering and a custom end-to-end encrypted messaging system in one complete application. I designed it to feel familiar enough for everyday conversation while making its privacy model visible, understandable and difficult to bypass accidentally.</p>
+                  <div class="local-case-meta"><span>Kotlin</span><span>Jetpack Compose</span><span>Room</span><span>Firebase</span><span>X25519</span><span>AES-256-GCM</span></div>
+                  <div class="local-download">
+                    <a href="https://polybox.ethz.ch/index.php/s/JarNcdEZiCSbRYJ" target="_blank" rel="noopener">Download Android APK ↓</a>
+                    <span>Current experimental build · Android 7.0+</span>
+                  </div>
+                </div>
+                <div class="local-phone-stage" aria-label="Stylised preview of Local">
+                  <div class="local-signal-ring ring-one"></div><div class="local-signal-ring ring-two"></div>
+                  <div class="local-phone">
+                    <div class="local-phone-top"><b>L</b><span>local</span><i></i></div>
+                    <div class="local-phone-contact"><i>MS</i><div><strong>Mihnea</strong><small>connected in person</small></div></div>
+                    <div class="local-message received">Made it home safely.<small>21:42</small></div>
+                    <div class="local-message sent">Perfect. See you tomorrow!<small>21:43 ✓✓</small></div>
+                    <div class="local-message media"><span>VOICE MESSAGE</span><b>▶ ━━━━ 0:18</b></div>
+                    <div class="local-compose"><span>Write a message...</span><b>↑</b></div>
+                  </div>
+                  <div class="local-hero-note"><span>CONNECTION MODEL</span><strong>Offline first.<br />Private by design.</strong></div>
+                </div>
+              </header>
+
+              <section class="local-manifesto">
+                <div class="local-section-index"><span>01</span><small>THE IDEA</small></div>
+                <div>
+                  <h4>A social graph that begins<br />in the real world.</h4>
+                  <p>Most messengers begin with discovery: search a username, import an address book or accept a suggestion. Local deliberately removes that layer. There is no public directory, no friend recommendation system and no way to contact a stranger from across the internet. Names are assigned locally, so the label you use for a person remains part of your own address book rather than becoming a global profile field.</p>
+                </div>
+                <blockquote>Meeting is the permission.<br /><em>The QR code makes it cryptographic.</em></blockquote>
+              </section>
+
+              <section class="local-capabilities">
+                <div class="local-section-index"><span>02</span><small>PRODUCT</small></div>
+                <div class="local-capability-grid">
+                  <article><span>MESSAGE</span><h4>Rich conversations</h4><p>Text, cropped or rotated photos, files up to 10 MB and recorded voice messages. Replies carry an encrypted copy of the quoted context, while six reactions, editing and deletion are synchronized as encrypted control events.</p></article>
+                  <article><span>CONTROL</span><h4>Ephemeral by choice</h4><p>Conversation timers range from one minute to one week or can remain disabled. Expiry is represented in the data model rather than merely hiding a bubble, and deletion-for-everyone propagates through encrypted tombstones.</p></article>
+                  <article><span>CONTEXT</span><h4>Useful, not bare</h4><p>Search inside a conversation, swipe to reply, double-tap for a quick reaction, inspect three delivery states and open images in a full-screen viewer with pinch and pan. Privacy does not need to mean an unfinished interface.</p></article>
+                  <article><span>RESILIENCE</span><h4>Sends that survive navigation</h4><p>Media uploads continue outside the chat screen through an application-owned coroutine scope. The interface shows optimistic progress, applies a 20-second timeout and keeps enough state to offer a meaningful retry rather than silently losing work.</p></article>
+                </div>
+              </section>
+
+              <section class="local-product-principles">
+                <div class="local-section-index"><span>02B</span><small>PRODUCT PRINCIPLES</small></div>
+                <div class="local-principles-intro">
+                  <h4>Privacy expressed through product decisions.</h4>
+                  <p>The strongest privacy mechanism is not useful if normal people cannot understand when it applies. Local therefore treats trust, expiry and device protection as visible parts of the experience rather than settings hidden behind technical language.</p>
+                </div>
+                <div class="local-principles-list">
+                  <article><b>01</b><strong>No invisible discovery</strong><p>The application never uploads an address book to construct a graph of possible contacts. A friendship exists only after the two-device ceremony completes.</p></article>
+                  <article><b>02</b><strong>Local meaning stays local</strong><p>Contact names, resolved notification names and cached conversation context are owned by the device. The backend routes encrypted objects; it does not become the canonical social profile.</p></article>
+                  <article><b>03</b><strong>Security has understandable states</strong><p>Pending invitations expire after one hour, delivery has explicit stages, maintenance is communicated directly and destructive actions propagate rather than pretending to be complete locally.</p></article>
+                </div>
+              </section>
+
+              <section class="local-handshake">
+                <div class="local-section-index"><span>03</span><small>TRUST CEREMONY</small></div>
+                <div class="local-handshake-copy">
+                  <h4>Two scans. Two ephemeral keys.<br />One shared relationship.</h4>
+                  <p>Adding a friend is a short in-person protocol rather than a lookup. A fresh identity matrix and ephemeral X25519 key material bind the two devices to the same physical encounter. The invitation can only be confirmed by the intended inviter, must match the server-held matrix hash and expires after one hour. Scanning your own code or presenting an invalid confirmation is rejected.</p>
+                </div>
+                <div class="local-identity-demo" aria-label="Animated QR and identity matrix exchange">
+                  <div class="identity-device device-a"><span>DEVICE A</span><i>MS</i><strong>INVITE</strong><small>ephemeral key A</small></div>
+                  <div class="identity-payload">
+                    <div class="identity-id"><small>PUBLIC ID</small><strong>JwTNp5s1</strong></div>
+                    <div class="identity-qr">
+                      <svg viewBox="0 0 21 21" aria-hidden="true"><path d="M1 1h6v6H1zM2 2v4h4V2zM14 1h6v6h-6zM15 2v4h4V2zM1 14h6v6H1zM2 15v4h4v-4zM9 1h2v2H9zM11 3h2v2h-2zM8 5h3v2H8zM9 8h2v2H9zM12 7h2v3h-2zM15 8h2v2h-2zM18 8h2v3h-2zM1 9h2v2H1zM4 8h3v2H4zM3 11h2v2H3zM6 10h2v3H6zM9 11h3v2H9zM13 11h2v2h-2zM16 11h4v2h-4zM8 14h2v2H8zM11 14h3v2h-3zM15 14h2v3h-2zM18 14h2v2h-2zM8 17h3v3H8zM12 17h2v2h-2zM15 19h2v1h-2zM18 17h2v3h-2z"/></svg>
+                      <i class="identity-scan-line"></i>
+                    </div>
+                    <div class="identity-matrix" aria-label="Eight by eight identity matrix">
+                      <span>J</span><span>w</span><span>T</span><span>N</span><span>p</span><span>5</span><span>s</span><span>1</span>
+                      <span>v</span><span>e</span><span>y</span><span>Q</span><span>I</span><span>P</span><span>M</span><span>u</span>
+                      <span>I</span><span>u</span><span>z</span><span>m</span><span>b</span><span>w</span><span>X</span><span>k</span>
+                      <span>s</span><span>p</span><span>K</span><span>H</span><span>b</span><span>O</span><span>o</span><span>o</span>
+                      <span>i</span><span>E</span><span>D</span><span>M</span><span>t</span><span>t</span><span>M</span><span>J</span>
+                      <span>6</span><span>U</span><span>S</span><span>F</span><span>z</span><span>m</span><span>J</span><span>0</span>
+                      <span>s</span><span>Y</span><span>P</span><span>D</span><span>B</span><span>u</span><span>O</span><span>Y</span>
+                      <span>z</span><span>7</span><span>N</span><span>A</span><span>t</span><span>b</span><span>r</span><span>6</span>
+                    </div>
+                    <p>56 random characters regenerate with every invite.</p>
+                  </div>
+                  <div class="identity-device device-b"><span>DEVICE B</span><i>P</i><strong>CONFIRM</strong><small>ephemeral key B</small></div>
+                  <div class="identity-link"><i></i><b></b><i></i></div>
+                  <div class="identity-event event-one">SCAN</div>
+                  <div class="identity-event event-two">VALIDATE</div>
+                  <div class="identity-event event-three">DERIVE</div>
+                </div>
+                <div class="local-handshake-flow">
+                  <article><b>01</b><i class="qr-mini"><span></span></i><strong>Invite</strong><p>Device A generates a fresh 8 × 8 matrix, public ID and ephemeral X25519 public key.</p></article>
+                  <i>→</i>
+                  <article><b>02</b><span class="scan-beam"></span><strong>Scan</strong><p>Device B scans locally, chooses a private contact name and joins the one-hour session.</p></article>
+                  <i>→</i>
+                  <article><b>03</b><i class="qr-mini confirm"><span></span></i><strong>Confirm</strong><p>Device B displays the matching session and its own ephemeral public key for the return scan.</p></article>
+                  <i>→</i>
+                  <article><b>04</b><span class="linked-devices">◉—◉</span><strong>Derive</strong><p>Both devices validate the matrix hash and independently derive the same initial root key.</p></article>
+                </div>
+                <div class="local-formula"><small>INITIAL ROOT</small><code>DH = X25519(ephemeralPrivate, peerPublic)</code><code>rootKey = HKDF-SHA256(matrix, DH, "Local-Init-RK")</code><span>The server stores the matrix hash for validation, never the matrix itself.</span></div>
+              </section>
+
+              <section class="local-crypto">
+                <div class="local-section-index"><span>04</span><small>ENCRYPTION</small></div>
+                <div class="local-crypto-copy">
+                  <h4>A new message key<br />for every message.</h4>
+                  <p>Local implements a custom Double Ratchet design in the Signal protocol family. Each message advances a symmetric chain; a change in speaking direction triggers a new X25519 Diffie-Hellman ratchet. AES-256-GCM supplies authenticated encryption and every nonce is generated independently.</p>
+                  <p>The encrypted wire object carries ciphertext, nonce, authentication tag, current public ratchet key, message number and previous chain length. Skipped keys support up to 1,000 out-of-order messages. Ratchet transitions are protected by a per-friendship mutex so decryption and persistence remain atomic even when network events arrive close together.</p>
+                </div>
+                <div class="ratchet-visual">
+                  <div class="ratchet-root"><small>ROOT KEY</small><b>RK<sub>n</sub></b></div>
+                  <div class="ratchet-arrow">HKDF</div>
+                  <div class="ratchet-chain"><small>CHAIN KEY</small><b>CK<sub>n</sub></b><span>HMAC-SHA256</span></div>
+                  <div class="ratchet-split"><i></i><i></i></div>
+                  <div class="ratchet-key"><small>MESSAGE KEY</small><b>MK<sub>n</sub></b></div>
+                  <div class="ratchet-key next"><small>NEXT CHAIN</small><b>CK<sub>n+1</sub></b></div>
+                  <div class="ratchet-cipher"><small>AUTHENTICATED CIPHER</small><strong>AES-256-GCM</strong><span>12-byte nonce · 128-bit tag</span></div>
+                </div>
+              </section>
+
+              <section class="local-message-journey">
+                <div class="local-section-index"><span>04B</span><small>MESSAGE JOURNEY</small></div>
+                <div class="local-journey-intro">
+                  <h4>From tap to trusted local state.</h4>
+                  <p>A message crosses several ownership boundaries. The implementation keeps plaintext, cryptographic state, network transport and interface feedback separate, then reconnects them through explicit repository operations.</p>
+                </div>
+                <div class="local-journey-track">
+                  <article><span>01</span><strong>Compose</strong><p>The chat creates an optimistic local item immediately, keeping interaction responsive.</p></article><i>→</i>
+                  <article><span>02</span><strong>Ratchet</strong><p>The send chain advances and produces a one-time message key.</p></article><i>→</i>
+                  <article><span>03</span><strong>Encrypt</strong><p>AES-GCM returns ciphertext plus integrity data; plaintext never enters Firestore.</p></article><i>→</i>
+                  <article><span>04</span><strong>Transport</strong><p>Firestore stores the encrypted envelope and FCM sends a content-free wake-up signal.</p></article><i>→</i>
+                  <article><span>05</span><strong>Receive</strong><p>The peer serializes ratchet access, decrypts, validates and persists the new state.</p></article><i>→</i>
+                  <article><span>06</span><strong>Clean up</strong><p>After successful decryption, the transient server copy is deleted.</p></article>
+                </div>
+              </section>
+
+              <section class="local-media-security">
+                <div class="local-section-index"><span>05</span><small>MEDIA</small></div>
+                <div>
+                  <h4>Large files use envelope encryption.</h4>
+                  <p>Photos, documents and voice recordings receive a random 32-byte data-encryption key. The encrypted blob goes to cloud storage; only a compact envelope containing the key, nonce and authentication tag travels inside the ratcheted message.</p>
+                </div>
+                <div class="envelope-diagram">
+                  <article><span>DEVICE</span><strong>Original media</strong><small>photo · file · audio</small></article><i>+</i>
+                  <article class="yellow"><span>RANDOM</span><strong>32-byte DEK</strong><small>one key per blob</small></article><i>→</i>
+                  <article><span>STORAGE</span><strong>Encrypted bytes</strong><small>opaque UUID path</small></article>
+                  <article class="envelope"><span>MESSAGE ENVELOPE</span><strong>DEK + nonce + tag</strong><small>encrypted by Double Ratchet</small></article>
+                </div>
+              </section>
+
+              <section class="local-architecture">
+                <div class="local-section-index"><span>06</span><small>SYSTEM</small></div>
+                <div class="local-architecture-copy">
+                  <h4>Native, local-first architecture.</h4>
+                  <p>A single-activity Compose interface sits above screen-specific ViewModels and long-lived repositories created by the application container. Room is the source of local continuity; Firebase provides passwordless email-link authentication, encrypted transport, blob storage and content-free push signals. The result is a client that remains coherent across navigation, background transitions and process-level lifecycle events.</p>
+                </div>
+                <div class="local-stack">
+                  <article><small>INTERFACE</small><strong>Jetpack Compose</strong><p>Material 3 · Navigation · CameraX · ML Kit · Coil</p></article><i>↓</i>
+                  <article><small>APPLICATION</small><strong>MVVM + repositories</strong><p>Auth · friends · chat · media · ratchet · lock · session</p></article><i>↓</i>
+                  <div class="local-stack-split">
+                    <article><small>ON DEVICE</small><strong>Room v9</strong><p>Messages, friendships, cached plaintext and wrapped ratchet state</p></article>
+                    <article><small>TRANSPORT</small><strong>Firebase</strong><p>Auth, Firestore ciphertext, Storage blobs, FCM and one Cloud Function</p></article>
+                  </div>
+                </div>
+              </section>
+
+              <section class="local-engineering">
+                <div class="local-section-index"><span>07</span><small>IMPLEMENTATION</small></div>
+                <div class="local-engineering-grid">
+                  <article><b>01</b><h4>Atomic ratchet state</h4><p>A mutex serializes cryptographic work per friendship. A received message is decrypted and its advanced ratchet state is persisted as one logical operation.</p></article>
+                  <article><b>02</b><h4>Granular recomposition</h4><p>Per-message plaintext, quote and reaction state lives in Compose snapshot maps, allowing one changed bubble to update without rebuilding the conversation.</p></article>
+                  <article><b>03</b><h4>Fast chat opening</h4><p>Cached plaintext is batch-loaded from Room when a conversation opens, then synchronized with incoming encrypted events from Firestore.</p></article>
+                  <article><b>04</b><h4>Durable asynchronous work</h4><p>An application-level coroutine scope owns important sends and uploads, so leaving a screen does not silently cancel user work.</p></article>
+                  <article><b>05</b><h4>Explicit data evolution</h4><p>The Room schema is versioned explicitly and destructive fallback is disabled. Database changes must be represented as deliberate migrations.</p></article>
+                  <article><b>06</b><h4>Release-oriented build</h4><p>The Android release enables R8 minification and resource shrinking; a signed release APK is already produced from the current codebase targeting Android 14 while supporting Android 7.0 and newer.</p></article>
+                  <article><b>07</b><h4>Controlled session ownership</h4><p>A session repository coordinates passwordless authentication and a single-device policy. Logging in elsewhere invalidates the previous device and removes the local state it should no longer retain.</p></article>
+                  <article><b>08</b><h4>Typed control events</h4><p>Reactions, timer changes, edits and deletions reuse the encrypted message channel as explicit event types, keeping conversation state synchronized without introducing a plaintext side channel.</p></article>
+                  <article><b>09</b><h4>Operational safeguards</h4><p>A live remote configuration supports normal, maintenance and mandatory-update states, with a cached last-known value so critical release decisions do not depend on one screen load.</p></article>
+                </div>
+              </section>
+
+              <section class="local-device-defence">
+                <div class="local-section-index"><span>08</span><small>DEVICE DEFENCE</small></div>
+                <div class="local-defence-intro"><h4>Privacy continues after decryption.</h4><p>End-to-end encryption protects data in transit. Local also adds controls for the moment when decrypted information is present on the phone.</p></div>
+                <div class="local-defence-grid">
+                  <article><span>SCREEN</span><strong>Capture protection</strong><p><code>FLAG_SECURE</code> blocks screenshots, screen recording and sensitive previews in recent apps.</p></article>
+                  <article><span>ACCESS</span><strong>PIN + biometrics</strong><p>An optional six-digit PIN, biometric unlock and automatic lock after 30 seconds in the background.</p></article>
+                  <article><span>EMERGENCY</span><strong>Duress PIN</strong><p>A separate panic code can silently erase conversations before opening the application.</p></article>
+                  <article><span>SESSION</span><strong>One active device</strong><p>A login on a new device invalidates the previous session and clears its locally held application state.</p></article>
+                  <article><span>KEY STORAGE</span><strong>Hardware-backed wrapping</strong><p>Ratchet roots, chain keys, private DH material, matrices and skipped keys are wrapped with Android Keystore AES-256-GCM.</p></article>
+                  <article><span>CREDENTIAL</span><strong>Hardened PIN storage</strong><p>PBKDF2-HMAC-SHA256 with 120,000 iterations, a random salt and encrypted preferences protects local PIN verification.</p></article>
+                </div>
+              </section>
+
+              <section class="local-operations">
+                <div class="local-section-index"><span>09</span><small>LIFECYCLE</small></div>
+                <div class="local-ops-copy"><h4>Privacy also means deleting correctly.</h4><p>Account removal, friendship deletion, expiry and maintenance states are modeled as system behavior rather than interface-only actions.</p></div>
+                <div class="local-ops-list">
+                  <article><span>TTL</span><p>Undelivered text expires after 30 days and media after five; a successfully decrypted Firestore copy is removed immediately.</p></article>
+                  <article><span>TOMBSTONES</span><p>Friendship and account deletion propagate to other devices, triggering local removal of messages, media and key material.</p></article>
+                  <article><span>KILL SWITCH</span><p>A live remote configuration can place the application in normal, maintenance or mandatory-update mode.</p></article>
+                  <article><span>NOTIFICATIONS</span><p>Push payloads contain no message text. Sender identity is resolved from the local database and notifications are coalesced.</p></article>
+                </div>
+              </section>
+
+              <section class="local-visibility">
+                <div class="local-section-index"><span>10</span><small>THREAT MODEL</small></div>
+                <div class="visibility-column private">
+                  <small>THE SERVER DOES NOT RECEIVE</small>
+                  <h4>Conversation content</h4>
+                  <p>Message plaintext, media plaintext, contact names, the QR identity matrix or unwrapped cryptographic keys.</p>
+                </div>
+                <div class="visibility-column visible">
+                  <small>THE SERVER CAN OBSERVE</small>
+                  <h4>Routing metadata</h4>
+                  <p>Participants, sender identifiers, timestamps, message type, ciphertext size, ratchet headers and storage paths needed to deliver data.</p>
+                </div>
+              </section>
+
+              <section class="local-status">
+                <div class="local-section-index"><span>11</span><small>ENGINEERING STATUS</small></div>
+                <div class="local-status-copy">
+                  <h4>Built seriously.<br />Described honestly.</h4>
+                  <p>Local is a substantial working prototype, not yet a security-audited product. Its custom cryptographic protocol must receive independent review, automated tests and wider real-device validation before it should be trusted in high-risk environments.</p>
+                </div>
+                <div class="local-status-board">
+                  <article><i></i><span>IMPLEMENTED</span><strong>Complete messaging flow</strong></article>
+                  <article><i></i><span>IMPLEMENTED</span><strong>Signed Android release</strong></article>
+                  <article class="pending"><i></i><span>NEXT</span><strong>Independent security audit</strong></article>
+                  <article class="pending"><i></i><span>NEXT</span><strong>Automated test suite</strong></article>
+                  <article class="pending"><i></i><span>NEXT</span><strong>Cross-vendor device validation</strong></article>
+                </div>
+              </section>
+
+              <footer class="local-case-footer">
+                <div><small>THE PROJECT IN NUMBERS</small><strong>11,500+ lines of Kotlin and JavaScript · Room schema v9 · Android 7.0+</strong><p>Designed and implemented as an end-to-end product: concept, interaction model, Android client, cryptographic state machine, backend rules and release build.</p></div>
+                <button class="close-local-from-page">Back to Engineering</button>
+              </footer>
+            </section>
+
+            <section class="pps-projects">
+              <div class="project-series-intro">
+                <small>02–05 / COURSE SERIES</small>
+                <h3>Programming &<br />Problem Solving</h3>
+                <p>Four open-ended challenges combining strategy, implementation, experimentation and clear communication.</p>
+                <span>University of Pennsylvania</span>
+              </div>
+
+              <div class="pps-grid">
+                <article class="project-card mosquito" role="button" tabindex="0" aria-label="Open Mosquito project">
+                  <div class="project-visual"><span></span><span></span><span></span><i></i></div>
+                  <small>02 · ALGORITHMIC CHALLENGE</small>
+                  <h3>Mosquito</h3>
+                  <p>Searching for coordinated light layouts inside a stochastic physical simulation.</p>
+                  <footer><span>Search & simulation</span><button class="mosquito-case-link">Open project ↗</button></footer>
+                </article>
+                <article class="project-card spy" role="button" tabindex="0" aria-label="Open Soldier, Soldier, Soldier, Spy project">
+                  <div class="project-visual"><span>?</span><i></i><i></i><i></i></div>
+                  <small>03 · ALGORITHMIC CHALLENGE</small>
+                  <h3>Spy</h3>
+                  <p>Reasoning with partial information and adapting a strategy as evidence changes.</p>
+                  <footer><span>Uncertainty</span><button class="spy-case-link">Open project ↗</button></footer>
+                </article>
+                <article class="project-card football" role="button" tabindex="0" aria-label="Open Parallel Football project">
+                  <div class="project-visual"><i></i><span></span><b></b></div>
+                  <small>04 · ALGORITHMIC CHALLENGE</small>
+                  <h3>Football</h3>
+                  <p>Turning a competitive setting into algorithms, experiments and measurable decisions.</p>
+                  <footer><span>Optimization</span><button class="football-case-link">Open project ↗</button></footer>
+                </article>
+                <article class="project-card organisms" role="button" tabindex="0" aria-label="Open Organisms project">
+                  <div class="project-visual"><i></i><i></i><i></i><i></i><i></i></div>
+                  <small>05 · ALGORITHMIC CHALLENGE</small>
+                  <h3>Organisms</h3>
+                  <p>Exploring emergent behavior through simulation, strategic design and iteration.</p>
+                  <footer><span>Simulation</span><button class="organisms-case-link">Open project ↗</button></footer>
+                </article>
+              </div>
+            </section>
+
+            <section class="mosquito-case-study" id="mosquito-case-study" hidden>
+              <header class="mosquito-hero">
+                <div class="mosquito-title">
+                  <small>02 / CASE STUDY · SPRING 2026</small>
+                  <h3>Guiding<br /><em>Mosquitoes</em></h3>
+                  <p>A stochastic optimization challenge about placing timed lights and a collector, explored through structured search, simulation and eight generations of a Java player.</p>
+                  <div class="mosquito-meta"><span>Java</span><span>C++</span><span>Combinatorial search</span><span>Simulation</span></div>
+                  <div class="case-actions mosquito-actions">
+                    <button class="open-mosquito-statement secondary-case-action">Problem statement ↗</button>
+                    <button class="open-mosquito-report">Read team report ↗</button>
+                    <a href="https://github.com/MihneaStefanDAVID/PPS_mosquito" target="_blank" rel="noopener">View code on GitHub ↗</a>
+                  </div>
+                </div>
+
+                <div class="mosquito-world" aria-label="Stylized relay tree guiding mosquitoes toward a collector">
+                  <span class="collector-core"><b></b></span>
+                  <i class="relay-light l1"></i><i class="relay-light l2"></i><i class="relay-light l3"></i><i class="relay-light l4"></i><i class="relay-light l5"></i><i class="relay-light l6"></i>
+                  <b class="mosquito-dot m1"></b><b class="mosquito-dot m2"></b><b class="mosquito-dot m3"></b><b class="mosquito-dot m4"></b><b class="mosquito-dot m5"></b><b class="mosquito-dot m6"></b><b class="mosquito-dot m7"></b>
+                  <svg viewBox="0 0 300 300" aria-hidden="true">
+                    <path d="M150 150 L95 105 L43 63 M95 105 L49 151 M150 150 L207 102 L257 57 M207 102 L256 148 M150 150 L151 221 L103 263 M151 221 L207 264" />
+                    <circle cx="150" cy="150" r="22"></circle><circle cx="150" cy="150" r="73"></circle>
+                  </svg>
+                  <div><strong>20m</strong><small>RELAY EDGE</small></div>
+                </div>
+
+                <aside class="mosquito-result">
+                  <small>DESIGN EVOLUTION</small>
+                  <strong>8</strong>
+                  <p>player iterations</p>
+                  <span>From named shapes<br />to lattice trees.</span>
+                </aside>
+              </header>
+
+              <div class="mosquito-problem">
+                <div class="case-section-label"><span>01</span><small>THE PROBLEM</small></div>
+                <div class="mosquito-copy">
+                  <h4>Corral a stochastic population with a handful of lights.</h4>
+                  <p>Mosquitoes move independently through a 100×100 continuous world containing walls. Without a visible light they perform a random walk; when an active light is within 20 metres and unobstructed, their next one-metre step is biased toward the nearest such light by a random angle of up to 30 degrees.</p>
+                  <p>The player chooses one collector and up to <em>L</em> point lights. Every light has a position and a periodic schedule described by its cycle length, on-time and start phase. The simulation ends when at least half of the mosquitoes enter the collector's tiny radius-0.5 capture disk.</p>
+                  <p>The objective is to minimize expected rounds-to-half across random spawn positions and movement noise, while returning a legal configuration within a strict single-CPU time budget.</p>
+                </div>
+                <div class="mosquito-rules">
+                  <article><b>100 × 100</b><span>A continuous board whose walls block movement and line of sight.</span></article>
+                  <article><b>20m radius</b><span>Only the nearest visible active light influences a mosquito.</span></article>
+                  <article><b>±30° noise</b><span>Attraction creates drift rather than deterministic motion.</span></article>
+                  <article><b>50% target</b><span>The score is the time required to capture half the population.</span></article>
+                </div>
+              </div>
+
+              <div class="mosquito-statement">
+                <div class="mosquito-document" aria-hidden="true"><span>PDF</span><strong>Mosquito</strong><i></i><i></i><i></i><i></i><small>ORIGINAL SPECIFICATION · 1 PAGE</small></div>
+                <div><small>COURSE MATERIAL</small><h4>The complete simulation rules.</h4><p>Read the original specification for motion, visibility, obstacles, light scheduling, collector placement and scoring.</p></div>
+                <button class="open-mosquito-statement">Open problem statement ↗</button>
+              </div>
+
+              <aside class="case-report-note mosquito-report-note">
+                <div><small>FULL TECHNICAL RECORD</small><strong>Strategy, implementation and evaluation are documented in the report.</strong><p>This page is a guided overview. The complete report contains all eight iterations, search constants, simulator architecture, experiments, tournament plots and extended analysis.</p></div>
+                <button class="open-mosquito-report">Read the complete 32-page report ↗</button>
+              </aside>
+
+              <section class="project-diagram mosquito-diagram">
+                <span class="project-diagram-index">SYSTEM VIEW</span>
+                <div class="project-diagram-copy">
+                  <h4>One lattice, many formations</h4>
+                  <p>Eight directional links form the common vocabulary behind every formation. Selecting different subsets of the same local neighbourhood lets the swarm assemble lines, corners, clusters and branching structures without a central controller.</p>
+                  <div class="diagram-legend"><span class="legend-green">Line</span><span class="legend-blue">Corner</span><span class="legend-gold">Cluster</span><span class="legend-coral">Branch</span></div>
+                </div>
+                <div class="diagram-canvas mosquito-lattice-canvas" aria-label="Eight-direction lattice and the formations it can express">
+                  <svg viewBox="0 0 620 310" role="img">
+                    <title>Eight-direction lattice supporting multiple swarm formations</title>
+                    <g class="lattice-grid"><path d="M54 38H294M54 98H294M54 158H294M54 218H294M54 278H294" /><path d="M54 38V278M114 38V278M174 38V278M234 38V278M294 38V278" /></g>
+                    <g class="lattice-spokes"><path d="M174 158L174 98M174 158L234 98M174 158L234 158M174 158L234 218M174 158L174 218M174 158L114 218M174 158L114 158M174 158L114 98" /></g>
+                    <g class="lattice-nodes"><circle cx="174" cy="158" r="14" class="node-core" /><circle cx="174" cy="98" r="9" /><circle cx="234" cy="98" r="9" /><circle cx="234" cy="158" r="9" /><circle cx="234" cy="218" r="9" /><circle cx="174" cy="218" r="9" /><circle cx="114" cy="218" r="9" /><circle cx="114" cy="158" r="9" /><circle cx="114" cy="98" r="9" /></g>
+                    <g class="direction-labels"><text x="174" y="79">N</text><text x="250" y="91">NE</text><text x="257" y="163">E</text><text x="248" y="238">SE</text><text x="174" y="247">S</text><text x="92" y="238">SW</text><text x="86" y="163">W</text><text x="91" y="91">NW</text></g>
+                    <path class="formation-line" d="M350 58H550" />
+                    <g class="formation-dots formation-green"><circle cx="350" cy="58" r="8" /><circle cx="400" cy="58" r="8" /><circle cx="450" cy="58" r="8" /><circle cx="500" cy="58" r="8" /><circle cx="550" cy="58" r="8" /></g>
+                    <path class="formation-corner" d="M350 132H450V182" />
+                    <g class="formation-dots formation-blue"><circle cx="350" cy="132" r="8" /><circle cx="400" cy="132" r="8" /><circle cx="450" cy="132" r="8" /><circle cx="450" cy="182" r="8" /></g>
+                    <g class="formation-cluster formation-gold"><path d="M535 123L575 146L535 169L495 146Z" /><circle cx="535" cy="123" r="8" /><circle cx="575" cy="146" r="8" /><circle cx="535" cy="169" r="8" /><circle cx="495" cy="146" r="8" /><circle cx="535" cy="146" r="8" /></g>
+                    <g class="formation-branch formation-coral"><path d="M350 264L410 224L470 264M410 224V190M470 264L530 224M470 264L530 286" /><circle cx="350" cy="264" r="8" /><circle cx="410" cy="224" r="8" /><circle cx="470" cy="264" r="8" /><circle cx="410" cy="190" r="8" /><circle cx="530" cy="224" r="8" /><circle cx="530" cy="286" r="8" /></g>
+                  </svg>
+                </div>
+              </section>
+
+              <div class="mosquito-challenge">
+                <div class="case-section-label"><span>02</span><small>WHY IT IS HARD</small></div>
+                <article><h5>Coupled decisions</h5><p>A light's value depends on every other light, wall occlusion and the collector. Useful relay chains may contain components that perform poorly alone.</p></article>
+                <article><h5>Noisy evaluation</h5><p>Identical layouts vary across seeds because both spawning and every movement step are random. One lucky simulation can rank a worse candidate first.</p></article>
+                <article><h5>Finite search time</h5><p>Every additional trial consumes the same wall-clock budget needed to generate, refine and validate alternative configurations.</p></article>
+              </div>
+
+              <div class="mosquito-insight">
+                <blockquote>Lights are not isolated attractors. They are a relay system rooted at the collector.</blockquote>
+                <div><small>PHYSICAL INSIGHT</small><p>An always-on terminal light secures the capture region. Helper lights extend its basin outward and alternate in time, handing mosquitoes inward along branches.</p></div>
+              </div>
+
+              <div class="mosquito-evolution">
+                <div class="case-section-label"><span>03</span><small>MD1 → MD8</small></div>
+                <div class="mosquito-copy"><h4>Eight iterations, each removing a mistaken assumption.</h4><p>The final system emerged by measuring failures and simplifying the representation, timing model and budget policy rather than by adding layers indiscriminately.</p></div>
+                <div class="iteration-grid">
+                  <article><span>MD1</span><b>Named families</b><p>Enumerated lines, clusters, rings, arcs and funnels on a coarse anchor grid.</p></article>
+                  <article><span>MD2</span><b>Random sampling</b><p>Replaced biased nested-loop enumeration with broader deduplicated sampling.</p></article>
+                  <article><span>MD3</span><b>Relay physics</b><p>Stopped searching timing and committed to a terminal light plus inward waves.</p></article>
+                  <article><span>MD4</span><b>Lattice trees</b><p>Unified lines, clusters, bends and branches as trees on one 8-direction graph.</p></article>
+                  <article><span>MD5</span><b>Forward growth</b><p>Removed backtracking and zigzags with a forward-half-plane constraint.</p></article>
+                  <article><span>MD6</span><b>Branch timing</b><p>Let short and long branches pump independently at their natural cadence.</p></article>
+                  <article><span>MD7</span><b>Parity schedule</b><p>Reduced timing to two phases based on branch-depth parity.</p></article>
+                  <article><span>MD8</span><b>Adaptive budget</b><p>Measured evaluation cost and sized the search to each map at runtime.</p></article>
+                </div>
+              </div>
+
+              <div class="mosquito-model">
+                <div class="case-section-label"><span>04</span><small>SEARCH REPRESENTATION</small></div>
+                <div class="mosquito-copy"><h4>Discretize first.<br />Recover continuity later.</h4><p>Instead of optimizing real-valued coordinates and independent schedules directly, MD8 samples rooted trees on a reusable lattice graph. The collector is the root, each node is a light, and parent pointers encode the relay topology.</p></div>
+                <div class="lattice-model">
+                  <small>CANDIDATE</small>
+                  <strong>rooted tree ⊂ 8-direction lattice</strong>
+                  <div><span><b>20</b> edge length</span><span><b>6</b> maximum depth</span><span><b>8</b> directions</span></div>
+                  <p>After the discrete sweep identifies promising regions and shapes, helper coordinates are perturbed locally in continuous space and re-evaluated.</p>
+                </div>
+              </div>
+
+              <div class="mosquito-pipeline">
+                <div class="case-section-label"><span>05</span><small>JAVA SEARCH PIPELINE</small></div>
+                <div class="mosquito-copy"><h4>Spend precision only where it matters.</h4><p>A multi-stage evaluator keeps broad exploration affordable and reserves expensive multi-seed evidence for the strongest candidates.</p></div>
+                <div class="mosquito-flow">
+                  <article><b>Build</b><span>Construct feasible lattice sites and relay edges around walls.</span></article>
+                  <article><b>Measure</b><span>Time one fallback evaluation and derive the affordable candidate count.</span></article>
+                  <article><b>Sample</b><span>Grow distinct forward-only trees across collector anchors.</span></article>
+                  <article><b>Coarse</b><span>Evaluate every candidate cheaply with one simulation seed.</span></article>
+                  <article><b>Refine</b><span>Perturb the best trees off-lattice into nearby continuous layouts.</span></article>
+                  <article><b>Validate</b><span>Re-evaluate finalists across multiple seeds and commit the winner.</span></article>
+                </div>
+              </div>
+
+              <div class="mosquito-timing">
+                <div class="case-section-label"><span>06</span><small>COORDINATED TIMING</small></div>
+                <div class="mosquito-copy"><h4>A graph coloring becomes a control policy.</h4><p>With 20-metre edges, lights at equal branch-depth parity are at least 40 metres apart along a chain. They can therefore share a phase without locally competing for the same mosquito.</p></div>
+                <div class="parity-schedule">
+                  <div><small>PHASE A</small><span>depth 1</span><span>depth 3</span><span>depth 5</span></div>
+                  <b>⇄</b>
+                  <div><small>PHASE B</small><span>depth 2</span><span>depth 4</span><span>depth 6</span></div>
+                  <p>The root light beside the collector remains permanently on, while helper levels alternate on a fixed 78-round cycle.</p>
+                </div>
+              </div>
+
+              <div class="mosquito-cpp">
+                <div class="case-section-label"><span>07</span><small>SYSTEMS ENGINEERING</small></div>
+                <div class="mosquito-copy">
+                  <h4>When search quality became a throughput problem.</h4>
+                  <p>After MD8 stabilized, the remaining lever was the cost of each simulation. I ported the simulator core to C++ and connected it to the Java player through a persistent synchronous subprocess.</p>
+                  <p>The port mirrors important Java semantics, including the 48-bit <code>java.util.Random</code> generator, movement conventions, strict collector containment and collision checks. A text protocol keeps the bridge inspectable, and every failed C++ request falls back safely to Java.</p>
+                </div>
+                <div class="cpp-bridge">
+                  <article><small>JAVA</small><strong>Player_MD8_CPP</strong><span>candidate search and backend selection</span></article>
+                  <b>stdin<br />⇅<br />stdout</b>
+                  <article><small>C++</small><strong>mosquito_sim</strong><span>long-running simulation server</span></article>
+                  <footer><span>CPP_ONLY</span><span>HYBRID</span><span>JAVA_ONLY</span></footer>
+                </div>
+              </div>
+
+              <div class="mosquito-contribution">
+                <div class="case-section-label"><span>08</span><small>MY CONTRIBUTION</small></div>
+                <div class="mosquito-copy">
+                  <h4>Owning the core solution end to end.</h4>
+                  <p>I designed and implemented the core approach, including all eight player generations from MD1 through MD8, the lattice-tree representation, relay policies, search and refinement pipeline, adaptive budget and C++ simulator.</p>
+                  <p>I led the integration of the components and coordinated and structured most of the final report. The project combined algorithm design with substantial software engineering: modelling, iterative experimentation, Java implementation, cross-language IPC, behavioural validation and graceful fallback.</p>
+                </div>
+                <aside><span>Strategy</span><b>MD1–MD8</b><span>Algorithms</span><b>Lattice trees & search</b><span>Systems</span><b>Java/C++ simulator bridge</b><span>Leadership</span><b>Integration & report</b></aside>
+              </div>
+
+              <div class="mosquito-results">
+                <div class="case-section-label"><span>09</span><small>TOURNAMENT RESULTS</small></div>
+                <div class="mosquito-copy">
+                  <h4>Strong ideas, uneven robustness.</h4>
+                  <p>The final tournament exposed both the value and the limits of the approach. Relay trees were excellent on open or familiar maps with small-to-moderate light budgets, but the search became fragile on wall-heavy worlds, especially when many branches could be occluded.</p>
+                  <p>We finished 8th of 9 overall. Rather than hiding that result, it provided the clearest diagnosis: complex maps made each evaluation slower exactly when the search needed a larger, not smaller, candidate pool.</p>
+                </div>
+                <div class="mosquito-stats">
+                  <article><strong>2</strong><span>First-place finishes across 55 tournament configurations.</span></article>
+                  <article><strong>65.2</strong><span>Winning score on Blank with 10 lights, ahead of 72.3.</span></article>
+                  <article><strong>#1</strong><span>Mosquito map with 3 lights: 4,680 rounds.</span></article>
+                  <article class="caution"><strong>7.2</strong><span>Average rank, revealing weak robustness on complex maps.</span></article>
+                </div>
+              </div>
+
+              <div class="mosquito-lessons">
+                <div class="case-section-label"><span>10</span><small>WHAT WE LEARNED</small></div>
+                <article><h5>Representation changes the problem</h5><p>A carefully constructed discrete space can make an apparently intractable continuous search practical.</p></article>
+                <article><h5>Measure the evaluator</h5><p>Optimization quality depends on systems performance. The cost model and fallback behavior are part of the algorithm.</p></article>
+                <article><h5>Test the hard regime</h5><p>A strategy that dominates clean boards may fail structurally when obstacles, occlusion and larger light counts interact.</p></article>
+              </div>
+
+              <footer class="mosquito-footer">
+                <div><small>TEAM</small><strong>Mihnea-Stefan David · Tommy Leo · Jon Melitski</strong></div>
+                <div><a href="https://github.com/MihneaStefanDAVID/PPS_mosquito" target="_blank" rel="noopener">GitHub ↗</a><button class="open-mosquito-statement">Problem statement ↗</button><button class="open-mosquito-report">Complete 32-page report ↗</button></div>
+              </footer>
+            </section>
+
+            <section class="football-case-study" id="football-case-study" hidden>
+              <header class="football-case-hero">
+                <div class="football-case-title">
+                  <small>04 / CASE STUDY · SPRING 2026</small>
+                  <h3>Parallel<br /><em>Football</em></h3>
+                  <p>A competitive multi-agent programming challenge about coordinating a team of autonomous players on a shared board, implemented and evaluated in Java.</p>
+                  <div class="football-meta">
+                    <span>Java</span><span>Multi-agent systems</span><span>Heuristic optimization</span>
+                  </div>
+                  <div class="case-actions">
+                    <button class="open-football-statement secondary-case-action">Problem statement ↗</button>
+                    <button class="open-football-report">Read team report ↗</button>
+                    <a href="https://github.com/MihneaStefanDAVID/PPS_football" target="_blank" rel="noopener">View code on GitHub ↗</a>
+                  </div>
+                </div>
+
+                <div class="football-board" aria-label="Stylized 32 by 32 Parallel Football board">
+                  <span class="board-home home-a"></span><span class="board-home home-b"></span>
+                  <span class="board-home home-c"></span><span class="board-home home-d"></span>
+                  <i class="board-player player-a"></i><i class="board-player player-b"></i>
+                  <i class="board-player player-c"></i><i class="board-player player-d"></i>
+                  <b class="board-ball ball-a"></b><b class="board-ball ball-b"></b>
+                  <b class="board-ball ball-c"></b><b class="board-ball ball-d"></b>
+                  <b class="board-ball ball-e"></b><b class="board-ball ball-f"></b>
+                  <svg viewBox="0 0 300 300" aria-hidden="true">
+                    <path d="M224 235 L185 196 L139 151 L95 112 L28 28" />
+                    <path class="contest-path" d="M61 247 L106 205 L143 168" />
+                  </svg>
+                  <div><strong>32 × 32</strong><small>SHARED GRID</small></div>
+                </div>
+
+                <aside class="football-result">
+                  <small>TOURNAMENT RESULT</small>
+                  <strong>9<sup>/10</sup></strong>
+                  <p>configurations finished in the top two</p>
+                  <span>Third place in the remaining extreme setting</span>
+                </aside>
+              </header>
+
+              <div class="football-problem">
+                <div class="case-section-label"><span>01</span><small>THE PROBLEM</small></div>
+                <div class="problem-copy">
+                  <h4>A race for 1,020 footballs.</h4>
+                  <p><strong>Parallel Football</strong> is played by four teams on a common 32×32 grid. Each team owns one corner, called its home cell, and controls <em>P</em> players. Every non-home cell initially contains one football, creating 1,020 shared footballs that all four teams are trying to score.</p>
+                  <p>At each turn, every player chooses exactly one action: move by one cell in any of the eight directions, remain still, or kick one football from its current cell to any target within Euclidean distance <em>K</em>. A ball reaching the team's home cell scores immediately and is removed from the game.</p>
+                  <p>The important detail is that all teams submit their orders using the same observed board state, and the simulator processes those orders simultaneously. A target that looked available may therefore be moved by an opponent before our player arrives.</p>
+                </div>
+                <div class="football-rules">
+                  <article><b>32 × 32</b><span>One shared grid with a home cell in each corner.</span></article>
+                  <article><b>P players</b><span>The tournament changes the number of agents controlled by each team.</span></article>
+                  <article><b>K radius</b><span>Kicks use Euclidean distance; movement allows one diagonal or orthogonal step.</span></article>
+                  <article><b>One action</b><span>Each player either moves, waits or kicks one ball per turn.</span></article>
+                  <article><b>Full state</b><span>Our controller sees all players, football locations and scores before deciding.</span></article>
+                  <article><b>Shared cells</b><span>Players and footballs may stack, creating congestion and contested actions.</span></article>
+                </div>
+              </div>
+
+              <div class="football-statement">
+                <div class="statement-document" aria-hidden="true">
+                  <span>PDF</span>
+                  <div><i></i><i></i><i></i><i></i><i></i></div>
+                  <strong>Parallel<br />Football</strong>
+                  <small>ORIGINAL PROBLEM STATEMENT</small>
+                </div>
+                <div>
+                  <small>COURSE MATERIAL / 1 PAGE</small>
+                  <h4>Read the complete original statement.</h4>
+                  <p>The full specification contains the exact movement and kicking rules, simultaneous-action semantics, tournament setup and the questions that guided the project.</p>
+                </div>
+                <button class="open-football-statement">Open problem statement <span>↗</span></button>
+              </div>
+
+              <aside class="case-report-note football-report-note">
+                <div><small>FULL TECHNICAL RECORD</small><strong>Strategy, implementation and evaluation are documented in the report.</strong><p>This page is a guided overview. The complete report contains the formulas, pseudocode, parameter choices, experiments, plots and extended analysis.</p></div>
+                <button class="open-football-report">Read the complete 22-page report ↗</button>
+              </aside>
+
+              <section class="project-diagram football-diagram">
+                <span class="project-diagram-index">LIVE SYSTEM</span>
+                <div class="project-diagram-copy">
+                  <h4>Coordinate a moving field</h4>
+                  <p>Players continuously collect, relay and redirect contested footballs toward their home corner. The animation captures the core challenge: many simultaneous local actions must combine into useful global flow while three opponents interfere with the same resources.</p>
+                  <div class="football-live-legend"><span><i></i>our team</span><span><i></i>opponents</span><span><i></i>football</span></div>
+                </div>
+                <div class="diagram-canvas football-live-canvas" aria-label="Animated Parallel Football field with players and passing routes">
+                  <span class="live-home live-home-us">HOME</span><span class="live-home home-tr"></span><span class="live-home home-br"></span><span class="live-home home-bl"></span>
+                  <span class="field-center"></span>
+                  <svg class="kick-routes" viewBox="0 0 600 320" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="route route-a" d="M470 254 Q388 230 322 188 T190 112 T54 42" />
+                    <path class="route route-b" d="M360 76 Q290 95 244 138 T130 205 T54 42" />
+                    <path class="route route-c" d="M520 145 Q430 152 365 172 T220 170 T54 42" />
+                  </svg>
+                  <i class="live-player us p-us-1"></i><i class="live-player us p-us-2"></i><i class="live-player us p-us-3"></i><i class="live-player us p-us-4"></i>
+                  <i class="live-player rival rival-a"></i><i class="live-player rival rival-b"></i><i class="live-player rival rival-c"></i><i class="live-player rival rival-d"></i>
+                  <b class="live-ball static-ball ball-one"></b><b class="live-ball static-ball ball-two"></b><b class="live-ball static-ball ball-three"></b><b class="live-ball static-ball ball-four"></b>
+                  <b class="live-ball moving-ball moving-a"></b><b class="live-ball moving-ball moving-b"></b><b class="live-ball moving-ball moving-c"></b>
+                  <span class="live-score"><small>OUR FLOW</small><strong>collect → relay → score</strong></span>
+                </div>
+              </section>
+
+              <div class="football-challenge">
+                <div class="case-section-label"><span>02</span><small>WHY IT IS HARD</small></div>
+                <div>
+                  <h4>The rules are local.<br />The consequences are global.</h4>
+                  <p>A good controller must clear nearby balls efficiently while maintaining coverage of distant regions. It must decide whether a dense stack is worth pursuing, whether an opponent will arrive first, and whether moving a ball closer to home actually leaves a teammate available to finish the job.</p>
+                </div>
+                <div class="challenge-list">
+                  <article><span>01</span><h5>Contention</h5><p>Four teams compete for exactly the same balls, so stale targets waste turns.</p></article>
+                  <article><span>02</span><h5>Coordination</h5><p>Sending teammates to the same cell can duplicate work and create congestion.</p></article>
+                  <article><span>03</span><h5>Different regimes</h5><p>Small P or K rewards local racing; large P and K make assignment and relay behavior more important.</p></article>
+                </div>
+              </div>
+
+              <div class="football-approach">
+                <div class="case-section-label"><span>03</span><small>HOW WE SOLVED IT</small></div>
+                <div class="approach-intro">
+                  <h4>Start simple.<br />Measure. Adapt.</h4>
+                  <p>We implemented several Java controllers, watched them play repeated tournaments and refined the decision rules based on concrete failure modes. The final submission, <strong>HybridPlayer3</strong>, switches between two complementary strategies instead of forcing one policy to handle every configuration.</p>
+                </div>
+                <div class="approach-steps">
+                  <article><span>01</span><h5>BasicPlayerMD</h5><p>Our first complete baseline distributed players across quadrants, assigned distinct nearby balls and kicked directly toward home.</p></article>
+                  <article><span>02</span><h5>GreedyPlayer3</h5><p>A richer local score incorporated ball density, distance to home, incoming teammate kicks and opponent congestion.</p></article>
+                  <article><span>03</span><h5>TwiceImprovedPlayer</h5><p>A global value-based strategy scored every player–ball pair and greedily selected distinct high-value assignments.</p></article>
+                  <article><span>04</span><h5>HybridPlayer3</h5><p>Use GreedyPlayer3 when P≤10 or K≤2; otherwise use TwiceImprovedPlayer for crowded, longer-range games.</p></article>
+                </div>
+              </div>
+
+              <div class="football-insight">
+                <blockquote>“If the board is sparse or movement is restricted, just race. If the board is crowded and kicks matter, think strategically.”</blockquote>
+                <div>
+                  <small>CORE INSIGHT</small>
+                  <p>No single policy dominated every configuration. Robust performance came from recognizing which version of the game was currently being played.</p>
+                </div>
+              </div>
+
+              <div class="football-decision">
+                <div class="case-section-label"><span>04</span><small>JAVA IMPLEMENTATION</small></div>
+                <div class="decision-copy">
+                  <h4>From game state to a Java move array.</h4>
+                  <p>Each strategy is implemented as a Java player controller on top of the course simulator. On every turn it reads the board, computes one instruction for each teammate and returns the complete set of actions before any team sees the others' choices.</p>
+                  <div class="implementation-facts">
+                    <span><b>Language</b> Java</span>
+                    <span><b>Input</b> Complete simulator state</span>
+                    <span><b>Output</b> P simultaneous actions</span>
+                  </div>
+                </div>
+                <div class="decision-flow">
+                  <article><b>Observe</b><span>Cache football counts, scores and all teammate and opponent positions.</span></article>
+                  <i>→</i>
+                  <article><b>Value</b><span>Compute movement distance, kicks-to-score, density and competition for each target.</span></article>
+                  <i>→</i>
+                  <article><b>Assign</b><span>Sort candidate player–ball pairs and select distinct assignments greedily.</span></article>
+                  <i>→</i>
+                  <article><b>Act</b><span>Move one step, score directly, or choose a relay-friendly intermediate kick.</span></article>
+                </div>
+              </div>
+
+              <div class="football-model">
+                <div class="case-section-label"><span>05</span><small>SCORING MODEL</small></div>
+                <div class="model-copy">
+                  <h4>Giving every target an interpretable value.</h4>
+                  <p>For global assignment, we estimated the effort needed to reach and score a ball cell. Player movement uses Chebyshev distance because diagonal movement costs one turn, while kick feasibility remains Euclidean because the simulator defines a circular kick radius.</p>
+                </div>
+                <div class="model-formula">
+                  <small>PLAYER–BALL SCORE</small>
+                  <strong>value ÷ (travel + λ(P) · kicks + 1)</strong>
+                  <p>Ball stacks and cells in our quadrant increase value. Long kick chains become more expensive as P grows, and targets already favored by a closer opponent receive a competition penalty.</p>
+                </div>
+              </div>
+
+              <div class="football-assignment">
+                <div class="case-section-label"><span>06</span><small>GLOBAL ASSIGNMENT</small></div>
+                <div class="football-detail-copy">
+                  <h4>Choose opportunities, not simply nearby balls.</h4>
+                  <p><strong>TwiceImprovedPlayer</strong> first scans the board and builds a feature record for every cell containing footballs. It estimates travel time, kicks-to-score, stack size, territorial advantage and the closest opposing player.</p>
+                  <p>It then scores every feasible player–ball pair, sorts the pairs globally and greedily selects assignments while enforcing one target per player and one player per target. This avoids the duplication produced by independent local decisions without paying for an exact matching algorithm on every turn.</p>
+                </div>
+                <div class="football-assignment-grid">
+                  <article><small>VALUE</small><strong>B(c) · q(c)</strong><p>Stacks are worth more, with a mild bonus for balls in our quadrant.</p></article>
+                  <article><small>TRAVEL</small><strong>d∞(p,c)</strong><p>Chebyshev distance matches one-step diagonal player movement.</p></article>
+                  <article><small>CHAIN RISK</small><strong>λ(P) · kicks</strong><p>Long kick chains become increasingly expensive in crowded regimes.</p></article>
+                  <article><small>COMPETITION</small><strong>closest opponent</strong><p>Contested low-value targets are discarded before they waste movement.</p></article>
+                </div>
+              </div>
+
+              <div class="football-kicking">
+                <div class="case-section-label"><span>07</span><small>KICK PLANNING</small></div>
+                <div class="football-detail-copy">
+                  <h4>Where the ball lands matters as much as how far it travels.</h4>
+                  <p>If home is inside the Euclidean kick radius, the action is immediate. Otherwise, the controller evaluates every legal landing cell and balances progress toward home, proximity to teammates, distance from opponents and use of the available range.</p>
+                  <p>This creates implicit relays without reserving rigid bucket-brigade roles. A teammate may continue a promising ball naturally, while the strategy remains robust when simultaneous opponent actions invalidate a planned hand-off.</p>
+                </div>
+                <div class="kick-objectives">
+                  <span><b>01</b> maximize progress</span><span><b>02</b> preserve relay options</span>
+                  <span><b>03</b> avoid immediate steals</span><span><b>04</b> use kick range efficiently</span>
+                </div>
+              </div>
+
+              <div class="football-debugging">
+                <div class="case-section-label"><span>08</span><small>ITERATION & TESTING</small></div>
+                <div class="football-detail-copy">
+                  <h4>The simulator exposed what equations did not.</h4>
+                  <p>We repeatedly ran local and head-to-head tournaments, watched complete games and changed one heuristic at a time. This process revealed failures that were difficult to anticipate from the rules alone.</p>
+                </div>
+                <div class="football-failures">
+                  <article><h5>The moat</h5><p>Players moved outward after kicking balls near home, leaving a ring of almost-scored balls unattended. Explicit home proximity and scoreability bonuses fixed it.</p></article>
+                  <article><h5>Stale races</h5><p>Targets occupied by opponents often disappeared before our player arrived. Congestion and competition penalties reduced these wasted trips.</p></article>
+                  <article><h5>Hidden density</h5><p>Binary “ball or no ball” logic ignored valuable stacks. Using diminishing returns on ball count captured density without overwhelming distance.</p></article>
+                </div>
+              </div>
+
+              <div class="football-contribution">
+                <div class="case-section-label"><span>09</span><small>MY CONTRIBUTION</small></div>
+                <div>
+                  <h4>Building the baseline that shaped the project.</h4>
+                  <p>I designed and implemented <strong>BasicPlayerMD</strong>, the team's first complete controller. It introduced quadrant-based initial placement, greedy ball selection, distance-aware kicks and lightweight coordination constraints that prevented teammates from chasing the same ball or moving into the same destination.</p>
+                  <p>I also implemented and explored <strong>RelayFirst</strong>, <strong>GreedyAssist</strong> and <strong>GreedyAssistLee</strong>, testing whether more explicit passing behavior could improve long-distance scoring. These experiments showed that plausible teamwork ideas can be fragile when every team moves simultaneously.</p>
+                  <p>The baseline's strong and interpretable performance helped establish the direction of our later strategies. Other teams used related greedy ideas as benchmarks, subroutines or targets for empirical tuning.</p>
+                </div>
+                <aside>
+                  <span>Designed</span><b>BasicPlayerMD</b>
+                  <span>Explored</span><b>Relay & assist strategies</b>
+                  <span>Focused on</span><b>Robust coordination</b>
+                </aside>
+              </div>
+
+              <div class="football-evidence">
+                <div class="case-section-label"><span>10</span><small>EVIDENCE</small></div>
+                <div class="evidence-lead">
+                  <h4>Strong because it was consistent.</h4>
+                  <p>The final hybrid was evaluated across ten combinations of player count <em>P</em> and kick radius <em>K</em>. It remained near the top across sparse races, crowded boards and long-range kicking regimes.</p>
+                </div>
+                <div class="evidence-stats">
+                  <article><strong>9/10</strong><span>Top-two tournament finishes</span></article>
+                  <article><strong>+17%</strong><span>GreedyPlayer3 over the original GreedyPlayer in head-to-head testing</span></article>
+                  <article><strong>398.9</strong><span>Average score in the strongest local-race configuration, P=46 and K=1</span></article>
+                </div>
+              </div>
+
+              <div class="football-lessons">
+                <div class="case-section-label"><span>11</span><small>WHAT WE LEARNED</small></div>
+                <article><h5>Robustness beats elegance</h5><p>In adversarial simultaneous environments, a stable heuristic can outperform a sophisticated plan that depends on fragile assumptions.</p></article>
+                <article><h5>Watch the system</h5><p>Several of the most important improvements came from observing matches, including fixing the unattended “moat” of balls around home.</p></article>
+                <article><h5>Know the failure mode</h5><p>The extreme P=255, K=32 regime exposed the limits of greedy assignment and points toward explicit area control or learned policies.</p></article>
+              </div>
+
+              <footer class="football-case-footer">
+                <div><small>TEAM</small><strong>Steven Galban · Mihnea-Stefan David · Vivian Xiao</strong></div>
+                <div class="football-footer-actions">
+                  <a href="https://github.com/MihneaStefanDAVID/PPS_football" target="_blank" rel="noopener">GitHub repository ↗</a>
+                  <button class="open-football-statement">Problem statement <span>↗</span></button>
+                  <button class="open-football-report">Open the complete 22-page report <span>↗</span></button>
+                </div>
+              </footer>
+            </section>
+
+            <section class="spy-case-study" id="spy-case-study" hidden>
+              <header class="spy-hero">
+                <div class="spy-title">
+                  <small>03 / CASE STUDY · SPRING 2026</small>
+                  <h3>Soldier, Soldier,<br /><em>Soldier, Spy</em></h3>
+                  <p>A Java multi-agent system for exploration, trustworthy information sharing and consensus in a partially observable world containing an unknown adversary.</p>
+                  <div class="spy-meta"><span>Java</span><span>Distributed systems</span><span>Adversarial reasoning</span></div>
+                  <div class="case-actions spy-actions">
+                    <button class="open-spy-statement secondary-case-action">Problem statement ↗</button>
+                    <button class="open-spy-report">Read team report ↗</button>
+                    <a href="https://github.com/MihneaStefanDAVID/PPS_spy" target="_blank" rel="noopener">View code on GitHub ↗</a>
+                  </div>
+                </div>
+
+                <div class="spy-map" aria-label="Stylized partially observed grid with conflicting information">
+                  <span class="spy-package">P</span><span class="spy-target">T</span>
+                  <i class="spy-agent a1"></i><i class="spy-agent a2"></i><i class="spy-agent a3"></i><i class="spy-agent a4"></i>
+                  <b class="spy-conflict c1">?</b><b class="spy-conflict c2">?</b><b class="spy-conflict c3">?</b>
+                  <svg viewBox="0 0 300 300" aria-hidden="true">
+                    <path class="known-path" d="M46 246 L76 215 L103 190 L128 164 L158 138 L188 112 L218 82 L251 49" />
+                    <path class="false-path" d="M46 246 L65 190 L112 218 L160 179 L205 214 L251 49" />
+                    <circle cx="158" cy="138" r="44"></circle>
+                  </svg>
+                  <div><strong>100 × 100</strong><small>PARTIAL KNOWLEDGE</small></div>
+                </div>
+
+                <aside class="spy-result">
+                  <small>DUAL ROLE</small>
+                  <strong>2</strong>
+                  <p>strategies in one system</p>
+                  <span>Cooperate as a soldier.<br />Deceive as the spy.</span>
+                </aside>
+              </header>
+
+              <div class="spy-problem">
+                <div class="case-section-label"><span>01</span><small>THE PROBLEM</small></div>
+                <div class="spy-copy">
+                  <h4>Build a shared truth without knowing whom to trust.</h4>
+                  <p>A commando team is dropped onto an unknown 100×100 grid. The soldiers must discover a hidden package and target, reconstruct the terrain and agree on a path that uses only good cells. Water is impassable and muddy ground may be crossed by soldiers, but never while carrying the package.</p>
+                  <p>Each player sees only a radius-three neighborhood. Global knowledge exists only through encounters, where agents exchange records containing the cell, its reported state and the complete chain of players and timestamps through which that claim travelled.</p>
+                  <p>One player is secretly a spy. It uses the same interfaces as everyone else, but may fabricate terrain, invent objectives and support dangerous paths. Three soldiers must still meet at the package and agree on exactly one valid route before the timeout.</p>
+                </div>
+                <div class="spy-rules">
+                  <article><b>Local vision</b><span>Every agent observes only a small region and builds its own evolving map.</span></article>
+                  <article><b>Provenance</b><span>Every shared claim carries its origin and complete communication history.</span></article>
+                  <article><b>One adversary</b><span>The spy can lie selectively, remain plausible and exploit uncertainty.</span></article>
+                  <article><b>Three votes</b><span>A unique path needs support from three players gathered at the package.</span></article>
+                </div>
+              </div>
+
+              <div class="spy-statement">
+                <div class="spy-document" aria-hidden="true">
+                  <span>PDF</span><strong>Soldier,<br />Soldier,<br />Soldier, Spy</strong>
+                  <i></i><i></i><i></i><i></i>
+                  <small>ORIGINAL SPECIFICATION · 2 PAGES</small>
+                </div>
+                <div><small>COURSE MATERIAL</small><h4>Read the complete rules.</h4><p>The original statement defines movement costs, visibility, record provenance, communication, path voting, scoring, failure conditions and the spy's capabilities.</p></div>
+                <button class="open-spy-statement">Open problem statement ↗</button>
+              </div>
+
+              <aside class="case-report-note spy-report-note">
+                <div><small>FULL TECHNICAL RECORD</small><strong>Strategy, implementation and evaluation are documented in the report.</strong><p>This page is a guided overview. The complete report contains the algorithms, data structures, adversarial protocols, tests, maps and extended results.</p></div>
+                <button class="open-spy-report">Read the complete 40-page report ↗</button>
+              </aside>
+
+              <section class="project-diagram spy-diagram">
+                <span class="project-diagram-index">MEMORY MODEL</span>
+                <div class="project-diagram-copy">
+                  <h4>A map that remembers uncertainty</h4>
+                  <p>Each board coordinate stores more than a guessed value. The agent tracks provenance, confidence and contradictory reports, while separate indexed structures maintain player suspicion and mission-level state. That makes every move explainable and revisable.</p>
+                </div>
+                <div class="diagram-canvas spy-memory-canvas" aria-label="Spy agent memory data structures">
+                  <div class="memory-matrix-wrap">
+                    <small>CellKnowledge[100][100]</small>
+                    <div class="memory-matrix" aria-hidden="true">
+                      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="selected"></i><i></i><i></i>
+                      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                    </div>
+                    <span>O(1) coordinate lookup</span>
+                  </div>
+                  <div class="memory-arrow">→</div>
+                  <div class="cell-record">
+                    <small>SELECTED CELL RECORD</small>
+                    <div><code>terrainValue</code><b>enum</b></div><div><code>pointValue</code><b>int</b></div><div><code>confidence</code><b>double</b></div>
+                    <div><code>directSeen</code><b>boolean</b></div><div><code>conflicts</code><b>Set&lt;Value&gt;</b></div><div><code>support</code><b>Map&lt;Value, Set&lt;Id&gt;&gt;</b></div>
+                  </div>
+                  <div class="global-memory"><small>GLOBAL INDEXES</small><span><code>suspicion[playerId]</code></span><span><code>packagePosition</code></span><span><code>targetPosition</code></span><span><code>visitedCells</code></span></div>
+                </div>
+              </section>
+
+              <div class="spy-challenge">
+                <div class="case-section-label"><span>02</span><small>WHY IT IS HARD</small></div>
+                <article><h5>Partial observability</h5><p>No player sees the global state. Exploration must turn fragmented observations into a useful map before time runs out.</p></article>
+                <article><h5>Adversarial information</h5><p>The attacker manipulates beliefs rather than the grid, so plausible misinformation can be more damaging than obvious lies.</p></article>
+                <article><h5>Distributed consensus</h5><p>Strict validation protects the team, but excessive caution can deadlock the vote and fail just as decisively.</p></article>
+              </div>
+
+              <div class="spy-architecture">
+                <div class="case-section-label"><span>03</span><small>SOFTWARE ARCHITECTURE</small></div>
+                <div class="spy-copy">
+                  <h4>A modular Java decision system.</h4>
+                  <p>The controller separates knowledge management from movement, planning, communication and voting. The same state is consumed by distinct soldier and spy policies, allowing each subsystem to be inspected and refined without rewriting the entire player.</p>
+                  <div class="spy-facts"><span><b>State</b> 10,000 CellKnowledge objects</span><span><b>Input</b> Observations, records, proposals and vote results</span><span><b>Output</b> Movement, messages, paths and votes</span></div>
+                </div>
+                <div class="spy-modules">
+                  <article><span>01</span><b>Knowledge</b><p>Store terrain, point type, confidence, source sets, conflicts and direct observation.</p></article>
+                  <article><span>02</span><b>Communication</b><p>Fuse incoming records and share only sufficiently reliable, conflict-free information.</p></article>
+                  <article><span>03</span><b>Navigation</b><p>Explore under uncertainty, then use cost-aware shortest paths to reach the package.</p></article>
+                  <article><span>04</span><b>Consensus</b><p>Validate proposals and adapt voting as the system approaches deadlock or timeout.</p></article>
+                </div>
+              </div>
+
+              <div class="spy-knowledge">
+                <div class="case-section-label"><span>04</span><small>KNOWLEDGE & TRUST</small></div>
+                <div class="spy-copy">
+                  <h4>Evidence is not just a value.<br />It has a history.</h4>
+                  <p>Each cell tracks terrain and point type independently. Direct observations become immutable local ground truth; indirect reports contribute only through their original source. Repeated copies of the same claim therefore cannot manufacture confidence.</p>
+                </div>
+                <div class="trust-model">
+                  <div class="trust-cell"><small>CELL (x, y)</small><strong>GOOD</strong><span>confidence 2 / 3</span><i></i><i></i><em>conflict: false</em></div>
+                  <div class="trust-flow"><span>source 4</span><b>→</b><span>player 2</span><b>→</b><span>me</span><small>ONE independent origin</small></div>
+                  <div class="trust-rule"><b>Direct observation wins.</b><p>Contradictions against a personally observed cell increase the originator's suspicion score. Sources crossing the threshold are ignored in future updates.</p></div>
+                </div>
+              </div>
+
+              <div class="spy-pipeline">
+                <div class="case-section-label"><span>05</span><small>PROBLEM-SOLVING PIPELINE</small></div>
+                <div><h4>Explore until the evidence supports commitment.</h4><p>The player continuously switches between gathering missing knowledge and acting on a safe solution.</p></div>
+                <div class="spy-flow">
+                  <article><b>Observe</b><span>Write direct terrain and objective information into the local map.</span></article>
+                  <i>→</i><article><b>Integrate</b><span>Aggregate distinct origins, retain ties as conflicts and update suspicion.</span></article>
+                  <i>→</i><article><b>Explore</b><span>Use cost-aware search to reach the nearest insufficiently known cell.</span></article>
+                  <i>→</i><article><b>Plan</b><span>Run Dijkstra over high-confidence GOOD cells from package to target.</span></article>
+                  <i>→</i><article><b>Commit</b><span>Move to the package, propose the path and enter distributed voting.</span></article>
+                </div>
+              </div>
+
+              <div class="spy-consensus">
+                <div class="case-section-label"><span>06</span><small>CONSENSUS UNDER PRESSURE</small></div>
+                <div class="spy-copy"><h4>Correctness first.<br />Progress before timeout.</h4><p>A single fixed voting rule was too brittle. We designed a phase-based strategy that starts conservatively, narrows competing proposals and eventually relaxes its requirements when waiting becomes the larger risk.</p></div>
+                <div class="consensus-phases">
+                  <article><small>NORMAL</small><strong>Strict</strong><p>Support only fully validated paths, then progressively converge toward the best trusted leader.</p></article>
+                  <b>→</b>
+                  <article><small>STALL</small><strong>Popular</strong><p>Choose the most-supported path that passes relaxed endpoint, adjacency and direct-safety checks.</p></article>
+                  <b>→</b>
+                  <article><small>DESPERATE</small><strong>Decisive</strong><p>Always select a minimally valid candidate, preventing indefinite deadlock near the timeout.</p></article>
+                </div>
+              </div>
+
+              <div class="spy-adversary">
+                <div class="case-section-label"><span>07</span><small>THINKING LIKE THE ADVERSARY</small></div>
+                <div class="spy-copy">
+                  <h4>Deception tailored to the recipient.</h4>
+                  <p>The spy does not broadcast random noise. It estimates what each player already knows and constructs a separate fake package, fake target and plausible GOOD corridor for every recipient, avoiding cells likely to contradict direct observations.</p>
+                </div>
+                <div class="deception-cards">
+                  <article><span>01</span><h5>Personalized worlds</h5><p>Per-recipient campaign state makes each fabricated scenario internally consistent.</p></article>
+                  <article><span>02</span><h5>Forged provenance</h5><p>Fake originators make misinformation appear independently corroborated across meetings.</p></article>
+                  <article><span>03</span><h5>Truthful cover</h5><p>A small set of honest local records makes the overall message look less anomalous.</p></article>
+                  <article><span>04</span><h5>Adaptive sabotage</h5><p>If a fake path loses support, the spy inflates a real valid path with loops, worsening the score without obvious invalidity.</p></article>
+                </div>
+              </div>
+
+              <div class="spy-engineering">
+                <div class="case-section-label"><span>08</span><small>ENGINEERING THE SYSTEM</small></div>
+                <div class="spy-copy">
+                  <h4>Debugging beliefs, not only outputs.</h4>
+                  <p>Traditional unit tests were useful for pathfinding, conflict resolution and suspicion updates, but system behavior depended on team composition, information propagation and an adaptive attacker. We therefore complemented component tests with repeated simulations and tools that exposed the internal state.</p>
+                </div>
+                <div class="engineering-tools">
+                  <article><b>Knowledge visualizer</b><p>A browser-based 100×100 map showed confidence, conflicts, exploration frontiers and the full provenance chain for a selected cell. It revealed subtle source-tracking bugs hidden by aggregate scores.</p></article>
+                  <article><b>Diagnostic maps</b><p>Three custom environments created divergent exploration paths, isolated corridors and bottlenecks to stress-test trust and consensus under genuine information asymmetry.</p></article>
+                  <article><b>Empirical evaluation</b><p>Clone tests, soldier-with-spy tests and mixed-cohort round robins separated cooperative quality from adversarial disruption across seven maps.</p></article>
+                </div>
+              </div>
+
+              <div class="spy-contribution">
+                <div class="case-section-label"><span>09</span><small>MY CONTRIBUTION</small></div>
+                <div class="spy-copy">
+                  <h4>Designing the foundation and its adversarial counterpart.</h4>
+                  <p>I designed and developed <strong>G7_MD</strong>, the initial player that became the foundation of the final system and established its overall architecture.</p>
+                  <p>I implemented the cell-level knowledge model, independent-source tracking, conflict-aware updates, communication protocol and the exploration strategy retained by the final player.</p>
+                  <p>For the spy, I helped move fake objectives from one global story to personalized per-recipient deception, implemented loop-based path inflation and designed the fake-originator protocol. I also created the three custom evaluation maps and wrote substantial parts of the problem formulation, design and implementation sections of the report.</p>
+                </div>
+                <aside><span>Architecture</span><b>G7_MD foundation</b><span>Core systems</span><b>Knowledge · communication · exploration</b><span>Adversary</span><b>Personalized deception</b><span>Evaluation</span><b>Three diagnostic maps</b></aside>
+              </div>
+
+              <div class="spy-results">
+                <div class="case-section-label"><span>10</span><small>RESULTS</small></div>
+                <div class="spy-copy"><h4>Strengths that depend on the information structure.</h4><p>The honest player performed best on structured maps where reliable knowledge accumulated quickly. The spy was strongest when uncertainty remained high enough for personalized false worlds to survive scrutiny.</p></div>
+                <div class="spy-stats">
+                  <article><strong>#1</strong><span>Soldier rank on the structured circle map.</span></article>
+                  <article><strong>+2,100</strong><span>Highest spy score delta on the kr map.</span></article>
+                  <article><strong>5/7</strong><span>Maps with above-average spy disruption percentile.</span></article>
+                  <article><strong>60%</strong><span>Mean percentile for the spy across tested maps.</span></article>
+                </div>
+              </div>
+
+              <div class="spy-lessons">
+                <div class="case-section-label"><span>11</span><small>WHAT WE LEARNED</small></div>
+                <article><h5>Provenance matters</h5><p>Message count is not evidence count. Tracking original sources prevents repeated propagation from creating false certainty.</p></article>
+                <article><h5>Deadlock is a failure mode</h5><p>A perfectly cautious agent can still lose. Robust systems need an explicit policy for trading certainty against remaining time.</p></article>
+                <article><h5>Observability changes testing</h5><p>In distributed software, inspecting internal beliefs and communication histories can be more informative than checking final outputs alone.</p></article>
+              </div>
+
+              <footer class="spy-footer">
+                <div><small>TEAM</small><strong>Mihnea-Stefan David · Maya Diaz Huizar · Max Chen</strong></div>
+                <div><a href="https://github.com/MihneaStefanDAVID/PPS_spy" target="_blank" rel="noopener">GitHub ↗</a><button class="open-spy-statement">Problem statement ↗</button><button class="open-spy-report">Complete 40-page report ↗</button></div>
+              </footer>
+            </section>
+
+            <section class="organisms-case-study" id="organisms-case-study" hidden>
+              <header class="organisms-hero">
+                <div class="organisms-title">
+                  <small>05 / CASE STUDY · SPRING 2026</small>
+                  <h3>Adaptive<br /><em>Organisms</em></h3>
+                  <p>A Java multi-agent simulation about survival, learning and population control in an unknown, changing world.</p>
+                  <div class="organisms-meta"><span>Java</span><span>Adaptive agents</span><span>Distributed learning</span></div>
+                  <div class="case-actions organisms-actions">
+                    <button class="open-organisms-statement secondary-case-action">Problem statement ↗</button>
+                    <button class="open-organisms-report">Read team report ↗</button>
+                    <a href="https://github.com/MihneaStefanDAVID/PPS_organisms" target="_blank" rel="noopener">View code on GitHub ↗</a>
+                  </div>
+                </div>
+                <div class="organism-world" aria-label="Stylized toroidal organism simulation">
+                  <i class="food f1"></i><i class="food f2"></i><i class="food f3"></i><i class="food f4"></i><i class="food f5"></i>
+                  <span class="cell c1"><b></b></span><span class="cell c2"><b></b></span><span class="cell c3"><b></b></span>
+                  <span class="cell c4"><b></b></span><span class="cell c5"><b></b></span>
+                  <svg viewBox="0 0 300 300" aria-hidden="true"><path d="M63 88 C98 42 165 53 179 103 S244 154 215 216 S105 260 68 207 S25 137 63 88" /></svg>
+                  <div><strong>LOCAL VIEW</strong><small>GLOBAL BEHAVIOR</small></div>
+                </div>
+                <aside class="organisms-result">
+                  <small>INDIVIDUAL TRIALS</small>
+                  <strong>#1</strong>
+                  <p>in three distinct environments</p>
+                  <span>Desert · Finding Gold · Big</span>
+                </aside>
+              </header>
+
+              <div class="organisms-problem">
+                <div class="case-section-label"><span>01</span><small>THE WORLD</small></div>
+                <div class="organisms-problem-copy">
+                  <h4>Survive without seeing the world.</h4>
+                  <p>Each organism lives on an unknown <em>m×n</em> toroidal grid and runs its own instance of a Java “brain.” It gains energy by eating food and spends energy by waiting, moving or reproducing. When its energy reaches zero, it dies.</p>
+                  <p>An organism sees only the four adjacent cells, the food beneath it, its current energy and a subset of simulator parameters. It does not know the grid dimensions or the probabilities <em>p</em> and <em>q</em> governing food appearance and growth.</p>
+                  <p>The goal is not merely rapid reproduction. A population that expands too aggressively may consume its resources and collapse; one that behaves too cautiously may lose territory and food to competing species.</p>
+                </div>
+                <div class="organisms-rules">
+                  <article><b>Move</b><span>Travel one orthogonal cell on a world that wraps around its edges.</span></article>
+                  <article><b>Wait</b><span>Conserve position while paying the environment's staying cost.</span></article>
+                  <article><b>Reproduce</b><span>Split energy with a new organism placed on an adjacent free cell.</span></article>
+                  <article><b>Communicate</b><span>Expose an 8-bit external state visible to neighboring organisms.</span></article>
+                </div>
+              </div>
+
+              <div class="organisms-statement">
+                <div class="organism-document"><span>PDF</span><strong>Organisms</strong><i></i><i></i><i></i><i></i><small>ORIGINAL SPECIFICATION · 2 PAGES</small></div>
+                <div><small>COURSE MATERIAL</small><h4>The complete simulation rules.</h4><p>Read the original specification for food dynamics, energy costs, local sensing, sequential move semantics and the individual and competitive evaluation goals.</p></div>
+                <button class="open-organisms-statement">Open problem statement ↗</button>
+              </div>
+
+              <aside class="case-report-note organisms-report-note">
+                <div><small>FULL TECHNICAL RECORD</small><strong>Strategy, implementation and evaluation are documented in the report.</strong><p>This page is a guided overview. The complete report contains the estimator derivation, threshold tables, communication protocol, DNA encoding, experiments and competitive analysis.</p></div>
+                <button class="open-organisms-report">Read the complete 23-page report ↗</button>
+              </aside>
+
+              <section class="project-diagram organisms-diagram">
+                <span class="project-diagram-index">DECISION LOOP</span>
+                <div class="project-diagram-copy">
+                  <h4>A compact distributed brain</h4>
+                  <p>Every organism combines local perception with an inherited policy and a tiny shared signal. The controller adapts its priorities to food density, energy and life stage, producing coordinated population behaviour from strictly local decisions.</p>
+                </div>
+                <div class="diagram-canvas organisms-brain-canvas" aria-label="Organism decision pipeline">
+                  <div class="brain-sources"><span>food nearby</span><span>energy</span><span>age</span><span>8-bit signal</span></div>
+                  <div class="brain-arrow">→</div>
+                  <div class="brain-core"><small>LOCAL ESTIMATOR</small><strong>environment bucket</strong><div class="brain-buckets"><i>scarce</i><i>stable</i><i>rich</i></div></div>
+                  <div class="brain-arrow">→</div>
+                  <div class="brain-policy"><small>THRESHOLD POLICY</small><span><b>1</b> eat</span><span><b>2</b> reproduce</span><span><b>3</b> explore</span><span><b>4</b> wait</span></div>
+                  <div class="brain-feedback"><span>DNA + state</span><strong>offspring</strong><span>updated signal</span></div>
+                </div>
+              </section>
+
+              <div class="organisms-challenge">
+                <div class="case-section-label"><span>02</span><small>WHY IT IS HARD</small></div>
+                <article><h5>Partial observability</h5><p>Every brain sees only its immediate neighborhood, while the parameters that define food availability remain hidden.</p></article>
+                <article><h5>Ecological balance</h5><p>Movement finds resources but costs energy; reproduction grows the population but can trigger starvation through overcrowding.</p></article>
+                <article><h5>Competition</h5><p>Other species consume food, block movement and distort the observations used to estimate the environment.</p></article>
+              </div>
+
+              <div class="organisms-approach">
+                <div class="case-section-label"><span>03</span><small>OUR APPROACH</small></div>
+                <div><h4>One adaptive brain,<br />not a collection of scripts.</h4><p>Our final Java controller, <strong>FinalBrain</strong>, uses one hierarchical decision framework whose thresholds change with estimated food availability, energy, age and competitive pressure.</p></div>
+                <div class="organism-pillars">
+                  <article><span>01</span><h5>Estimate</h5><p>Infer local food-spawn probability from repeated observations and classify it into robust probability buckets.</p></article>
+                  <article><span>02</span><h5>Share</h5><p>Encode species identity and environmental beliefs into external state, then aggregate trusted neighbors' estimates.</p></article>
+                  <article><span>03</span><h5>Adapt</h5><p>Adjust movement and reproduction thresholds across lifecycle phases, balancing early expansion with later conservation.</p></article>
+                  <article><span>04</span><h5>Inherit</h5><p>Pass accumulated trials, food hits and age to offspring through a compact 32-bit DNA representation.</p></article>
+                </div>
+              </div>
+
+              <div class="organisms-pipeline">
+                <div class="case-section-label"><span>04</span><small>JAVA DECISION PIPELINE</small></div>
+                <div><h4>Perceive. Learn.<br />Choose. Survive.</h4><p>Every organism independently executes the same modular controller on each simulation step.</p></div>
+                <div class="organism-flow">
+                  <article><b>Perception</b><span>Read food, neighbor states and current energy.</span></article>
+                  <article><b>Estimation</b><span>Update local trials, hits, probability bucket and confidence.</span></article>
+                  <article><b>Consensus</b><span>Combine trustworthy observations shared by nearby allies.</span></article>
+                  <article><b>Decision</b><span>Prioritize food, reproduction, emergency search, exploration or waiting.</span></article>
+                </div>
+              </div>
+
+              <div class="organisms-estimation">
+                <div class="case-section-label"><span>05</span><small>ONLINE ESTIMATION</small></div>
+                <div class="organisms-detail-copy">
+                  <h4>Learning food availability from censored observations.</h4>
+                  <p>The brain compares empty neighboring cells across consecutive turns. A valid empty-to-empty observation increments <em>trials</em>; if food appears, it also increments <em>hits</em>. The local estimate is therefore <strong>p̂ = hits / trials</strong>, discretized into behavioral buckets rather than trusted as a precise value.</p>
+                  <p>Occupancy changes are excluded because another organism may have moved into the cell. This improves local validity, but competition introduces censoring bias: cells where food appears are also more likely to be consumed or occupied before they can become a positive observation, causing systematic underestimation.</p>
+                </div>
+                <div class="estimation-card">
+                  <small>LOCAL EVIDENCE</small><strong>empty<sub>t</sub> → empty / food<sub>t+1</sub></strong>
+                  <div><span><b>trial</b> observable transition</span><span><b>hit</b> food appeared</span><span><b>ignore</b> cell became occupied</span></div>
+                  <p>The estimator is useful, but its assumptions change once competitors modify the environment being measured.</p>
+                </div>
+              </div>
+
+              <div class="organisms-communication">
+                <div class="case-section-label"><span>06</span><small>8-BIT COMMUNICATION</small></div>
+                <div class="organisms-detail-copy">
+                  <h4>A tiny message carrying identity, belief and confidence.</h4>
+                  <p>Neighboring organisms expose only one 8-bit external state. We divide it into a species tag, the estimated probability bucket and a confidence field. The tag filters unrelated species; trusted messages are accumulated into a weighted local consensus.</p>
+                  <p>Each bucket receives support proportional to confidence, including the organism's own estimate. The best-supported bucket controls behavioral thresholds, allowing local observations to become a distributed approximation of the global environment.</p>
+                </div>
+                <div class="external-state">
+                  <small>EXTERNAL STATE</small>
+                  <div><span style="--bits:3"><b>3 bits</b> species tag</span><span style="--bits:3"><b>3 bits</b> p bucket</span><span style="--bits:2"><b>2 bits</b> confidence</span></div>
+                  <code>[ TAG ][ BUCKET ][ CONFIDENCE ]</code>
+                </div>
+              </div>
+
+              <div class="organisms-lifecycle">
+                <div class="case-section-label"><span>07</span><small>LIFECYCLE CONTROL</small></div>
+                <div class="organisms-detail-copy">
+                  <h4>The same brain changes priorities over time.</h4>
+                  <p>FinalBrain maps environment bucket and age to thresholds for waiting, reproduction and movement. Rich environments encourage early spreading and growth; sparse environments begin cautiously and become more exploratory as survival pressure increases.</p>
+                  <p>Energy constraints can override the normal policy: food takes priority, reproduction requires a safe reserve, and critically low energy activates emergency search. Modesty rules also suppress reproduction in crowded neighborhoods to avoid local resource collapse.</p>
+                </div>
+                <div class="lifecycle-phases">
+                  <article><small>EARLY</small><strong>Claim space</strong><p>Explore or farm food according to the inferred environment.</p></article>
+                  <article><small>MATURE</small><strong>Balance</strong><p>Reproduce only with sufficient energy and local capacity.</p></article>
+                  <article><small>LATE</small><strong>Conserve</strong><p>Reduce risky movement and preserve a stable population.</p></article>
+                </div>
+              </div>
+
+              <div class="organisms-dna">
+                <div class="case-section-label"><span>08</span><small>KNOWLEDGE INHERITANCE</small></div>
+                <div><h4>A warm start for the next generation.</h4><p>New organisms should not need to relearn an environment from zero. During reproduction, the parent packs its accumulated evidence into a 32-bit integer passed to the child.</p></div>
+                <div class="dna-layout">
+                  <small>32-BIT DNA</small>
+                  <div><span style="--dna: 12"><b>12 bits</b> trials</span><span style="--dna: 12"><b>12 bits</b> hits</span><span style="--dna: 8"><b>8 bits</b> age</span></div>
+                  <code>(trials &lt;&lt; 20) | (hits &lt;&lt; 8) | age</code>
+                </div>
+              </div>
+
+              <div class="organisms-contribution">
+                <div class="case-section-label"><span>09</span><small>MY CONTRIBUTION</small></div>
+                <div>
+                  <h4>Designing the adaptive core.</h4>
+                  <p>I developed <strong>BasicPlayerMD1</strong> and <strong>BasicPlayerMD2</strong>, introducing the hierarchical rule-based architecture that became the foundation of FinalBrain.</p>
+                  <p>I proposed and implemented local estimation of the hidden food-spawn probability <em>p</em>, its discretization into probability buckets, and the idea of building a global approximation through distributed information sharing and consensus.</p>
+                  <p>I also designed and implemented the DNA-based inheritance mechanism, led much of the core implementation and contributed substantially to the strategic direction, report and presentation.</p>
+                </div>
+                <aside><span>Architecture</span><b>Hierarchical rules</b><span>Learning</span><b>P estimation & bucketing</b><span>Coordination</span><b>Distributed consensus</b><span>Inheritance</span><b>32-bit DNA</b></aside>
+              </div>
+
+              <div class="organisms-evidence">
+                <div class="case-section-label"><span>10</span><small>RESULTS</small></div>
+                <div><h4>Excellent alone.<br />More fragile in competition.</h4><p>FinalBrain validated the value of energy-aware exploration and controlled reproduction in individual trials. Competitive play exposed slower adaptation and recovery when opponents distorted observations or occupied territory aggressively.</p></div>
+                <div class="organisms-stats">
+                  <article><strong>4,686.84</strong><span>Average final population in Big, ranked 1st with no extinctions.</span></article>
+                  <article><strong>1,901.99</strong><span>Average population in Finding Gold, ranked 1st.</span></article>
+                  <article><strong>174.28</strong><span>Average population in Default, ranked 2nd and 1st in final energy.</span></article>
+                  <article class="caution"><strong>Lesson</strong><span>One adaptive policy reacted more slowly than specialized competitive strategies.</span></article>
+                </div>
+              </div>
+
+              <div class="organisms-lessons">
+                <div class="case-section-label"><span>11</span><small>WHAT WE LEARNED</small></div>
+                <article><h5>Learning can be biased</h5><p>Competitors consume food and alter the observations used to infer the natural environment.</p></article>
+                <article><h5>Stability has a cost</h5><p>Conservative reproduction avoids collapse but can make recovery and territorial expansion too slow.</p></article>
+                <article><h5>Scale changes engineering</h5><p>Thousands of organisms magnify allocations and repeated computations, making caching and simpler hot paths essential.</p></article>
+              </div>
+
+              <footer class="organisms-footer">
+                <div><small>TEAM</small><strong>Vedha Avali · Mihnea-Stefan David · Evelyn Yu</strong></div>
+                <div><a href="https://github.com/MihneaStefanDAVID/PPS_organisms" target="_blank" rel="noopener">GitHub ↗</a><button class="open-organisms-statement">Problem statement ↗</button><button class="open-organisms-report">Complete 23-page report ↗</button></div>
+              </footer>
+            </section>
+
+            <section class="standalone-projects">
+              <article class="featured-project tsp-project" role="button" tabindex="0" aria-label="Open Can We Cheat NP-Hardness project">
+                <div class="tsp-map" aria-label="Abstract travelling salesperson route">
+                  <svg viewBox="0 0 320 180" role="img">
+                    <path d="M28 137 C74 128 65 55 124 61 S171 153 218 122 S255 47 294 38" />
+                    <path class="route-secondary" d="M28 137 L124 61 L218 122 L294 38" />
+                    <circle cx="28" cy="137" r="6" /><circle cx="124" cy="61" r="6" /><circle cx="218" cy="122" r="6" /><circle cx="294" cy="38" r="6" />
+                  </svg>
+                  <span>APPROXIMATE ≠ ARBITRARY</span>
+                </div>
+                <div class="featured-project-copy">
+                  <small>06 / ALGORITHMS & EDUCATION</small>
+                  <h3>Can We Cheat NP-Hardness?</h3>
+                  <p>A theoretical study of parameterization and approximation, paired with an interactive laboratory for TSP algorithms, empirical experiments and real road networks.</p>
+                  <div><span>Complexity Theory</span><span>TSP</span><span>Visualization</span><span>Full-stack</span></div>
+                  <button class="tsp-case-link">Open project ↗</button>
+                </div>
+              </article>
+            </section>
+
+            <section class="tsp-case-study" id="tsp-case-study" hidden>
+              <header class="tsp-case-hero">
+                <div class="tsp-case-title">
+                  <small>06 / THEORY + SOFTWARE · SPRING 2026</small>
+                  <h3>Can We Cheat<br /><em>NP-Hardness?</em></h3>
+                  <p>A study of algorithms, illusions and reality: two theoretical ways to make hard problems manageable, and a full interactive laboratory that tests where those ideas survive contact with practice.</p>
+                  <div class="tsp-case-meta"><span>Complexity theory</span><span>Python + Flask</span><span>NumPy</span><span>Canvas</span><span>Leaflet + OSRM</span></div>
+                  <div class="case-actions tsp-actions">
+                    <button class="open-tsp-theory">Theoretical report · 45 pages ↗</button>
+                    <button class="open-tsp-practical secondary-case-action">Practical report · 26 pages ↗</button>
+                    <button class="open-tsp-lab secondary-case-action">Launch interactive lab ↗</button>
+                    <a href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">View code on GitHub ↗</a>
+                  </div>
+                </div>
+                <div class="hardness-orbit" aria-label="Theory and practice orbiting NP-hardness">
+                  <span class="hardness-core"><small>WORST CASE</small><strong>NP-hard</strong></span>
+                  <i class="hardness-ring ring-one"></i><i class="hardness-ring ring-two"></i>
+                  <span class="orbit-label parameter-label">restrict the parameter</span>
+                  <span class="orbit-label structure-label">exploit structure</span>
+                  <b class="orbit-node color-node">k</b><b class="orbit-node metric-node">△</b>
+                </div>
+                <div class="tsp-hero-thesis">
+                  <small>CENTRAL CLAIM</small>
+                  <strong>Hardness is a worst-case characterization, not always a practical verdict.</strong>
+                  <span>The relevant question is what structure we are allowed to use.</span>
+                </div>
+              </header>
+
+              <section class="tsp-question">
+                <div class="case-section-label"><span>01</span><small>THE QUESTION</small></div>
+                <div>
+                  <h4>Why do we routinely solve problems that theory calls intractable?</h4>
+                  <p>Routing, scheduling and combinatorial optimization are formally NP-hard, yet useful solutions are produced every day. This project investigates that tension rather than treating NP-hardness as the end of the discussion.</p>
+                  <p>The report develops two complementary mechanisms. A hard problem may become tractable when a <em>parameter</em> is small, or approximable when the <em>input</em> has additional structure. These mechanisms expose an important asymmetry: theory can be too optimistic about algorithms that are polynomial but impractical, and too pessimistic about approximation bounds that are rarely approached on real instances.</p>
+                </div>
+                <aside class="tsp-paradox">
+                  <article><small>OVERLY OPTIMISTIC</small><strong>Polynomial</strong><p>Color-Coding becomes polynomial for k = O(log n), but hidden constants and repetition can still dominate.</p></article>
+                  <article><small>OVERLY PESSIMISTIC</small><strong>3/2 worst case</strong><p>Christofides often lands around 1.05–1.10 on benign Euclidean experiments.</p></article>
+                </aside>
+              </section>
+
+              <section class="tsp-two-lenses">
+                <div class="case-section-label"><span>02</span><small>TWO LENSES</small></div>
+                <article>
+                  <small>PARAMETERIZED COMPLEXITY</small>
+                  <h4>Longest Path through Color-Coding</h4>
+                  <p>Randomly assign k colors to the graph, then search only for a path whose vertices have distinct colors. A subset dynamic programme replaces the global “all vertices must be distinct” condition with local color-set transitions.</p>
+                  <div class="lens-formula"><span>one iteration</span><strong>O(m · k · 2<sup>k</sup>)</strong></div>
+                </article>
+                <article>
+                  <small>STRUCTURED APPROXIMATION</small>
+                  <h4>Metric TSP through triangle inequality</h4>
+                  <p>General TSP resists constant-factor approximation, but metric structure makes shortcutting safe. MST doubling yields a 2-approximation; matching odd-degree vertices improves the guarantee to Christofides’ 3/2.</p>
+                  <div class="lens-formula"><span>guarantee</span><strong>ℓ(C) ≤ 3/2 · OPT</strong></div>
+                </article>
+              </section>
+
+              <section class="tsp-color-diagram">
+                <div class="case-section-label"><span>03</span><small>COLOR-CODING</small></div>
+                <div class="color-diagram-copy">
+                  <h4>Turn vertex identity into a palette.</h4>
+                  <p>A fixed path becomes colorful with probability k!/k<sup>k</sup> ≥ e<sup>−k</sup>. Repeating the experiment λe<sup>k</sup> times pushes failure below e<sup>−λ</sup>, without introducing false positives.</p>
+                  <div class="color-facts"><span>one-sided Monte Carlo</span><span>DP[v, S]</span><span>confidence via repetition</span></div>
+                </div>
+                <div class="color-coding-visual" aria-label="Color-coded graph and dynamic programming state">
+                  <svg viewBox="0 0 580 280" role="img">
+                    <g class="cc-edges"><path d="M54 148L130 74L218 112L300 48L382 105L470 58M54 148L142 210L232 178L328 226L410 174L522 207M130 74L142 210M218 112L232 178M300 48L328 226M382 105L410 174M470 58L522 207" /></g>
+                    <path class="cc-found-path" d="M54 148L130 74L218 112L300 48L382 105L470 58" />
+                    <g class="cc-nodes">
+                      <circle class="cc-red" cx="54" cy="148" r="13" /><circle class="cc-blue" cx="130" cy="74" r="13" /><circle class="cc-gold" cx="218" cy="112" r="13" />
+                      <circle class="cc-green" cx="300" cy="48" r="13" /><circle class="cc-purple" cx="382" cy="105" r="13" /><circle class="cc-coral" cx="470" cy="58" r="13" />
+                      <circle class="cc-purple" cx="142" cy="210" r="11" /><circle class="cc-red" cx="232" cy="178" r="11" /><circle class="cc-blue" cx="328" cy="226" r="11" /><circle class="cc-gold" cx="410" cy="174" r="11" /><circle class="cc-green" cx="522" cy="207" r="11" />
+                    </g>
+                  </svg>
+                  <div class="dp-state"><small>DP STATE</small><code>DP[v, {red, blue, gold, green, purple, coral}] = true</code><span>each color appears exactly once</span></div>
+                </div>
+              </section>
+
+              <section class="tsp-christofides">
+                <div class="case-section-label"><span>04</span><small>CHRISTOFIDES</small></div>
+                <div class="christofides-copy">
+                  <h4>A 3/2 guarantee built from two bounds.</h4>
+                  <p>For a complete metric graph, Christofides first computes a minimum spanning tree T. The vertices of odd degree in T are paired by a minimum-weight perfect matching M. Their union is connected and Eulerian; shortcutting its Eulerian circuit produces a Hamiltonian cycle without increasing cost.</p>
+                  <div class="christofides-proof">
+                    <span>ℓ(T) ≤ OPT</span><b>+</b><span>ℓ(M) ≤ ½ OPT</span><b>⇒</b><strong>ℓ(C) ≤ 3/2 OPT</strong>
+                  </div>
+                </div>
+                <div class="christofides-pipeline" aria-label="Christofides algorithm pipeline">
+                  <article><span>01</span><svg viewBox="0 0 120 76"><path d="M12 61L34 15L61 50L91 13L108 61M34 15L91 13M61 50L108 61M12 61L61 50M34 15L108 61"/><g><circle cx="12" cy="61" r="4"/><circle cx="34" cy="15" r="4"/><circle cx="61" cy="50" r="4"/><circle cx="91" cy="13" r="4"/><circle cx="108" cy="61" r="4"/></g></svg><strong>Metric graph</strong><small>complete + triangle inequality</small></article>
+                  <i>→</i>
+                  <article><span>02</span><svg viewBox="0 0 120 76"><path class="tree" d="M12 61L34 15L61 50M34 15L91 13L108 61"/><g><circle class="odd" cx="12" cy="61" r="5"/><circle class="odd" cx="34" cy="15" r="5"/><circle class="odd" cx="61" cy="50" r="5"/><circle cx="91" cy="13" r="4"/><circle class="odd" cx="108" cy="61" r="5"/></g></svg><strong>MST + odd set</strong><small>O = {v : degT(v) odd}</small></article>
+                  <i>→</i>
+                  <article><span>03</span><svg viewBox="0 0 120 76"><path class="tree" d="M12 61L34 15L61 50M34 15L91 13L108 61"/><path class="matching" d="M12 61Q33 72 61 50M34 15Q72 36 108 61"/><g><circle cx="12" cy="61" r="4"/><circle cx="34" cy="15" r="4"/><circle cx="61" cy="50" r="4"/><circle cx="91" cy="13" r="4"/><circle cx="108" cy="61" r="4"/></g></svg><strong>Perfect matching</strong><small>H = T ∪ M is Eulerian</small></article>
+                  <i>→</i>
+                  <article><span>04</span><svg viewBox="0 0 120 76"><path class="euler" d="M12 61L34 15L91 13L108 61L34 15L61 50L12 61"/><g><circle cx="12" cy="61" r="4"/><circle cx="34" cy="15" r="4"/><circle cx="61" cy="50" r="4"/><circle cx="91" cy="13" r="4"/><circle cx="108" cy="61" r="4"/></g></svg><strong>Eulerian circuit</strong><small>Hierholzer on H</small></article>
+                  <i>→</i>
+                  <article><span>05</span><svg viewBox="0 0 120 76"><path class="tour" d="M12 61L34 15L91 13L108 61L61 50Z"/><path class="shortcut" d="M108 61L61 50"/><g><circle cx="12" cy="61" r="4"/><circle cx="34" cy="15" r="4"/><circle cx="61" cy="50" r="4"/><circle cx="91" cy="13" r="4"/><circle cx="108" cy="61" r="4"/></g></svg><strong>Shortcut repeats</strong><small>triangle inequality ⇒ no increase</small></article>
+                </div>
+              </section>
+
+              <section class="tsp-lab">
+                <div class="case-section-label"><span>05</span><small>THE LABORATORY</small></div>
+                <div class="tsp-lab-intro">
+                  <h4>Three scales of understanding.</h4>
+                  <p>I built a web laboratory where the same theory can be inspected as a single execution, measured statistically and challenged on real road data.</p>
+                </div>
+                <div class="lab-modes">
+                  <article class="lab-mode microscopic"><small>MODE 01 · MICROSCOPIC</small><h5>Single Instance Study</h5><p>Generate 5–30 Euclidean checkpoints and play four algorithms frame by frame. Every MST edge, matching, Eulerian traversal and individual shortcut receives synchronized mathematical commentary.</p><div><span>Prev / Next</span><span>Auto-play</span><span>PNG snapshot</span></div></article>
+                  <article class="lab-mode statistical"><small>MODE 02 · STATISTICAL</small><h5>Empirical Simulator</h5><p>Run up to 350 independent trials, compute OPT exactly for n ≤ 20 and watch running means for wall-clock runtime and approximation ratio converge live.</p><div><span>Live charts</span><span>α = ℓ / OPT</span><span>CSV export</span></div></article>
+                  <article class="lab-mode geographic"><small>MODE 03 · GEOGRAPHIC</small><h5>Road-Network Study</h5><p>Place checkpoints on a real map, fetch directional OSRM distances and expose asymmetry, triangle violations and the “symmetrisation tax” between the model and the driven route.</p><div><span>Leaflet</span><span>OSRM</span><span>GPX + Maps</span></div></article>
+                </div>
+              </section>
+
+              <section class="tsp-architecture">
+                <div class="case-section-label"><span>06</span><small>ENGINEERING</small></div>
+                <div class="architecture-copy">
+                  <h4>Minimal moving parts, visible algorithmic state.</h4>
+                  <p>The backend is the single source of truth: it computes complete step descriptors containing nodes, edges, commentary and statistics. The browser remains presentational and can render the same state onto either a Canvas or a geographic map.</p>
+                </div>
+                <div class="architecture-diagram">
+                  <div class="arch-pages"><span>Single instance</span><span>Simulator</span><span>Road map</span></div>
+                  <i>JSON</i>
+                  <div class="arch-core"><small>FLASK BACKEND</small><strong>algorithms + step descriptors</strong><code>/generate · /run · /sim_round · /map_solve</code></div>
+                  <i>HTTP</i>
+                  <div class="arch-services"><span><b>NumPy</b>Held–Karp kernel</span><span><b>OSRM</b>distance + route</span></div>
+                </div>
+                <div class="architecture-facts">
+                  <article><strong>~200×</strong><span>Held–Karp speed-up at n = 20 after replacing interpreted loops with a vectorized broadcast-and-reduce kernel.</span></article>
+                  <article><strong>800 × 600</strong><span>Logical Canvas coordinate system, scaled for responsive and retina displays.</span></article>
+                  <article><strong>6 endpoints</strong><span>A compact API connecting generation, execution, simulation and real-map analysis.</span></article>
+                </div>
+              </section>
+
+              <section class="tsp-algorithms">
+                <div class="case-section-label"><span>07</span><small>ALGORITHMIC KERNELS</small></div>
+                <div class="algorithm-table">
+                  <article><span>01</span><strong>Nearest Neighbor</strong><p>Fast greedy baseline with no constant guarantee, useful for exposing the gap between simple heuristics and theory.</p></article>
+                  <article><span>02</span><strong>MST 2-Approximation</strong><p>Prim, edge doubling, Hierholzer and shortcutting, animated one construction at a time.</p></article>
+                  <article><span>03</span><strong>Christofides–Serdyukov</strong><p>MST plus odd-vertex matching. The implementation uses an explicit, auditable greedy matching and documents the resulting loss of the strict 3/2 guarantee.</p></article>
+                  <article><span>04</span><strong>Nearest Insertion</strong><p>An O(n²) incremental tour builder that selects the closest outside vertex and cheapest insertion point.</p></article>
+                  <article><span>05</span><strong>Held–Karp</strong><p>Exact O(n²2ⁿ) dynamic programming used as the OPT reference for every ratio up to n = 20.</p></article>
+                  <article><span>06</span><strong>Road diagnostics</strong><p>O(n³) triangle scans, asymmetric-pair detection, symmetrization and directional re-pricing.</p></article>
+                </div>
+              </section>
+
+              <section class="tsp-evidence">
+                <div class="case-section-label"><span>08</span><small>THEORY MEETS DATA</small></div>
+                <div class="evidence-copy">
+                  <h4>The 3/2 line is a boundary, not a prediction.</h4>
+                  <p>On random Euclidean instances, the empirical simulator consistently places Christofides far below its worst-case bound. The important engineering choice was to compare every heuristic against an exact Held–Karp optimum rather than against another approximation.</p>
+                </div>
+                <div class="ratio-chart" aria-label="Illustrative empirical approximation ratios">
+                  <div class="ratio-axis"><span>1.00 OPT</span><span>1.25</span><span>1.50 guarantee</span></div>
+                  <article><small>Christofides</small><i style="--ratio:18%"></i><strong>1.05–1.10</strong></article>
+                  <article><small>MST 2-Approx.</small><i style="--ratio:34%"></i><strong>1.10–1.18</strong></article>
+                  <article><small>Nearest Insertion</small><i style="--ratio:38%"></i><strong>≈ 1.10–1.18</strong></article>
+                  <article><small>Nearest Neighbor</small><i style="--ratio:54%"></i><strong>1.15–1.25</strong></article>
+                  <b class="guarantee-line"></b>
+                </div>
+              </section>
+
+              <section class="tsp-road">
+                <div class="case-section-label"><span>09</span><small>REAL ROADS</small></div>
+                <div class="road-map-visual" aria-label="Stylized asymmetric road network">
+                  <svg viewBox="0 0 520 280"><g class="road-lines"><path d="M30 220C95 190 110 95 185 78S300 130 360 72S448 72 492 32"/><path d="M28 62C120 86 126 188 220 208S370 186 495 230"/><path d="M86 20L122 255M250 18L278 260M410 20L390 262"/></g><path class="road-forward" d="M73 204C128 176 131 108 185 92S290 136 360 82"/><path class="road-reverse" d="M360 104C294 171 204 154 168 119S96 137 73 204"/><g class="road-points"><circle cx="73" cy="204" r="10"/><circle cx="185" cy="92" r="10"/><circle cx="360" cy="82" r="10"/><circle cx="421" cy="210" r="10"/></g></svg>
+                  <div><span class="forward-key">A → B</span><span class="reverse-key">B → A</span></div>
+                </div>
+                <div class="road-copy">
+                  <h4>The textbook assumptions break on a city map.</h4>
+                  <p>One-way streets and constrained turns make driving distances asymmetric. Some triples even violate triangle inequality. The application detects both phenomena, symmetrizes the matrix to run Christofides, then re-prices the resulting ordering in the actual travel direction.</p>
+                  <div class="sym-tax"><small>THE MOST INFORMATIVE OUTPUT</small><strong>symmetrisation tax</strong><span>directional cost − modelled cost</span></div>
+                </div>
+              </section>
+
+              <section class="tsp-limitations">
+                <div class="case-section-label"><span>10</span><small>CHOICES & LIMITS</small></div>
+                <div class="limitations-intro"><h4>Every simplification is made explicit.</h4><p>The laboratory is designed for understanding and experimentation, not disguised as a production route optimizer. Its boundaries are part of the result.</p></div>
+                <div class="limitations-grid">
+                  <article><span>01 / MATCHING</span><h5>Greedy, not blossom</h5><p>The implementation chooses an auditable greedy matching. It performs strongly empirically, but the strict Christofides 3/2 proof requires a true minimum-weight perfect matching.</p><small>FORMAL EFFECT · bound may rise to 2·OPT</small></article>
+                  <article><span>02 / EXACT REFERENCE</span><h5>OPT stops at n = 20</h5><p>Held–Karp gives an exact comparison point, but its O(n²2ⁿ) state space imposes a hard practical ceiling even after vectorization.</p><small>NEXT STEP · branch-and-bound or 1-tree relaxation</small></article>
+                  <article><span>03 / ROAD MODEL</span><h5>The map solves a projection</h5><p>Christofides optimizes a symmetric projection of the directional OSRM matrix. Re-pricing measures the tax, but does not turn the result into an ATSP guarantee.</p><small>HONEST OUTPUT · modelled cost vs driven cost</small></article>
+                  <article><span>04 / DATA</span><h5>Road estimates are a baseline</h5><p>Public OSRM reflects static OpenStreetMap attributes rather than live traffic, closures or time-dependent travel conditions.</p><small>PRODUCTION PATH · self-hosted or live routing service</small></article>
+                </div>
+              </section>
+
+              <section class="tsp-contribution">
+                <div class="case-section-label"><span>11</span><small>WHAT I BUILT</small></div>
+                <div>
+                  <h4>A single argument expressed as proof, software and experiment.</h4>
+                  <p>I developed the theoretical narrative and proofs, designed the visual language of the laboratory, implemented its algorithmic kernels and full-stack architecture, built the statistical and geographic modes, and documented both the mathematical ideas and the engineering trade-offs.</p>
+                </div>
+                <aside><span>Theoretical report</span><b>45 pages</b><span>Practical report</span><b>26 pages</b><span>Application modes</span><b>3</b></aside>
+              </section>
+
+              <aside class="tsp-documents">
+                <div><small>READ THE WORK</small><strong>The complete argument lives in two companion documents.</strong><p>The theoretical report develops both complexity case studies; the practical report is a detailed user guide and implementation record for the TSP laboratory.</p></div>
+                <div class="tsp-document-actions"><button class="open-tsp-theory">Open theoretical report ↗</button><button class="open-tsp-practical">Open practical report ↗</button><button class="open-tsp-lab">Launch interactive lab ↗</button><a href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">GitHub repository ↗</a></div>
+              </aside>
+            </section>
+
+            <section class="standalone-projects">
+              <article class="featured-project portfolio-project" role="button" tabindex="0" aria-label="Open This Website project">
+                <div class="portfolio-preview" aria-label="Miniature personal desktop interface">
+                  <div class="preview-menu"><b>MSD</b><span></span><i></i></div>
+                  <div class="preview-folders"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="preview-window"><small>MIHNEA / WELCOME</small><strong>Ideas, systems<br />& meaningful impact.</strong><i></i><i></i><i></i></div>
+                  <div class="preview-dock"><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="featured-project-copy">
+                  <small>07 / PERSONAL SOFTWARE</small>
+                  <h3>This Website</h3>
+                  <p>A portfolio designed as an explorable personal computer: folders, project windows, embedded documents and an AI guide turn a static profile into an interactive system.</p>
+                  <div><span>Product Design</span><span>Frontend</span><span>Information Architecture</span><span>Responsive UI</span></div>
+                  <button class="portfolio-case-link">Open project ↗</button>
+                </div>
+              </article>
+            </section>
+
+            <section class="portfolio-case-study" id="portfolio-case-study" hidden>
+              <header class="portfolio-case-hero">
+                <div class="portfolio-case-title">
+                  <small>07 / PERSONAL SOFTWARE · 2026</small>
+                  <h3>A portfolio<br />you can <em>explore.</em></h3>
+                  <p>Instead of arranging my work as a conventional sequence of pages, I built a small personal operating system: a place where visitors can browse ideas, open projects, read documents and ask for guidance.</p>
+                  <div class="portfolio-case-meta"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive design</span><span>AI interface</span></div>
+                </div>
+                <div class="portfolio-system-visual" aria-label="Interactive portfolio system diagram">
+                  <div class="hero-desktop-bar"><b>MSD</b><span>Portfolio OS</span><i></i></div>
+                  <div class="hero-folder-stack">
+                    <span><i></i><small>Research</small></span>
+                    <span><i></i><small>Engineering</small></span>
+                    <span><i></i><small>Journal</small></span>
+                  </div>
+                  <div class="hero-main-window">
+                    <div class="mini-window-bar"><i></i><i></i><i></i><span>Mihnea / Welcome</span></div>
+                    <small>START_HERE.MIHNEA</small>
+                    <strong>Ideas, systems<br />& <em>meaningful impact.</em></strong>
+                    <p>Computer science, education, markets and public life.</p>
+                    <button tabindex="-1">Enter my world ↗</button>
+                  </div>
+                  <div class="hero-solvy-window">
+                    <div><i></i><strong>Solvy</strong><span>BETA</span></div>
+                    <p>Where should we begin?</p>
+                    <small>research · projects · teaching</small>
+                  </div>
+                  <div class="hero-dock"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="hero-cursor">↖</div>
+                </div>
+              </header>
+
+              <section class="portfolio-intent">
+                <div class="case-section-label"><span>01</span><small>THE IDEA</small></div>
+                <div><h4>Make personality part of the interface.</h4><p>A traditional portfolio tells visitors where to scroll. This one lets them choose a path. The desktop metaphor makes a large and varied body of work feel familiar, while the visual language connects computer science with a more personal, human presentation.</p></div>
+                <blockquote>Not a résumé rendered online, but a small world with its own logic.</blockquote>
+              </section>
+
+              <section class="portfolio-architecture">
+                <div class="case-section-label"><span>02</span><small>EXPERIENCE ARCHITECTURE</small></div>
+                <div class="portfolio-flow">
+                  <article><span>01</span><strong>Enter</strong><p>A calm desktop introduces the person before the credentials.</p></article><i>→</i>
+                  <article><span>02</span><strong>Choose</strong><p>Folders divide the work by purpose rather than chronology.</p></article><i>→</i>
+                  <article><span>03</span><strong>Explore</strong><p>Dedicated windows hold detailed case studies and PDFs.</p></article><i>→</i>
+                  <article><span>04</span><strong>Ask</strong><p>Solvy offers a second, conversational path through the same information.</p></article>
+                </div>
+              </section>
+
+              <section class="portfolio-features">
+                <div class="case-section-label"><span>03</span><small>WHAT IT DOES</small></div>
+                <div class="portfolio-feature-grid">
+                  <article class="feature-windows"><div class="feature-icon"><i></i><i></i><i></i></div><span>WINDOW SYSTEM</span><h4>Projects stay in context.</h4><p>Case studies open like applications, preserving the desktop and making deep exploration feel lightweight.</p></article>
+                  <article class="feature-pdf"><div class="feature-icon"><b>PDF</b></div><span>LOCAL DOCUMENTS</span><h4>PDFs belong inside the site.</h4><p>Reports, statements and the CV use a reusable internal reader instead of repeatedly sending visitors elsewhere.</p></article>
+                  <article class="feature-library"><div class="feature-icon"><i></i><i></i><i></i></div><span>CONTENT LIBRARY</span><h4>Teaching can grow naturally.</h4><p>A file-explorer model supports nested folders and new public resources without redesigning the page.</p></article>
+                  <article class="feature-mobile"><div class="feature-icon"><b></b><i></i></div><span>RESPONSIVE SYSTEM</span><h4>The metaphor survives mobile.</h4><p>Windows become full-screen workspaces, navigation simplifies and typography scales without losing the visual identity.</p></article>
+                </div>
+              </section>
+
+              <section class="portfolio-solvy">
+                <div class="case-section-label"><span>04</span><small>AI-NATIVE NAVIGATION</small></div>
+                <div><small>SOLVY / BETA</small><h4>Some visitors know what they want.<br />Others only know what they are curious about.</h4><p>Solvy is designed as a guide rather than decoration. It maps natural questions to the relevant part of the portfolio, creating an alternative to menus and folders. The current deterministic version establishes the interaction model; a richer retrieval-based assistant can later answer from the site's complete content.</p></div>
+                <div class="solvy-dialogue"><p><span>VISITOR</span>What kind of research does Mihnea do?</p><p><span>SOLVY</span>Let me open the work on private learning and algorithms.</p><i></i></div>
+              </section>
+
+              <section class="portfolio-principles">
+                <div class="case-section-label"><span>05</span><small>DESIGN PRINCIPLES</small></div>
+                <article><b>01</b><h4>Clear before clever</h4><p>The desktop should make the portfolio easier to navigate, never turn it into a puzzle.</p></article>
+                <article><b>02</b><h4>Depth on demand</h4><p>Short project summaries lead to detailed technical stories only when the visitor asks for them.</p></article>
+                <article><b>03</b><h4>Honest incompleteness</h4><p>Ongoing research, future work and unfinished sections are labelled rather than overstated.</p></article>
+              </section>
+
+              <footer class="portfolio-status">
+                <div><small>STATUS</small><strong>Living system, actively evolving.</strong><p>The website grows alongside the work it documents. New projects, journal entries and interactive tools can become native parts of the same interface.</p></div>
+                <button class="close-portfolio-from-page">Return to Engineering</button>
+              </footer>
+            </section>
+
+            <footer class="engineering-note">
+              <span>WORK IN PROGRESS</span>
+              <p>Detailed case studies, technical decisions and visual demos will be added as the projects are documented.</p>
+            </footer>
+          </article>
+
+          <article class="panel" id="panel-teaching">
+            <header class="panel-heading compact teaching-heading">
+              <span>TEACHING/MATERIALS</span>
+              <h2>Resources built<br />to make ideas <em>click.</em></h2>
+              <p>Course material, exercise notes and resources from my teaching at ETH Zürich.</p>
+            </header>
+            <section class="teaching-explorer" aria-label="Teaching materials file explorer">
+              <div class="explorer-toolbar">
+                <button class="explorer-back" id="teaching-back" aria-label="Go back" disabled>←</button>
+                <nav class="explorer-breadcrumb" id="teaching-breadcrumb" aria-label="Current folder"></nav>
+                <span id="teaching-count">0 items</span>
+              </div>
+              <aside class="course-building" id="and-building" hidden>
+                <div class="building-status"><i></i>In preparation · Autumn 2026</div>
+                <div>
+                  <small>ALGORITHMS & DATA STRUCTURES</small>
+                  <h3>Building something better<br />for the new semester.</h3>
+                </div>
+                <p>I will return as a Teaching Assistant for Algorithms and Data Structures in September 2026. This folder is currently being prepared with clearer explanations, carefully selected exercises and higher-quality resources designed to make the course easier to navigate and understand.</p>
+              </aside>
+              <div class="explorer-grid" id="teaching-grid"></div>
+              <div class="explorer-empty" id="teaching-empty" hidden>
+                <span class="empty-folder"></span>
+                <strong>This folder is ready.</strong>
+                <p>Add documents or subfolders and update the library to display them here.</p>
+              </div>
+            </section>
+            <footer class="teaching-note">
+              <span>LIBRARY</span>
+              <p>Select a course to browse its public materials. More resources will be added over time.</p>
+            </footer>
+          </article>
+
+          <article class="panel" id="panel-community">
+            <header class="community-hero">
+              <span>COMMUNITY/CIVIC LIFE</span>
+              <h2>Pay attention.<br />Understand deeply.<br /><em>Act with care.</em></h2>
+              <div class="community-intro">
+                <p>I believe understanding the world around us is part of our responsibility toward it. Staying informed, questioning easy answers and helping where we can are small but meaningful ways of contributing to a healthier society.</p>
+                <p>This is not about having an opinion on everything. It is about remaining curious, resisting indifference and trying to leave the systems and communities around us a little better than we found them.</p>
+              </div>
+            </header>
+
+            <section class="causes-section">
+              <div class="community-section-heading">
+                <span>01 / CAUSES</span>
+                <h3>Things I believe are worth caring about</h3>
+              </div>
+              <div class="causes-grid">
+                <article><b>01</b><h4>Education & Opportunity</h4><p>High-quality education should not depend on where someone is born or the resources of their family.</p></article>
+                <article><b>02</b><h4>Children's Rights</h4><p>Every child deserves safety, dignity, healthcare and the freedom to develop their potential.</p></article>
+                <article><b>03</b><h4>Responsible Technology</h4><p>Algorithms should serve people fairly, transparently and with attention to their social consequences.</p></article>
+                <article><b>04</b><h4>Civic Participation</h4><p>Healthy institutions depend on informed people who participate constructively and hold power accountable.</p></article>
+                <article><b>05</b><h4>Economic Dignity</h4><p>Markets are powerful tools, but prosperity should create genuine opportunity and protect human dignity.</p></article>
+                <article><b>06</b><h4>Future Generations</h4><p>Our decisions should account for the people who will inherit their environmental and institutional effects.</p></article>
+              </div>
+            </section>
+
+            <section class="informed-section">
+              <div class="informed-copy">
+                <small>02 / INFORMATION</small>
+                <h3>How I try to stay informed</h3>
+                <p>Being informed is less about consuming more content and more about developing better habits of attention.</p>
+              </div>
+              <ol class="informed-list">
+                <li><span>01</span><p>Read beyond headlines and look for the original evidence.</p></li>
+                <li><span>02</span><p>Compare serious sources with different perspectives.</p></li>
+                <li><span>03</span><p>Distinguish reporting, analysis and opinion.</p></li>
+                <li><span>04</span><p>Choose long-form work over a permanently reactive feed.</p></li>
+                <li><span>05</span><p>Remain willing to update a belief when the facts change.</p></li>
+              </ol>
+            </section>
+
+            <section class="reading-section">
+              <div class="community-section-heading">
+                <span>03 / READING THE WORLD</span>
+                <h3>A small, evolving bookshelf</h3>
+              </div>
+              <div class="reading-grid">
+                <article class="book-tech"><small>Algorithmic ethics</small><h4>The Ethical Algorithm</h4><p>Michael Kearns & Aaron Roth</p><span>Fairness, privacy and socially aware algorithm design.</span></article>
+                <article class="book-tech"><small>Search & society</small><h4>Algorithms of Oppression</h4><p>Safiya Umoja Noble</p><span>How search engines can reproduce and amplify social bias.</span></article>
+                <article class="book-markets"><small>Markets & morality</small><h4>What Money Can't Buy</h4><p>Michael J. Sandel</p><span>Where markets belong, and where they may crowd out important values.</span></article>
+                <article class="book-society"><small>Justice</small><h4>Justice</h4><p>Michael J. Sandel</p><span>An accessible journey through competing ideas of a just society.</span></article>
+                <article class="book-society"><small>Institutions</small><h4>Why Nations Fail</h4><p>Daron Acemoglu & James A. Robinson</p><span>How political and economic institutions shape prosperity.</span></article>
+                <article class="book-tech"><small>AI & society</small><h4>The Alignment Problem</h4><p>Brian Christian</p><span>The human values hidden inside machine-learning systems.</span></article>
+                <article class="book-education"><small>Education</small><h4>The Smartest Kids in the World</h4><p>Amanda Ripley</p><span>What different education systems can teach us about learning.</span></article>
+                <article class="book-evidence"><small>Evidence</small><h4>Factfulness</h4><p>Hans Rosling</p><span>Better instincts for interpreting global trends and statistics.</span></article>
+              </div>
+            </section>
+
+            <section class="organisations-section">
+              <div class="community-section-heading">
+                <span>04 / ORGANISATIONS</span>
+                <h3>Work worth discovering</h3>
+              </div>
+              <p class="organisations-intro">Organizations whose work I follow and encourage others to explore. Inclusion here is an invitation to learn more, not an affiliation or endorsement of every position.</p>
+              <div class="organisation-group global-organisations">
+                <div class="organisation-region"><span>GLOBAL</span><p>Large international organizations working across borders.</p></div>
+                <div class="organisations-grid">
+                  <a href="https://www.unicef.org/" target="_blank" rel="noopener"><span>UN</span><div><small>Children</small><h4>UNICEF</h4><p>Protecting children's rights, health, education and development worldwide.</p></div><b>↗</b></a>
+                  <a href="https://www.savethechildren.net/" target="_blank" rel="noopener"><span>SC</span><div><small>Children</small><h4>Save the Children</h4><p>Supporting children's education, protection and wellbeing around the world.</p></div><b>↗</b></a>
+                  <a href="https://www.khanacademy.org/" target="_blank" rel="noopener"><span>KA</span><div><small>Open education</small><h4>Khan Academy</h4><p>Making high-quality learning resources freely available to anyone.</p></div><b>↗</b></a>
+                  <a href="https://www.icrc.org/" target="_blank" rel="noopener"><span>ICRC</span><div><small>Humanitarian action</small><h4>International Committee of the Red Cross</h4><p>Protecting life, dignity and access to humanitarian assistance worldwide.</p></div><b>↗</b></a>
+                </div>
+              </div>
+
+              <div class="organisation-group">
+                <div class="organisation-region"><span>SWITZERLAND</span><p>Work supporting young people and responsible technology in the community where I live.</p></div>
+                <div class="organisations-grid">
+                  <a href="https://www.projuventute.ch/" target="_blank" rel="noopener"><span>PJ</span><div><small>Children & youth</small><h4>Pro Juventute</h4><p>Supporting children, young people and families across Switzerland.</p></div><b>↗</b></a>
+                  <a href="https://algorithmwatch.ch/de/" target="_blank" rel="noopener"><span>AW</span><div><small>Responsible technology</small><h4>AlgorithmWatch CH</h4><p>Examining algorithmic systems and promoting transparent, accountable technology.</p></div><b>↗</b></a>
+                </div>
+              </div>
+
+              <div class="organisation-group">
+                <div class="organisation-region"><span>ROMANIA</span><p>Civil-society initiatives addressing education, children and public infrastructure.</p></div>
+                <div class="organisations-grid">
+                  <a href="https://www.salvaticopiii.ro/homepage" target="_blank" rel="noopener"><span>SC</span><div><small>Children</small><h4>Salvați Copiii</h4><p>Education, protection and healthcare for vulnerable children.</p></div><b>↗</b></a>
+                  <a href="https://teachforromania.org/" target="_blank" rel="noopener"><span>TF</span><div><small>Education</small><h4>Teach for Romania</h4><p>Reducing educational inequity through teachers and leadership.</p></div><b>↗</b></a>
+                </div>
+              </div>
+
+              <div class="organisation-group">
+                <div class="organisation-region"><span>UNITED STATES</span><p>Organizations using education and technology to widen opportunity.</p></div>
+                <div class="organisations-grid">
+                  <a href="https://www.donorschoose.org/" target="_blank" rel="noopener"><span>DC</span><div><small>Public education</small><h4>DonorsChoose</h4><p>Helping public-school teachers fund resources for their classrooms.</p></div><b>↗</b></a>
+                  <a href="https://code.org/" target="_blank" rel="noopener"><span>CO</span><div><small>Computer science education</small><h4>Code.org</h4><p>Expanding access to computer science education in schools.</p></div><b>↗</b></a>
+                </div>
+              </div>
+            </section>
+          </article>
+
+          <article class="panel" id="panel-notes">
+            <div class="journal-desk">
+              <aside class="journal-margin">
+                <span>MSD / JOURNAL</span>
+                <b>Vol. 00</b>
+                <p>Notes from between disciplines.</p>
+                <i></i>
+              </aside>
+
+              <main class="journal-sheet">
+                <header>
+                  <small>THINKING OUT LOUD · ZÜRICH</small>
+                  <h2>Ideas are clearer<br />once they are <em>written.</em></h2>
+                  <p>A quiet place for unfinished questions, lessons from practice and longer reflections across computer science, education, markets and public life.</p>
+                </header>
+
+                <div class="journal-rule"><span>WHAT MAY APPEAR HERE</span><i></i></div>
+
+                <section class="journal-columns" aria-label="Journal categories">
+                  <article><span>I.</span><h3>Ideas</h3><p>Technical questions and concepts I want to understand more deeply.</p></article>
+                  <article><span>II.</span><h3>Field Notes</h3><p>Lessons gathered while researching, teaching and building things.</p></article>
+                  <article><span>III.</span><h3>Reflections</h3><p>Longer thoughts on education, technology, markets and society.</p></article>
+                </section>
+
+                <footer class="journal-draft">
+                  <div class="draft-cursor"><i></i></div>
+                  <div><small>FIRST ENTRY · IN PROGRESS</small><strong>Nothing published yet.</strong></div>
+                  <p>I am giving the first pieces time to become worth reading.</p>
+                </footer>
+              </main>
+
+              <aside class="journal-scraps" aria-label="Journal intentions">
+                <div class="scrap question"><small>QUESTION</small><p>What is worth explaining?</p></div>
+                <div class="scrap method"><small>METHOD</small><p>Notice.<br />Connect.<br />Rewrite.</p></div>
+                <div class="scrap status"><i></i><span>Drafting slowly</span></div>
+              </aside>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="app-window project-window" id="football-window" aria-label="Parallel Football project">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-football" aria-label="Close Parallel Football"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>Parallel Football</strong></div>
+          <a class="project-github" href="https://github.com/MihneaStefanDAVID/PPS_football" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="project-window-body" id="football-window-body"></div>
+      </section>
+
+      <section class="app-window project-window mosquito-window" id="mosquito-window" aria-label="Mosquito project">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-mosquito" aria-label="Close Mosquito project"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>Mosquito</strong></div>
+          <a class="project-github" href="https://github.com/MihneaStefanDAVID/PPS_mosquito" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="project-window-body" id="mosquito-window-body"></div>
+      </section>
+
+      <section class="app-window project-window organisms-window" id="organisms-window" aria-label="Organisms project">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-organisms" aria-label="Close Organisms"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>Organisms</strong></div>
+          <a class="project-github" href="https://github.com/MihneaStefanDAVID/PPS_organisms" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="project-window-body" id="organisms-window-body"></div>
+      </section>
+
+      <section class="app-window project-window spy-window" id="spy-window" aria-label="Soldier, Soldier, Soldier, Spy project">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-spy" aria-label="Close Spy project"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>Soldier, Soldier, Soldier, Spy</strong></div>
+          <a class="project-github" href="https://github.com/MihneaStefanDAVID/PPS_spy" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="project-window-body" id="spy-window-body"></div>
+      </section>
+
+      <section class="app-window project-window tsp-window" id="tsp-window" aria-label="Can We Cheat NP-Hardness project">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-tsp" aria-label="Close Can We Cheat NP-Hardness"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>Can We Cheat NP-Hardness?</strong></div>
+          <a class="project-github" href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="project-window-body" id="tsp-window-body"></div>
+      </section>
+
+      <section class="app-window project-window portfolio-window" id="portfolio-window" aria-label="This Website project">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-portfolio" aria-label="Close This Website project"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>This Website</strong></div>
+          <span class="project-status">LIVE SYSTEM</span>
+        </div>
+        <div class="project-window-body" id="portfolio-window-body"></div>
+      </section>
+
+      <section class="app-window project-window local-window" id="local-window" aria-label="Local project">
+        <div class="window-titlebar local-titlebar">
+          <div class="traffic"><button class="close-local" aria-label="Close Local project"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>Local</strong></div>
+          <span class="local-window-status"><i></i> ANDROID · V0.1.0</span>
+        </div>
+        <div class="project-window-body" id="local-window-body"></div>
+      </section>
+
+      <section class="app-window tsp-lab-window" id="tsp-lab-window" aria-label="TSP interactive laboratory">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-tsp-lab" aria-label="Close TSP interactive laboratory"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><span>Engineering</span><b>/</b><strong>TSP Interactive Laboratory</strong></div>
+          <a class="project-github" href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="tsp-lab-frame" id="tsp-lab-frame">
+          <div class="tsp-deploy-pending">
+            <span>INTERACTIVE LAB / DEPLOYMENT</span>
+            <h2>The window is ready.<br /><em>The backend needs a home.</em></h2>
+            <p>The visualizer runs on Flask and NumPy, so it must be deployed as a small web service before it can live inside this window. Once deployed, this page will load the complete application here without sending visitors outside the portfolio.</p>
+            <div><b>Recommended</b><strong>Render or Railway</strong><small>Flask service → embedded securely in this desktop window</small></div>
+            <a href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">View the application source ↗</a>
+          </div>
+          <iframe id="tsp-lab-iframe" title="TSP interactive laboratory" hidden></iframe>
+        </div>
+      </section>
+
+      <aside class="app-window ai-window" id="ai-window">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-ai" aria-label="Close AI"></button><span></span><span></span></div>
+          <div class="ai-name"><i></i><strong>Solvy</strong></div><span class="beta">BETA</span>
+        </div>
+        <div class="chat" id="chat">
+          <div class="message ai"><small>SOLVY</small><p>Hey, I'm a guide to Mihnea's world. Ask about his research, engineering, teaching, community work, or journal.</p></div>
+          <div class="suggestions"><button>What is Mihnea researching?</button><button>Tell me about his engineering</button><button>How is he involved in education?</button></div>
+        </div>
+        <form id="chat-form"><input id="chat-field" placeholder="Ask anything about Mihnea..." autocomplete="off" /><button>↑</button></form>
+      </aside>
+
+      <section class="app-window pdf-window" id="pdf-window" aria-label="PDF viewer">
+        <div class="window-titlebar">
+          <div class="traffic"><button class="close-pdf" aria-label="Close PDF"></button><span></span><span></span></div>
+          <div class="window-title"><span>Mihnea</span><b>/</b><strong id="pdf-title">CV.pdf</strong></div>
+          <a class="pdf-download" id="pdf-download" href="documents/CV_David_Mihnea_Stefan.pdf" download>Download ↓</a>
+        </div>
+        <div class="pdf-viewer">
+          <object id="pdf-object" data="documents/CV_David_Mihnea_Stefan.pdf#view=FitH" type="application/pdf">
+            <p>Your browser cannot display this PDF here.</p>
+          </object>
+        </div>
+      </section>
+    </main>
+
+    <footer class="dock-wrap">
+      <div class="dock">
+        <button data-open="welcome" aria-label="Home"><span class="dock-logo">MSD</span><small>Home</small></button>
+        <button data-open="about" aria-label="About"><span class="mini-folder"></span><small>About</small></button>
+        <button data-open="research" aria-label="Research"><span class="mini-folder violet"></span><small>Research</small></button>
+        <button data-open="engineering" aria-label="Engineering"><span class="mini-folder green"></span><small>Engineering</small></button>
+        <button data-open="teaching" aria-label="Teaching"><span class="mini-folder blue"></span><small>Teaching</small></button>
+        <button data-open="notes" aria-label="Journal"><span class="mini-folder yellow"></span><small>Journal</small></button>
+        <button class="open-ai" aria-label="Solvy"><span class="ai-app">✦</span><small>Solvy</small></button>
+      </div>
+    </footer>
+  </body>
+</html>
