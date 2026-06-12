@@ -34,6 +34,7 @@ Your personality: warm, sharp, a little playful. You are genuinely proud to show
 You do NOT have internet access. The only live data you can fetch: current weather (get_weather), current date/time (given below, plus get_time for other timezones). For news, prices or live events, say you can't browse.
 
 FORMAT: plain text only — the chat window does not render markdown. Never use **, ##, backticks or [links](...). Short dashes for lists are fine. Keep answers to 1-4 sentences unless real depth is needed (a math derivation can be longer).
+ROMANIAN: use correct diacritics (ă, â, î, ș, ț) — the letter ç does not exist in Romanian. If unsure, keep Romanian sentences short and simple.
 
 == MIHNEA — THE SHORT VERSION ==
 Mihnea-Stefan David, born in Bucharest, Romania, is a Computer Science student at ETH Zürich (BSc 2023-2027), recently an exchange scholar at the University of Pennsylvania, and an incoming Software Engineer Intern at IMC Trading in Amsterdam (summer 2026). He moves between computer science, education, markets and public life, guided by curiosity and the belief that difficult systems can be understood and improved. Languages: Romanian (native), English (C1), German (C1, DSD II).
@@ -94,7 +95,9 @@ The visitor is reading the site while you talk — changing their screen uninvit
 - OPEN something directly (open_section / open_project / open_document / open_teaching_file / open_external) ONLY when the visitor explicitly asks to see or open it: "show me", "open", "arată-mi", "deschide", "can I see", "take me to", "zeig mir".
 - For informational questions ("what does he research?", "does he teach?"), ANSWER in the chat without navigating. If a section, project or document would genuinely enrich the answer, ALSO call propose_navigation with a short question in the visitor's language — it appears as a separate bubble with Yes/No buttons, and the page changes only if they accept. Keep your text reply purely informational; the offer lives in that second bubble. If you call a direct open_* tool without an explicit request, the system converts it into such an offer automatically — never claim something is open unless the visitor explicitly asked for it.
 - At most ONE propose_navigation per reply, and never propose what is already open (your current-view info is below).
-- Answer-only turns are completely fine. Math, chat, weather, general knowledge: no navigation, no proposal.
+- MOST replies need NO tool call and NO proposal at all. Small talk, jokes, math, weather, general knowledge, thanks/goodbyes: just answer — never attach an offer to open something. Propose only when the visitor's CURRENT question is genuinely about content that lives on this site.
+- Never end your text with an offer-question like "Want me to open X?" — offers appear automatically as buttons when you call propose_navigation. Your text should stand on its own.
+- If the visitor replies with just "da"/"yes" to an offer you made, call the corresponding tool directly.
 - Never call close_windows unless the visitor explicitly asks to close things or go back.
 - compose_email and open_external (mail client, GitHub, LinkedIn, Instagram, the live lab, the APK) are ALWAYS turned into a Yes/No offer, even when asked explicitly — so phrase those as offers too. Information tools (weather, time, calculate, Wikipedia, currency, units) run instantly and need no approval.
 
@@ -224,7 +227,7 @@ const TOOLS = [
   {
     name: "compose_email",
     description:
-      "Open the visitor's email client with a draft addressed to Mihnea. Use when they want to contact him and you can draft it.",
+      "Open the visitor's email client with a draft addressed to Mihnea. ONLY when the visitor explicitly says they want to contact, write to or email Mihnea — NEVER offer this unprompted or during small talk.",
     parameters: {
       type: "object",
       properties: {
@@ -738,28 +741,85 @@ const DIRECT_NAV_TOOLS = new Set([
   "open_section", "open_project", "open_document", "open_external", "open_teaching_file",
 ]);
 
-function enforceProposals(userMessage, actions) {
-  const explicit = NAV_VERB.test(userMessage);
-  const lang = detectLanguage(userMessage);
+/* A bare "yes" typed in reply to a pending offer counts as explicit consent. */
+const ACCEPTANCE = /^\s*(da|yes|yep|yeah|sure|ok|okay|sigur|desigur|ja|go ahead|f[ăa]-o|deschide(-o)?|open( it)?)\s*[!.?]*\s*$/i;
+
+/* A proposal is only shown if the visitor's recent messages actually touch its
+ * topic — otherwise it is dropped entirely. This is what stops "Want me to
+ * open an email draft?" after a knock-knock joke. */
+const RELEVANCE = {
+  section: {
+    welcome: /contact|email|mail|reach|leg[ăa]tur|scri|mesaj/i,
+    about: /\babout\b|despre|who is|cine (e|este)|story|poveste|background|bio|interes|himself/i,
+    research: /research|cercet|privacy|pac\b|thesis|tez[ăa]|theory|teoretic|markov|differential/i,
+    engineering: /project|proiect|engineer|inginer|build|software|\bapp\b|aplica|cod(e|ing)?\b/i,
+    teaching: /teach|preda|material|curs|resurs|assistant|asistent|exerci|tutor|\bta\b/i,
+    community: /communit|comunit|civic|cauz|volunt|organiza|c[ăa]r[țt]i|book|read|lectur/i,
+    journal: /journal|jurnal|blog|writ|articol|essay|eseu|reflect/i,
+  },
+  project: /project|proiect|local\b|messenger|football|fotbal|organism|spy|mosquito|[țt][âa]n[țt]ar|tsp|np-?hard|laborator|\blab\b|app\b|aplica|android/i,
+  document: /\bcv\b|resume|curriculum|report|raport|statement|document|pdf|cite[șs]te|read/i,
+  external: /github|linkedin|instagram|social|apk|download|descarc|\blab\b|repo|profil/i,
+  email: /e-?mail|contact|scri|mesaj|message|colabor|collab|reach|get in touch|întreb|intreb/i,
+  teaching_file: /teach|preda|material|curs|week|s[ăa]pt[ăa]m[âa]n|exerci|pdf|file|fi[șs]ier|anp\b|and\b|intro/i,
+};
+
+function proposalIsRelevant(args, recentText) {
+  const tool = String(args.tool || "");
+  if (tool === "compose_email") return RELEVANCE.email.test(recentText);
+  if (tool === "open_external") return RELEVANCE.external.test(recentText) || RELEVANCE.email.test(recentText);
+  if (tool === "open_section") return (RELEVANCE.section[args.target] || /a^/).test(recentText);
+  if (tool === "open_project") return RELEVANCE.project.test(recentText);
+  if (tool === "open_document") return RELEVANCE.document.test(recentText) || RELEVANCE.project.test(recentText);
+  if (tool === "open_teaching_file") return RELEVANCE.teaching_file.test(recentText);
+  return false;
+}
+
+/* The pill text always comes from our templates — small models write broken
+ * Romanian ("mulçumesc", "să âi deschid"), so their wording never reaches the UI. */
+function canonicalizeProposal(proposal, lang) {
+  const strings = PROPOSAL_STRINGS[lang] || PROPOSAL_STRINGS.en;
+  const args = proposal.args || {};
+  if (args.tool === "compose_email") {
+    args.question = strings.email;
+  } else {
+    let name = args.name;
+    if (args.tool === "open_teaching_file") name = name || String(args.target || "").split("/").pop();
+    name = name || TARGET_NAMES[args.tool]?.[args.target] || String(args.target || "");
+    args.question = strings.question(name);
+  }
+  args.yes_label = strings.yes;
+  args.no_label = strings.no;
+  return proposal;
+}
+
+function enforceProposals(userMessage, recentUserText, actions) {
+  const accepted = ACCEPTANCE.test(userMessage); // typed "da"/"yes" to a pending offer
+  const explicit = accepted || NAV_VERB.test(userMessage);
+  const lang = detectLanguage(recentUserText);
   const result = [];
-  let hasProposal = actions.some((a) => a.tool === "propose_navigation");
+  let hasProposal = false;
+
+  const pushProposal = (proposal) => {
+    if (hasProposal || !proposal) return;
+    if (!proposalIsRelevant(proposal.args || {}, recentUserText)) return; // off-topic → no pill
+    result.push(canonicalizeProposal(proposal, lang));
+    hasProposal = true;
+  };
+
   for (const action of actions) {
     if (action.tool === "propose_navigation") {
-      result.push(action);
-    } else if (ALWAYS_CONFIRM_TOOLS.has(action.tool)) {
-      // Mail client and external tabs always go through Yes/No.
-      if (!hasProposal) {
-        const proposal = directActionToProposal(action, lang);
-        if (proposal) { result.push(proposal); hasProposal = true; }
-      }
+      pushProposal(action);
+    } else if (action.tool === "compose_email") {
+      // Typed consent is enough for a mailto; otherwise always offer first.
+      if (accepted) result.push(action);
+      else pushProposal(directActionToProposal(action, lang));
+    } else if (action.tool === "open_external") {
+      // New tabs must come from a button click (popup blockers) — always offer.
+      pushProposal(directActionToProposal(action, lang));
     } else if (DIRECT_NAV_TOOLS.has(action.tool)) {
-      if (explicit) {
-        result.push(action); // the visitor asked for it by name
-      } else if (!hasProposal) {
-        const proposal = directActionToProposal(action, lang);
-        if (proposal) { result.push(proposal); hasProposal = true; }
-      }
-      // extra unsolicited navigations are dropped — never open uninvited
+      if (explicit) result.push(action); // the visitor asked for it by name
+      else pushProposal(directActionToProposal(action, lang));
     } else if (action.tool === "close_windows") {
       if (explicit) result.push(action); // only when asked to close/go back
     } else {
@@ -1077,7 +1137,12 @@ async function handleSolvy(request, env, waitUntil) {
     }
 
     navigationSafetyNet(lastUserMessage, actions);
-    const finalActions = enforceProposals(lastUserMessage, actions);
+    const recentUserText = history
+      .filter((m) => m.role === "user")
+      .slice(-2)
+      .map((m) => m.content)
+      .join(" ");
+    const finalActions = enforceProposals(lastUserMessage, recentUserText, actions);
     const meta = { v: 2, actions: finalActions };
 
     if (needFinalPass) {
