@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="The personal website of Mihnea-Stefan David." />
-    <title>Mihnea-Stefan David</title>
+    <title>Mihnea-Stefan Daviddd</title>
     <link rel="icon" href="assets/msd-favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260611-portfolio8" />
+    <link rel="stylesheet" href="styles.css?v=20260612-lab5" />
     <script src="teaching-library.js" defer></script>
-    <script src="script.js?v=20260611-portfolio7" defer></script>
+    <script src="script.js?v=20260612-lab5" defer></script>
   </head>
   <body>
     <header class="menu-bar">
@@ -2082,12 +2082,24 @@
           <a class="project-github" href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
         <div class="tsp-lab-frame" id="tsp-lab-frame">
-          <div class="tsp-deploy-pending">
-            <span>INTERACTIVE LAB / DEPLOYMENT</span>
-            <h2>The window is ready.<br /><em>The backend needs a home.</em></h2>
-            <p>The visualizer runs on Flask and NumPy, so it must be deployed as a small web service before it can live inside this window. Once deployed, this page will load the complete application here without sending visitors outside the portfolio.</p>
-            <div><b>Recommended</b><strong>Render or Railway</strong><small>Flask service → embedded securely in this desktop window</small></div>
-            <a href="https://github.com/MihneaStefanDAVID/TSP_visualisation" target="_blank" rel="noopener">View the application source ↗</a>
+          <div class="tsp-lab-loader" id="tsp-lab-loader">
+            <div class="lab-route" aria-hidden="true">
+              <svg viewBox="0 0 520 310">
+                <path class="lab-route-shadow" d="M55 220 L130 72 L245 142 L350 55 L462 118 L420 258 L278 235 L155 274 Z" />
+                <path class="lab-route-progress" d="M55 220 L130 72 L245 142 L350 55 L462 118 L420 258 L278 235 L155 274 Z" />
+              </svg>
+              <i style="--x:10%;--y:69%"></i><i style="--x:25%;--y:20%"></i>
+              <i style="--x:47%;--y:43%"></i><i style="--x:67%;--y:15%"></i>
+              <i style="--x:89%;--y:35%"></i><i style="--x:81%;--y:81%"></i>
+              <i style="--x:53%;--y:74%"></i><i style="--x:30%;--y:87%"></i>
+            </div>
+            <div class="lab-loader-copy">
+              <span id="tsp-lab-kicker">INTERACTIVE LAB / STARTING SERVER</span>
+              <h2 id="tsp-lab-heading">Waking up the<br /><em>algorithm laboratory.</em></h2>
+              <p id="tsp-lab-status">The lab runs on a free research server. If it has been resting, startup can take up to one minute.</p>
+              <div class="lab-startup-status"><i></i><strong id="tsp-lab-status-label">Connecting to the laboratory server</strong><small>Flask · NumPy · Render</small></div>
+              <button id="tsp-lab-retry" type="button" hidden>Try again ↗</button>
+            </div>
           </div>
           <iframe id="tsp-lab-iframe" title="TSP interactive laboratory" hidden></iframe>
         </div>
