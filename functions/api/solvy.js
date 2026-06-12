@@ -12,11 +12,17 @@
  * The same file also works as a standalone Worker (see `export default`).
  */
 
-// Tried in order — if the first model is unavailable the next one takes over.
+// Tried in order — if a model is unavailable or too slow, the next one takes over.
+// Kimi K2.6 was tried here and is noticeably smarter, but its reasoning pass is
+// far too slow on Workers AI for a chat widget; the fast Llama models keep
+// replies in the seconds range.
 const MODELS = [
-  "@cf/moonshotai/kimi-k2.6",
   "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/meta/llama-4-scout-17b-16e-instruct",
 ];
+
+// Hard cap per model call — beyond this we fail over / give up instead of hanging.
+const AI_CALL_TIMEOUT_MS = 30_000;
 
 const SYSTEM_PROMPT = `You are Solvy, the AI assistant living inside mihdavid.com — the personal website of Mihnea-Stefan David, designed to look like a desktop operating system: folders on a desktop open windows, and you can drive that interface for the visitor with your tools.
 
@@ -701,16 +707,24 @@ function buildSystemPrompt(teachingContext, currentView) {
   return prompt;
 }
 
-/* Try each model in order until one accepts the request. */
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error("AI call timed out")), ms)),
+  ]);
+}
+
+/* Try each model in order until one accepts the request (errors AND timeouts fail over). */
 async function runAI(env, payload, state) {
   let lastError;
   for (let i = state.modelIndex; i < MODELS.length; i++) {
     try {
-      const result = await env.AI.run(MODELS[i], payload);
+      const result = await withTimeout(env.AI.run(MODELS[i], payload), AI_CALL_TIMEOUT_MS);
       state.modelIndex = i;
       return result;
     } catch (error) {
       lastError = error;
+      state.modelIndex = i + 1; // don't retry a slow/broken model within this request
     }
   }
   throw lastError;
@@ -819,15 +833,22 @@ async function handleSolvy(request, env, waitUntil) {
   try {
     let response = await runAI(env, { messages, tools: TOOLS, max_tokens: 600 }, state);
     let toolCalls = normalizeToolCalls(response);
-
-    // Tool loop: execute, feed results back, allow follow-up tool calls.
+    let needFinalPass = false;
     let rounds = 0;
-    while (toolCalls.length && rounds < 3) {
+
+    // Tool loop, tuned for latency: UI-only tool rounds (navigation, proposals,
+    // follow-ups) end the loop immediately — the text that came with the calls
+    // is the reply. Only server tools (weather, wiki, math...) require the
+    // model to see results, and we allow at most 2 such rounds.
+    while (toolCalls.length && rounds < 2) {
       rounds++;
       messages.push({ role: "assistant", content: response.response || "" });
+      let usedServerTool = false;
+
       for (const call of toolCalls) {
         let result;
         if (SERVER_TOOLS.has(call.name)) {
+          usedServerTool = true;
           result = await runServerTool(call.name, call.args);
         } else if (call.name === "propose_navigation") {
           actions.push({ tool: call.name, args: call.args });
@@ -846,16 +867,26 @@ async function handleSolvy(request, env, waitUntil) {
         });
       }
 
-      if (rounds >= 3) break;
-      response = await runAI(env, { messages, tools: TOOLS, max_tokens: 600 }, state);
+      if (!usedServerTool) {
+        // Nothing the model needs to read — reply with the text it already wrote.
+        needFinalPass = !(response.response || "").trim();
+        toolCalls = [];
+        break;
+      }
+      if (rounds >= 2) {
+        needFinalPass = true;
+        break;
+      }
+      response = await runAI(env, { messages, tools: TOOLS, max_tokens: 700 }, state);
       toolCalls = normalizeToolCalls(response);
+      needFinalPass = toolCalls.length > 0 || !(response.response || "").trim();
     }
 
     navigationSafetyNet(lastUserMessage, actions);
     const meta = { v: 2, actions };
 
-    if (rounds > 0 && (!response.response || toolCalls.length)) {
-      // Final pass, streamed: the model writes the reply knowing the tool results.
+    if (needFinalPass) {
+      // One last call, streamed and without tools: write the reply.
       try {
         const stream = await runAI(env, { messages, max_tokens: 800, stream: true }, state);
         if (stream instanceof ReadableStream) {

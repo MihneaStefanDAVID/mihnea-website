@@ -914,10 +914,14 @@ async function ask(question) {
   solvyHistory.push({ role: "user", content: text });
 
   const typing = showTyping();
+  // Never let the chat hang on "..." — abort and fall back after 75s.
+  const abort = new AbortController();
+  const abortTimer = setTimeout(() => abort.abort(), 75_000);
   try {
     const response = await fetch(SOLVY_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: abort.signal,
       body: JSON.stringify({
         messages: solvyHistory.slice(-10),
         context: teachingLibrarySummary(),
@@ -976,6 +980,7 @@ async function ask(question) {
     addMessage(fallback, "ai");
     solvyHistory.push({ role: "assistant", content: fallback });
   } finally {
+    clearTimeout(abortTimer);
     solvyPending = false;
   }
 }
