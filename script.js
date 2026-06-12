@@ -644,6 +644,7 @@ function addMessage(text, type) {
   message.append(author, body);
   chat.append(message);
   chat.scrollTop = chat.scrollHeight;
+  return message;
 }
 
 function answer(question) {
@@ -687,10 +688,51 @@ const SOLVY_ENDPOINT = "/api/solvy";
 const solvyHistory = [];
 let solvyPending = false;
 
+const SOLVY_EXTERNAL_LINKS = {
+  github: "https://github.com/MihneaStefanDAVID",
+  github_football: "https://github.com/MihneaStefanDAVID/PPS_football",
+  github_mosquito: "https://github.com/MihneaStefanDAVID/PPS_mosquito",
+  github_organisms: "https://github.com/MihneaStefanDAVID/PPS_organisms",
+  github_spy: "https://github.com/MihneaStefanDAVID/PPS_spy",
+  github_tsp: "https://github.com/MihneaStefanDAVID/TSP_visualisation",
+  linkedin: "https://www.linkedin.com/in/mihnea-stefan-david-950893268/",
+  instagram: "https://www.instagram.com/david_mihnea/",
+  tsp_lab: "https://lab.mihdavid.com",
+  local_apk: "https://polybox.ethz.ch/index.php/s/JarNcdEZiCSbRYJ",
+};
+
 const solvyActionRunners = {
   open_section(args) {
     const section = args.section === "journal" ? "notes" : args.section;
-    if (titles[section]) openPanel(section);
+    if (!titles[section]) return;
+    openPanel(section);
+    const find = String(args.find || "").trim().toLowerCase();
+    if (!find) return;
+    // Give the panel a moment to render, then scroll to the matching heading.
+    setTimeout(() => {
+      const panel = document.querySelector(".panel.active");
+      if (!panel) return;
+      const headings = panel.querySelectorAll("h2, h3, h4, h5, strong, small, span, b");
+      for (const el of headings) {
+        if (el.textContent.toLowerCase().includes(find)) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          break;
+        }
+      }
+    }, 400);
+  },
+  open_external(args) {
+    const url = SOLVY_EXTERNAL_LINKS[args.target];
+    if (url) window.open(url, "_blank", "noopener");
+  },
+  compose_email(args) {
+    const subject = encodeURIComponent(String(args.subject || "Hello from your website"));
+    const emailBody = encodeURIComponent(String(args.body || ""));
+    window.open(`mailto:mihdavid@ethz.ch?subject=${subject}&body=${emailBody}`, "_self");
+  },
+  close_windows() {
+    document.querySelectorAll(".app-window.open").forEach((w) => w.classList.remove("open"));
+    desktopIntro.classList.remove("hidden");
   },
   open_project(args) {
     const projects = {
@@ -793,16 +835,47 @@ async function ask(question) {
         context: teachingLibrarySummary(),
       }),
     });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-    if (!data.reply) throw new Error("empty reply");
-    typing.remove();
-    runSolvyActions(data.actions);
-    addMessage(data.reply, "ai");
-    solvyHistory.push({ role: "assistant", content: data.reply });
+    if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
+
+    // v2 protocol: one JSON meta line ({v, actions}), then the reply text, streamed.
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let meta = null;
+    let replyParagraph = null;
+    let replyText = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      if (!meta) {
+        const newline = buffer.indexOf("\n");
+        if (newline < 0) continue;
+        meta = JSON.parse(buffer.slice(0, newline));
+        buffer = buffer.slice(newline + 1);
+        typing.remove();
+        runSolvyActions(meta.actions);
+        replyParagraph = addMessage("", "ai").querySelector("p");
+      }
+      if (meta && buffer) {
+        replyText += buffer;
+        buffer = "";
+        replyParagraph.textContent = replyText;
+        chat.scrollTop = chat.scrollHeight;
+      }
+    }
+    if (!meta) throw new Error("bad response");
+
+    replyText = replyText.trim() || "Done! Have a look around — and ask me anything else.";
+    replyParagraph.textContent = replyText;
+    chat.scrollTop = chat.scrollHeight;
+    solvyHistory.push({ role: "assistant", content: replyText });
   } catch {
     // Offline / not yet deployed: fall back to the built-in keyword guide.
     typing.remove();
+    document.querySelector("#chat .message.ai:last-child p:empty")?.closest(".message")?.remove();
     const fallback = answer(text);
     addMessage(fallback, "ai");
     solvyHistory.push({ role: "assistant", content: fallback });
