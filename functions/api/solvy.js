@@ -21,8 +21,11 @@ const MODELS = [
   "@cf/meta/llama-4-scout-17b-16e-instruct",
 ];
 
+// Version marker — visible at GET /api/solvy to confirm which build is live.
+const VERSION = "2.3-llama-fast";
+
 // Hard cap per model call — beyond this we fail over / give up instead of hanging.
-const AI_CALL_TIMEOUT_MS = 30_000;
+const AI_CALL_TIMEOUT_MS = 20_000;
 
 const SYSTEM_PROMPT = `You are Solvy, the AI assistant living inside mihdavid.com — the personal website of Mihnea-Stefan David, designed to look like a desktop operating system: folders on a desktop open windows, and you can drive that interface for the visitor with your tools.
 
@@ -66,6 +69,7 @@ TA at ETH Zürich for: Algorithms and Data Structures (2024-2025, returning Sep 
   - Adaptive Organisms: survival, learning and population control in an unknown, changing world.
 - Can We Cheat NP-Hardness?: parameterization & approximation theory (45-page theoretical report + 26-page practical report) plus a live interactive TSP laboratory at lab.mihdavid.com (Python/Flask, Canvas, Leaflet + OSRM, real road networks) — open it with open_external tsp_lab or open_project tsp_lab.
 - This website itself: a hand-built desktop OS in vanilla HTML/CSS/JS (open_project portfolio).
+Mihnea's favourite project is Local — if asked about his best or favourite project, that's the answer (not this website).
 
 == COMMUNITY & LEADERSHIP ==
 Causes: education & opportunity, children's rights, responsible technology, civic participation, economic dignity, future generations. Track record: organizing team of ICPC Zurich (2024) and problem setter for Regional ICPC Switzerland (2023); Competitive Programming Committee at ETH (2023-present); coordinator of the robotics team at Tudor Vianu (2022-2024); First Vice President and Director of the Bucharest School Board; student representative in Romania's National Student Council; speaker at international conferences (PHERECLOS); organizer of the "Lay of Land" conference and the National High School Fair. The Community section has his causes, a reading list on technology and society, and organizations worth exploring (UNICEF, Save the Children, ICRC, Pro Juventute, Teach for Romania, Khan Academy, AlgorithmWatch and more).
@@ -107,8 +111,6 @@ Examples of good behaviour:
 - "take me back" / "close everything" → close_windows{}.
 
 Use calculate for any non-trivial arithmetic instead of doing it in your head. If asked for the weather with no location, use Zürich (where Mihnea is based).
-
-After answers WITHOUT a navigation proposal, you may call suggest_followups with 2-3 short, natural next questions in the visitor's language. Never call suggest_followups and propose_navigation in the same turn — the proposal's buttons take their place.
 
 == ANSWERING WITHOUT TOOLS ==
 Many questions need no tool — answer them directly and well:
@@ -335,22 +337,6 @@ const TOOLS = [
         no_label: { type: "string", description: "Decline button label in the visitor's language, e.g. 'Nu acum' or 'Not now'" },
       },
       required: ["tool", "target"],
-    },
-  },
-  {
-    name: "suggest_followups",
-    description:
-      "Show the visitor 2-3 short tappable follow-up questions under your reply. Call this together with your answer on most turns — written in the visitor's language, natural next steps for the conversation.",
-    parameters: {
-      type: "object",
-      properties: {
-        suggestions: {
-          type: "array",
-          items: { type: "string" },
-          description: "2-3 short questions, max ~50 characters each",
-        },
-      },
-      required: ["suggestions"],
     },
   },
 ];
@@ -786,9 +772,42 @@ function metaStreamResponse(request, meta, textOrStream) {
 
 /* ---------------- main handler ---------------- */
 
+/* GET /api/solvy            → health + version info
+ * GET /api/solvy?ping=1     → also runs a tiny test inference and reports latency/error */
+async function handleHealth(request, env) {
+  const info = {
+    ok: true,
+    version: VERSION,
+    models: MODELS,
+    ai_binding_present: !!env.AI,
+  };
+  if (new URL(request.url).searchParams.get("ping")) {
+    const started = Date.now();
+    try {
+      const result = await withTimeout(
+        env.AI.run(MODELS[0], {
+          messages: [{ role: "user", content: "Reply with exactly: OK" }],
+          max_tokens: 5,
+        }),
+        AI_CALL_TIMEOUT_MS
+      );
+      info.ping_ms = Date.now() - started;
+      info.ping_reply = (result.response || "").slice(0, 40);
+    } catch (error) {
+      info.ok = false;
+      info.ping_ms = Date.now() - started;
+      info.ping_error = String(error?.message || error).slice(0, 300);
+    }
+  }
+  return new Response(JSON.stringify(info, null, 2), { headers: corsHeaders(request) });
+}
+
 async function handleSolvy(request, env, waitUntil) {
   if (request.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders(request) });
+  }
+  if (request.method === "GET") {
+    return handleHealth(request, env);
   }
   if (request.method !== "POST") {
     return new Response(JSON.stringify({ error: "POST only" }), {
@@ -904,11 +923,16 @@ async function handleSolvy(request, env, waitUntil) {
       (response.response || "").trim() ||
       "Done! Have a look — and feel free to ask me anything else.";
     return metaStreamResponse(request, meta, reply);
-  } catch {
-    return new Response(JSON.stringify({ error: "AI unavailable" }), {
-      status: 502,
-      headers: corsHeaders(request),
-    });
+  } catch (error) {
+    // The detail shows up in DevTools → Network and in `wrangler pages deployment tail`.
+    return new Response(
+      JSON.stringify({
+        error: "AI unavailable",
+        detail: String(error?.message || error).slice(0, 300),
+        version: VERSION,
+      }),
+      { status: 502, headers: corsHeaders(request) }
+    );
   }
 }
 
@@ -917,6 +941,9 @@ export async function onRequestPost(context) {
   return handleSolvy(context.request, context.env, (p) => context.waitUntil?.(p));
 }
 export async function onRequestOptions(context) {
+  return handleSolvy(context.request, context.env);
+}
+export async function onRequestGet(context) {
   return handleSolvy(context.request, context.env);
 }
 

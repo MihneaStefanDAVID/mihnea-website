@@ -867,38 +867,20 @@ function renderProposal(proposalAction) {
   return true;
 }
 
-function renderFollowups(actions) {
-  const list = [];
-  actions.forEach((action) => {
-    const suggestions = Array.isArray(action.args?.suggestions) ? action.args.suggestions : [];
-    suggestions.forEach((s) => list.push(String(s).slice(0, 80)));
-  });
-  if (!list.length) return;
-  const wrap = document.createElement("div");
-  wrap.className = "suggestions dynamic";
-  list.slice(0, 3).forEach((suggestion) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = suggestion;
-    button.addEventListener("click", () => ask(suggestion));
-    wrap.append(button);
-  });
-  chat.append(wrap);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function clearFollowups() {
+function clearDynamicChips() {
   document.querySelectorAll("#chat .suggestions.dynamic").forEach((el) => el.remove());
 }
 
 function showTyping() {
   const message = document.createElement("div");
   message.className = "message ai typing";
-  const author = document.createElement("small");
-  author.textContent = "SOLVY";
   const body = document.createElement("p");
-  body.textContent = "● ● ●";
-  message.append(author, body);
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement("span");
+    dot.className = "typing-dot";
+    body.append(dot);
+  }
+  message.append(body);
   chat.append(message);
   chat.scrollTop = chat.scrollHeight;
   return message;
@@ -908,7 +890,7 @@ async function ask(question) {
   const text = question.trim();
   if (!text || solvyPending) return;
   solvyPending = true;
-  clearFollowups();
+  clearDynamicChips();
   addMessage(text, "user");
   chatField.value = "";
   solvyHistory.push({ role: "user", content: text });
@@ -950,9 +932,7 @@ async function ask(question) {
         buffer = buffer.slice(newline + 1);
         typing.remove();
         const allActions = Array.isArray(meta.actions) ? meta.actions : [];
-        const deferred = new Set(["suggest_followups", "propose_navigation"]);
-        runSolvyActions(allActions.filter((a) => !deferred.has(a.tool)));
-        meta.followups = allActions.filter((a) => a.tool === "suggest_followups");
+        runSolvyActions(allActions.filter((a) => a.tool !== "propose_navigation"));
         meta.proposals = allActions.filter((a) => a.tool === "propose_navigation");
         replyParagraph = addMessage("", "ai").querySelector("p");
       }
@@ -968,12 +948,11 @@ async function ask(question) {
     replyText = replyText.trim() || "Done! Have a look around — and ask me anything else.";
     replyParagraph.textContent = replyText;
     solvyHistory.push({ role: "assistant", content: replyText });
-    // A navigation proposal takes priority over follow-up chips.
-    const proposalShown = (meta.proposals || []).some((p) => renderProposal(p));
-    if (!proposalShown) renderFollowups(meta.followups || []);
+    (meta.proposals || []).some((p) => renderProposal(p));
     chat.scrollTop = chat.scrollHeight;
-  } catch {
+  } catch (error) {
     // Offline / not yet deployed: fall back to the built-in keyword guide.
+    console.warn("Solvy API failed, using offline fallback:", error);
     typing.remove();
     document.querySelector("#chat .message.ai:last-child p:empty")?.closest(".message")?.remove();
     const fallback = answer(text);
@@ -988,10 +967,6 @@ async function ask(question) {
 document.querySelector("#chat-form").addEventListener("submit", (event) => {
   event.preventDefault();
   ask(chatField.value);
-});
-
-document.querySelectorAll(".suggestions button").forEach((button) => {
-  button.addEventListener("click", () => ask(button.textContent));
 });
 
 document.addEventListener("keydown", (event) => {
