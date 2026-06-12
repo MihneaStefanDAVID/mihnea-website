@@ -52,6 +52,44 @@ const andBuilding = document.querySelector("#and-building");
 let teachingPath = [];
 let pdfReturnWindow = null;
 
+function enableTouchScrolling(element) {
+  if (!element) return;
+
+  let previousY = 0;
+  let tracking = false;
+
+  element.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) return;
+    previousY = event.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+
+  element.addEventListener("touchmove", (event) => {
+    if (!tracking || event.touches.length !== 1) return;
+
+    const currentY = event.touches[0].clientY;
+    const deltaY = previousY - currentY;
+    const maxScroll = element.scrollHeight - element.clientHeight;
+
+    if (maxScroll > 0) {
+      element.scrollTop = Math.max(0, Math.min(maxScroll, element.scrollTop + deltaY));
+      event.preventDefault();
+    }
+
+    previousY = currentY;
+  }, { passive: false });
+
+  element.addEventListener("touchend", () => {
+    tracking = false;
+  }, { passive: true });
+
+  element.addEventListener("touchcancel", () => {
+    tracking = false;
+  }, { passive: true });
+}
+
+document.querySelectorAll(".window-body, .project-window-body, .chat").forEach(enableTouchScrolling);
+
 function mountPdf(url) {
   const object = document.createElement("object");
   object.id = "pdf-object";

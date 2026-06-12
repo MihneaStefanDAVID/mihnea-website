@@ -1636,6 +1636,11 @@ h1 em, h2 em { color: #4f8b2e; font-weight: 400; }
 @keyframes cursor-blink { 50% { opacity: 0; } }
 
 @media (max-width: 800px), (max-width: 1080px) and (pointer: coarse) {
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    overscroll-behavior: none;
+  }
   body { overflow-y: auto; background-position: 58% center; }
   .menu-bar { grid-template-columns: 1fr auto; }
   .menu-bar nav { display: none; }
@@ -1649,12 +1654,15 @@ h1 em, h2 em { color: #4f8b2e; font-weight: 400; }
   .ai-window { position: fixed; top: 80px; right: 12px; bottom: 82px; left: 12px; width: auto; height: auto; }
   .pdf-window { position: fixed; top: 57px; right: 10px; bottom: 82px; left: 10px; width: auto; height: auto; }
   .window-body, .project-window-body, .pdf-viewer, .chat {
+    position: relative;
+    height: calc(100% - 47px);
     min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
   }
   .content-window.open, .project-window.open, .pdf-window.open, .ai-window.open {
     touch-action: pan-y;
