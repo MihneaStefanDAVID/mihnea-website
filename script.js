@@ -35,8 +35,18 @@ const localWindowBody = document.querySelector("#local-window-body");
 const localCaseStudy = document.querySelector("#local-case-study");
 const tspLabWindow = document.querySelector("#tsp-lab-window");
 const tspLabIframe = document.querySelector("#tsp-lab-iframe");
-const tspDeployPending = tspLabWindow?.querySelector(".tsp-deploy-pending");
-const TSP_VISUALIZER_URL = "";
+const tspLabLoader = document.querySelector("#tsp-lab-loader");
+const tspLabKicker = document.querySelector("#tsp-lab-kicker");
+const tspLabHeading = document.querySelector("#tsp-lab-heading");
+const tspLabStatus = document.querySelector("#tsp-lab-status");
+const tspLabStatusLabel = document.querySelector("#tsp-lab-status-label");
+const tspLabRetry = document.querySelector("#tsp-lab-retry");
+const TSP_VISUALIZER_URL = "https://mihnea-tsp-lab.onrender.com/";
+let tspLabLoadTimer = null;
+let tspLabRevealTimer = null;
+let tspLabLoaded = false;
+let tspLabLoadStartedAt = 0;
+const TSP_LAB_MIN_LOADER_MS = 7000;
 const pdfViewer = pdfWindow.querySelector(".pdf-viewer");
 const pdfTitle = document.querySelector("#pdf-title");
 const pdfDownload = document.querySelector("#pdf-download");
@@ -509,6 +519,47 @@ document.querySelector(".close-local-from-page")?.addEventListener("click", () =
   openPanel("engineering");
 });
 
+function loadTspLab() {
+  if (!tspLabIframe || !tspLabLoader) return;
+
+  window.clearTimeout(tspLabLoadTimer);
+  window.clearTimeout(tspLabRevealTimer);
+  tspLabLoaded = false;
+  tspLabLoadStartedAt = Date.now();
+  tspLabLoader.classList.remove("mobile-note");
+  tspLabLoader.hidden = false;
+  tspLabIframe.hidden = false;
+  tspLabIframe.classList.remove("ready");
+  tspLabRetry.hidden = true;
+  tspLabKicker.textContent = "INTERACTIVE LAB / STARTING SERVER";
+  tspLabHeading.innerHTML = "Waking up the<br /><em>algorithm laboratory.</em>";
+  tspLabStatusLabel.textContent = "Connecting to the laboratory server";
+  tspLabStatus.textContent = "The lab runs on a free research server. If it has been resting, startup can take up to one minute.";
+
+  tspLabIframe.src = `${TSP_VISUALIZER_URL}?startup=${Date.now()}`;
+  tspLabLoadTimer = window.setTimeout(() => {
+    if (tspLabLoaded) return;
+    tspLabStatusLabel.textContent = "The server is still waking up";
+    tspLabStatus.textContent = "This first start is taking a little longer than usual. You can keep waiting or ask the laboratory to try connecting again.";
+    tspLabRetry.hidden = false;
+  }, 70000);
+}
+
+tspLabIframe?.addEventListener("load", () => {
+  tspLabLoaded = true;
+  window.clearTimeout(tspLabLoadTimer);
+  if (window.matchMedia("(max-width: 800px)").matches) return;
+
+  const remainingLoaderTime = Math.max(0, TSP_LAB_MIN_LOADER_MS - (Date.now() - tspLabLoadStartedAt));
+
+  tspLabRevealTimer = window.setTimeout(() => {
+    tspLabIframe.classList.add("ready");
+    tspLabLoader.hidden = true;
+  }, remainingLoaderTime);
+});
+
+tspLabRetry?.addEventListener("click", loadTspLab);
+
 function openTspLab() {
   contentWindow.classList.remove("open");
   pdfWindow.classList.remove("open");
@@ -520,14 +571,25 @@ function openTspLab() {
   portfolioWindow?.classList.remove("open");
   localWindow?.classList.remove("open");
 
-  if (TSP_VISUALIZER_URL && tspLabIframe && tspDeployPending) {
-    tspLabIframe.src = TSP_VISUALIZER_URL;
-    tspLabIframe.hidden = false;
-    tspDeployPending.hidden = true;
-  }
-
   tspLabWindow?.classList.add("open");
   desktopIntro.classList.add("hidden");
+
+  if (window.matchMedia("(max-width: 800px)").matches) {
+    window.clearTimeout(tspLabLoadTimer);
+    window.clearTimeout(tspLabRevealTimer);
+    tspLabLoader.classList.add("mobile-note");
+    tspLabLoader.hidden = false;
+    tspLabIframe.hidden = true;
+    tspLabIframe.classList.remove("ready");
+    tspLabKicker.textContent = "INTERACTIVE LAB / DESKTOP EXPERIENCE";
+    tspLabHeading.innerHTML = "Best explored on<br /><em>a laptop.</em>";
+    tspLabStatus.textContent = "The laboratory combines large algorithm visualisations, controls, simulations and an interactive road map. A mobile version is still in progress.";
+    tspLabStatusLabel.textContent = "Please return from a laptop or desktop";
+    tspLabRetry.hidden = true;
+    return;
+  }
+
+  if (!tspLabLoaded) loadTspLab();
 }
 
 document.querySelectorAll(".open-tsp-lab").forEach((button) => {
