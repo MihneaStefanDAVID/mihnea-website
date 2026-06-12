@@ -2323,3 +2323,6 @@ h1 em, h2 em { color: #4f8b2e; font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Solvy typing indicator */
+.message.typing p { color: #7b897f; letter-spacing: 2px; animation: cursor-blink 1.1s steps(1) infinite; }

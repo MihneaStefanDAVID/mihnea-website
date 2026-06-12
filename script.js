@@ -683,12 +683,132 @@ function answer(question) {
   return "Ask me about Mihnea's research, engineering, background, teaching, community work, or journal and I'll open the right folder.";
 }
 
-function ask(question) {
+const SOLVY_ENDPOINT = "/api/solvy";
+const solvyHistory = [];
+let solvyPending = false;
+
+const solvyActionRunners = {
+  open_section(args) {
+    const section = args.section === "journal" ? "notes" : args.section;
+    if (titles[section]) openPanel(section);
+  },
+  open_project(args) {
+    const projects = {
+      local: openLocalProject,
+      football: openFootballProject,
+      organisms: openOrganismsProject,
+      spy: openSpyProject,
+      mosquito: openMosquitoProject,
+      tsp: openTspProject,
+      tsp_lab: openTspLab,
+      portfolio: openPortfolioProject,
+    };
+    projects[args.project]?.();
+  },
+  open_teaching_file(args) {
+    const url = String(args.url || "");
+    // Only files that actually live on this site can be opened.
+    if (url.startsWith("teaching-materials/") || url.startsWith("documents/")) {
+      openPdf(url, String(args.name || url.split("/").pop()));
+    }
+  },
+  open_document(args) {
+    const documents = {
+      cv: ["documents/CV_David_Mihnea_Stefan.pdf", "CV.pdf"],
+      football_report: ["documents/Parallel_Football_G7_Report.pdf", "Parallel Football · Team Report.pdf"],
+      football_statement: ["documents/Parallel_Football_Problem_Statement.pdf", "Parallel Football · Problem Statement.pdf"],
+      organisms_report: ["documents/Organisms_G8_Report.pdf", "Organisms · Team Report.pdf"],
+      organisms_statement: ["documents/Organisms_Problem_Statement.pdf", "Organisms · Problem Statement.pdf"],
+      spy_report: ["documents/Spy_G7_Report.pdf", "Soldier, Soldier, Soldier, Spy · Team Report.pdf"],
+      spy_statement: ["documents/Spy_Problem_Statement.pdf", "Soldier, Soldier, Soldier, Spy · Problem Statement.pdf"],
+      mosquito_report: ["documents/Mosquito_G1_Report.pdf", "Mosquito · Team Report.pdf"],
+      mosquito_statement: ["documents/Mosquito_Problem_Statement.pdf", "Mosquito · Problem Statement.pdf"],
+      tsp_theory: ["documents/SHPP_Theoretical_Report.pdf", "Can We Cheat NP-Hardness · Theoretical Report.pdf"],
+      tsp_practical: ["documents/SHPP_Practical_Report_TSP.pdf", "TSP Laboratory · Practical Report.pdf"],
+    };
+    const doc = documents[args.document];
+    if (doc) openPdf(doc[0], doc[1]);
+  },
+};
+
+function runSolvyActions(actions) {
+  if (!Array.isArray(actions)) return;
+  actions.forEach((action) => {
+    try {
+      solvyActionRunners[action.tool]?.(action.args || {});
+    } catch {
+      /* a failed navigation should never break the chat */
+    }
+  });
+}
+
+function teachingLibrarySummary() {
+  const library = window.TEACHING_LIBRARY;
+  if (!library) return "";
+  const lines = [];
+  const walk = (node, path) => {
+    (node.children || []).forEach((item) => {
+      if (lines.length >= 80) return;
+      if (item.type === "folder") {
+        lines.push(`[folder] ${path}${item.name}/${item.description ? " — " + item.description : ""}`);
+        walk(item, `${path}${item.name}/`);
+      } else {
+        lines.push(`[file] ${path}${item.name} (url: ${item.url})${item.description ? " — " + item.description : ""}`);
+      }
+    });
+  };
+  walk(library, "");
+  if (!lines.length) return "The teaching library is currently empty (materials in preparation for Autumn 2026).";
+  return lines.join("\n").slice(0, 3800);
+}
+
+function showTyping() {
+  const message = document.createElement("div");
+  message.className = "message ai typing";
+  const author = document.createElement("small");
+  author.textContent = "SOLVY";
+  const body = document.createElement("p");
+  body.textContent = "● ● ●";
+  message.append(author, body);
+  chat.append(message);
+  chat.scrollTop = chat.scrollHeight;
+  return message;
+}
+
+async function ask(question) {
   const text = question.trim();
-  if (!text) return;
+  if (!text || solvyPending) return;
+  solvyPending = true;
   addMessage(text, "user");
   chatField.value = "";
-  setTimeout(() => addMessage(answer(text), "ai"), 320);
+  solvyHistory.push({ role: "user", content: text });
+
+  const typing = showTyping();
+  try {
+    const response = await fetch(SOLVY_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: solvyHistory.slice(-10),
+        context: teachingLibrarySummary(),
+      }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!data.reply) throw new Error("empty reply");
+    typing.remove();
+    runSolvyActions(data.actions);
+    addMessage(data.reply, "ai");
+    solvyHistory.push({ role: "assistant", content: data.reply });
+  } catch {
+    // Offline / not yet deployed: fall back to the built-in keyword guide.
+    typing.remove();
+    const fallback = answer(text);
+    addMessage(fallback, "ai");
+    solvyHistory.push({ role: "assistant", content: fallback });
+  } finally {
+    solvyPending = false;
+  }
 }
 
 document.querySelector("#chat-form").addEventListener("submit", (event) => {
