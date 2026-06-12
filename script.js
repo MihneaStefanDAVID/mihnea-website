@@ -804,6 +804,93 @@ function teachingLibrarySummary() {
   return lines.join("\n").slice(0, 3800);
 }
 
+function currentViewLabel() {
+  if (document.querySelector("#pdf-window.open")) return "the PDF viewer";
+  const openWindow = [...document.querySelectorAll(".app-window.open")].find((w) => w.id !== "ai-window");
+  if (!openWindow) return "the desktop (no window open)";
+  if (openWindow.id === "content-window") {
+    const panel = document.querySelector(".panel.active");
+    const name = panel ? titles[panel.id.replace("panel-", "")] : null;
+    return name ? `the "${name}" section` : "a section window";
+  }
+  return openWindow.getAttribute("aria-label") || "a project window";
+}
+
+function proposalToAction(args) {
+  const tool = String(args.tool || "");
+  const target = String(args.target || "");
+  if (!target) return null;
+  if (tool === "open_section") return { tool, args: { section: target, find: args.find } };
+  if (tool === "open_project") return { tool, args: { project: target } };
+  if (tool === "open_document") return { tool, args: { document: target } };
+  if (tool === "open_external") return { tool, args: { target } };
+  if (tool === "open_teaching_file") return { tool, args: { url: target, name: args.name } };
+  return null;
+}
+
+function annotateLastReply(note) {
+  for (let i = solvyHistory.length - 1; i >= 0; i--) {
+    if (solvyHistory[i].role === "assistant") {
+      solvyHistory[i].content += ` ${note}`;
+      return;
+    }
+  }
+}
+
+function renderProposal(proposalAction) {
+  const args = proposalAction.args || {};
+  const action = proposalToAction(args);
+  if (!action) return false;
+  const wrap = document.createElement("div");
+  wrap.className = "suggestions dynamic confirm";
+
+  const yes = document.createElement("button");
+  yes.type = "button";
+  yes.textContent = `✓ ${String(args.yes_label || "Yes, open it").slice(0, 40)}`;
+  yes.addEventListener("click", () => {
+    wrap.remove();
+    runSolvyActions([action]);
+    annotateLastReply("[The visitor accepted — it is now open.]");
+  });
+
+  const no = document.createElement("button");
+  no.type = "button";
+  no.textContent = String(args.no_label || "Not now").slice(0, 40);
+  no.addEventListener("click", () => {
+    wrap.remove();
+    annotateLastReply("[The visitor declined the offer to open it.]");
+  });
+
+  wrap.append(yes, no);
+  chat.append(wrap);
+  chat.scrollTop = chat.scrollHeight;
+  return true;
+}
+
+function renderFollowups(actions) {
+  const list = [];
+  actions.forEach((action) => {
+    const suggestions = Array.isArray(action.args?.suggestions) ? action.args.suggestions : [];
+    suggestions.forEach((s) => list.push(String(s).slice(0, 80)));
+  });
+  if (!list.length) return;
+  const wrap = document.createElement("div");
+  wrap.className = "suggestions dynamic";
+  list.slice(0, 3).forEach((suggestion) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = suggestion;
+    button.addEventListener("click", () => ask(suggestion));
+    wrap.append(button);
+  });
+  chat.append(wrap);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function clearFollowups() {
+  document.querySelectorAll("#chat .suggestions.dynamic").forEach((el) => el.remove());
+}
+
 function showTyping() {
   const message = document.createElement("div");
   message.className = "message ai typing";
@@ -821,6 +908,7 @@ async function ask(question) {
   const text = question.trim();
   if (!text || solvyPending) return;
   solvyPending = true;
+  clearFollowups();
   addMessage(text, "user");
   chatField.value = "";
   solvyHistory.push({ role: "user", content: text });
@@ -833,6 +921,7 @@ async function ask(question) {
       body: JSON.stringify({
         messages: solvyHistory.slice(-10),
         context: teachingLibrarySummary(),
+        state: currentViewLabel(),
       }),
     });
     if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
@@ -856,7 +945,11 @@ async function ask(question) {
         meta = JSON.parse(buffer.slice(0, newline));
         buffer = buffer.slice(newline + 1);
         typing.remove();
-        runSolvyActions(meta.actions);
+        const allActions = Array.isArray(meta.actions) ? meta.actions : [];
+        const deferred = new Set(["suggest_followups", "propose_navigation"]);
+        runSolvyActions(allActions.filter((a) => !deferred.has(a.tool)));
+        meta.followups = allActions.filter((a) => a.tool === "suggest_followups");
+        meta.proposals = allActions.filter((a) => a.tool === "propose_navigation");
         replyParagraph = addMessage("", "ai").querySelector("p");
       }
       if (meta && buffer) {
@@ -870,8 +963,11 @@ async function ask(question) {
 
     replyText = replyText.trim() || "Done! Have a look around — and ask me anything else.";
     replyParagraph.textContent = replyText;
-    chat.scrollTop = chat.scrollHeight;
     solvyHistory.push({ role: "assistant", content: replyText });
+    // A navigation proposal takes priority over follow-up chips.
+    const proposalShown = (meta.proposals || []).some((p) => renderProposal(p));
+    if (!proposalShown) renderFollowups(meta.followups || []);
+    chat.scrollTop = chat.scrollHeight;
   } catch {
     // Offline / not yet deployed: fall back to the built-in keyword guide.
     typing.remove();
