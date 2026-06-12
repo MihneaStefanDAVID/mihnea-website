@@ -2342,8 +2342,16 @@ h1 em, h2 em { color: #4f8b2e; font-weight: 400; }
 .suggestions.confirm button { flex: 1; padding: 9px 12px; border-radius: 18px; text-align: center; }
 .suggestions.confirm button:first-child { border-color: rgba(79,139,46,.35); background: linear-gradient(145deg,rgba(201,246,157,.75),rgba(158,233,80,.5)); font-weight: 600; }
 
-/* Solvy proposal bubble (second message with Yes/No inside) */
-.message.proposal { border-color: rgba(79,139,46,.22); background: linear-gradient(145deg,rgba(222,247,193,.5),rgba(255,255,255,.82)); }
+/* Solvy proposal pill (compact second message with Yes/No inline) */
+.message.proposal { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; max-width: 92%; padding: 6px 7px 6px 12px; border-color: rgba(79,139,46,.22); border-radius: 18px; background: linear-gradient(145deg,rgba(222,247,193,.5),rgba(255,255,255,.85)); box-shadow: 0 3px 10px rgba(24,57,43,.05); }
 .message.proposal small { display: none; }
-.message.proposal p { font-weight: 500; }
+.message.proposal p { font-size: 8px; font-weight: 500; }
+.message.proposal .suggestions.confirm { flex: 0 0 auto; margin: 0; }
+.message.proposal .suggestions.confirm button { flex: 0 0 auto; padding: 5px 10px; border-radius: 12px; font-size: 7px; }
 .message .suggestions.confirm { margin-top: 9px; }
+
+/* compact proposal pill — readable sizes on touch screens */
+@media (max-width: 800px), (max-width: 1080px) and (pointer: coarse) {
+  .message.proposal p { font-size: 11.5px; }
+  .message.proposal .suggestions.confirm button { padding: 7px 13px; font-size: 10.5px; }
+}
