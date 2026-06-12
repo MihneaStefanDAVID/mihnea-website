@@ -1648,6 +1648,26 @@ h1 em, h2 em { color: #4f8b2e; font-weight: 400; }
   .project-window { position: fixed; top: 57px; right: 10px; bottom: 82px; left: 10px; width: auto; height: auto; }
   .ai-window { position: fixed; top: 80px; right: 12px; bottom: 82px; left: 12px; width: auto; height: auto; }
   .pdf-window { position: fixed; top: 57px; right: 10px; bottom: 82px; left: 10px; width: auto; height: auto; }
+  .window-body, .project-window-body, .pdf-viewer, .chat {
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+  .content-window.open, .project-window.open, .pdf-window.open, .ai-window.open {
+    touch-action: pan-y;
+  }
+  .panel.active, .project-window-body > :not([hidden]) {
+    touch-action: pan-y;
+  }
+  .panel::before, .panel::after,
+  .project-window-body section::before, .project-window-body section::after,
+  .project-window-body [aria-hidden="true"],
+  .local-signal-ring, .identity-link, .identity-event {
+    pointer-events: none;
+  }
   #panel-welcome.active { display: block; }
   .welcome-main { grid-template-columns: 1fr; }
   .identity-atom { width: 270px; margin-top: 25px; }
