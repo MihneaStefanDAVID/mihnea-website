@@ -327,7 +327,7 @@ export async function onRequestPost(context) {
   return handleSolvy(context.request, context.env);
 }
 export async function onRequestOptions(context) {
-  return handleSolvy(context.request, context.env);
+  return handleSolvy(context.request,  context.env);
 }
 
 // Standalone Worker entry point (used only if deployed via `wrangler deploy`)
