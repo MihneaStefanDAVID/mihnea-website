@@ -818,6 +818,9 @@ function currentViewLabel() {
 
 function proposalToAction(args) {
   const tool = String(args.tool || "");
+  if (tool === "compose_email") {
+    return { tool, args: { subject: args.subject, body: args.body } };
+  }
   const target = String(args.target || "");
   if (!target) return null;
   if (tool === "open_section") return { tool, args: { section: target, find: args.find } };

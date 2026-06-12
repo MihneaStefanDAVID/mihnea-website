@@ -96,6 +96,7 @@ The visitor is reading the site while you talk — changing their screen uninvit
 - At most ONE propose_navigation per reply, and never propose what is already open (your current-view info is below).
 - Answer-only turns are completely fine. Math, chat, weather, general knowledge: no navigation, no proposal.
 - Never call close_windows unless the visitor explicitly asks to close things or go back.
+- compose_email and open_external (mail client, GitHub, LinkedIn, Instagram, the live lab, the APK) are ALWAYS turned into a Yes/No offer, even when asked explicitly — so phrase those as offers too. Information tools (weather, time, calculate, Wikipedia, currency, units) run instantly and need no approval.
 
 Examples of good behaviour:
 - "what does he research?" → answer in 2-3 sentences + propose_navigation{tool:"open_section", target:"research", yes_label:"Yes, open it", no_label:"Not now"}.
@@ -624,7 +625,7 @@ async function runServerTool(name, args) {
  * If the model answered a clearly navigational request without calling a
  * tool, open the obvious section anyway. Conservative on purpose.
  */
-const NAV_VERB = /\b(open|show|see|view|go to|take me|where|visit|arata|arată|deschide|du-m[ăa]|vreau s[ăa] v[ăa]d|unde)\b/i;
+const NAV_VERB = /\b(open|show|see|view|go to|go back|take me|where|visit|close|arata|arată|deschide|închide|inchide|înapoi|inapoi|du-m[ăa]|vreau s[ăa] v[ăa]d|unde|zeig|öffne|schließe|zurück)\b/i;
 const NAV_TARGETS = [
   [/\b(cv|resume|curriculum)\b/i, { tool: "open_document", args: { document: "cv" } }],
   [/\b(research|cercetar|privacy|pac)\b/i, { tool: "open_section", args: { section: "research" } }],
@@ -676,10 +677,15 @@ const TARGET_NAMES = {
 };
 
 const PROPOSAL_STRINGS = {
-  ro: { question: (n) => `Vrei să deschid „${n}”?`, yes: "Da, deschide", no: "Nu acum" },
-  de: { question: (n) => `Soll ich „${n}“ öffnen?`, yes: "Ja, öffnen", no: "Jetzt nicht" },
-  en: { question: (n) => `Want me to open “${n}”?`, yes: "Yes, open it", no: "Not now" },
+  ro: { question: (n) => `Vrei să deschid „${n}”?`, email: "Vrei să deschid un draft de email către Mihnea?", yes: "Da, deschide", no: "Nu acum" },
+  de: { question: (n) => `Soll ich „${n}“ öffnen?`, email: "Soll ich einen E-Mail-Entwurf an Mihnea öffnen?", yes: "Ja, öffnen", no: "Jetzt nicht" },
+  en: { question: (n) => `Want me to open “${n}”?`, email: "Want me to open an email draft to Mihnea?", yes: "Yes, open it", no: "Not now" },
 };
+
+// Actions that leave the site (mail client, new tabs) ALWAYS need a Yes/No,
+// even when explicitly requested — also keeps window.open inside a user click,
+// which browsers require anyway.
+const ALWAYS_CONFIRM_TOOLS = new Set(["compose_email", "open_external"]);
 
 function detectLanguage(text) {
   if (/[ăîâșțĂÎÂȘȚ]|\b(ce|cum|este|să|sa|vrei|despre|unde|când|cand|poți|poti|îmi|imi|mulțumesc|multumesc|salut)\b/i.test(text)) return "ro";
@@ -690,6 +696,22 @@ function detectLanguage(text) {
 function directActionToProposal(action, lang) {
   const strings = PROPOSAL_STRINGS[lang] || PROPOSAL_STRINGS.en;
   const args = action.args || {};
+
+  if (action.tool === "compose_email") {
+    return {
+      tool: "propose_navigation",
+      args: {
+        tool: "compose_email",
+        target: "email",
+        subject: args.subject,
+        body: args.body,
+        question: strings.email,
+        yes_label: strings.yes,
+        no_label: strings.no,
+      },
+    };
+  }
+
   let target, name;
   if (action.tool === "open_section") { target = args.section; }
   else if (action.tool === "open_project") { target = args.project; }
@@ -717,21 +739,29 @@ const DIRECT_NAV_TOOLS = new Set([
 ]);
 
 function enforceProposals(userMessage, actions) {
-  if (NAV_VERB.test(userMessage)) return actions; // explicit request → open directly
+  const explicit = NAV_VERB.test(userMessage);
   const lang = detectLanguage(userMessage);
   const result = [];
   let hasProposal = actions.some((a) => a.tool === "propose_navigation");
   for (const action of actions) {
     if (action.tool === "propose_navigation") {
       result.push(action);
-    } else if (DIRECT_NAV_TOOLS.has(action.tool)) {
+    } else if (ALWAYS_CONFIRM_TOOLS.has(action.tool)) {
+      // Mail client and external tabs always go through Yes/No.
       if (!hasProposal) {
         const proposal = directActionToProposal(action, lang);
         if (proposal) { result.push(proposal); hasProposal = true; }
       }
-      // extra direct navigations are dropped — never open uninvited
+    } else if (DIRECT_NAV_TOOLS.has(action.tool)) {
+      if (explicit) {
+        result.push(action); // the visitor asked for it by name
+      } else if (!hasProposal) {
+        const proposal = directActionToProposal(action, lang);
+        if (proposal) { result.push(proposal); hasProposal = true; }
+      }
+      // extra unsolicited navigations are dropped — never open uninvited
     } else if (action.tool === "close_windows") {
-      // closing uninvited is just as rude — drop it
+      if (explicit) result.push(action); // only when asked to close/go back
     } else {
       result.push(action);
     }
@@ -1010,7 +1040,10 @@ async function handleSolvy(request, env, waitUntil) {
             ok: true,
             note: "Proposal shown to the visitor with Yes/No buttons. The page has NOT changed — phrase your reply as an offer, do not claim you opened anything.",
           };
-        } else if (DIRECT_NAV_TOOLS.has(call.name) && !NAV_VERB.test(lastUserMessage)) {
+        } else if (
+          ALWAYS_CONFIRM_TOOLS.has(call.name) ||
+          (DIRECT_NAV_TOOLS.has(call.name) && !NAV_VERB.test(lastUserMessage))
+        ) {
           // Will be converted into a Yes/No proposal by enforceProposals below.
           actions.push({ tool: call.name, args: call.args });
           result = {
