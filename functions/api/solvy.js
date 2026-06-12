@@ -92,7 +92,7 @@ Email mihdavid@ethz.ch (best way — or use compose_email to draft one for the v
 == NAVIGATION POLICY (important) ==
 The visitor is reading the site while you talk — changing their screen uninvited is rude. So:
 - OPEN something directly (open_section / open_project / open_document / open_teaching_file / open_external) ONLY when the visitor explicitly asks to see or open it: "show me", "open", "arată-mi", "deschide", "can I see", "take me to", "zeig mir".
-- For informational questions ("what does he research?", "does he teach?"), ANSWER in the chat without navigating. If a section, project or document would genuinely enrich the answer, ALSO call propose_navigation — the visitor gets Yes/No buttons and the page changes only if they accept. Phrase the offer naturally at the end of your reply ("Want me to open the Research section?").
+- For informational questions ("what does he research?", "does he teach?"), ANSWER in the chat without navigating. If a section, project or document would genuinely enrich the answer, ALSO call propose_navigation with a short question in the visitor's language — it appears as a separate bubble with Yes/No buttons, and the page changes only if they accept. Keep your text reply purely informational; the offer lives in that second bubble. If you call a direct open_* tool without an explicit request, the system converts it into such an offer automatically — never claim something is open unless the visitor explicitly asked for it.
 - At most ONE propose_navigation per reply, and never propose what is already open (your current-view info is below).
 - Answer-only turns are completely fine. Math, chat, weather, general knowledge: no navigation, no proposal.
 - Never call close_windows unless the visitor explicitly asks to close things or go back.
@@ -118,6 +118,8 @@ Many questions need no tool — answer them directly and well:
 - Math problems: reason step by step internally, use calculate for the arithmetic, then present a clean, short solution — not your whole exploration.
 - Ambiguous questions: pick the most reasonable interpretation, answer it, and note the assumption in a few words.
 - Opinions/advice: be helpful and concrete, never wishy-washy.
+- Very short inputs ("stop", "ok", "thanks", "wow", "haha"): just respond naturally and briefly — never complain that the input is insufficient. If they say "stop" right after you opened something, offer to close it (close_windows needs their explicit ask).
+- Jokes, small talk, fun requests: play along! You're allowed to be entertaining.
 - If you genuinely don't know and Wikipedia wouldn't help, say so plainly. Honest beats impressive.
 - Facts you are not sure about (people, dates, places, definitions): prefer search_wikipedia over guessing.
 
@@ -333,6 +335,7 @@ const TOOLS = [
             "The id for that opener: a section name (research, about...), project name (local, football...), document id (cv, football_report...), external target (github, tsp_lab...), or a teaching-file url",
         },
         find: { type: "string", description: "Optional: heading text to scroll to (open_section only)" },
+        question: { type: "string", description: "Short offer in the visitor's language, e.g. 'Vrei să deschid secțiunea Research?' or 'Want me to open the Research section?'" },
         yes_label: { type: "string", description: "Accept button label in the visitor's language, e.g. 'Da, deschide' or 'Yes, open it'" },
         no_label: { type: "string", description: "Decline button label in the visitor's language, e.g. 'Nu acum' or 'Not now'" },
       },
@@ -641,6 +644,101 @@ function navigationSafetyNet(userMessage, actions) {
   }
 }
 
+/* ---------------- proposal enforcement ----------------
+ * The model is told to ask before navigating, but smaller models forget.
+ * This makes the rule mechanical: unless the visitor's message contained an
+ * explicit "open/show me" intent, every direct navigation the model attempted
+ * is converted into a Yes/No proposal rendered as a second chat bubble.
+ */
+const TARGET_NAMES = {
+  open_section: {
+    welcome: "Welcome", about: "About", research: "Research",
+    engineering: "Engineering", teaching: "Teaching",
+    community: "Community", journal: "Journal",
+  },
+  open_project: {
+    local: "Local", football: "Parallel Football", organisms: "Adaptive Organisms",
+    spy: "Spy", mosquito: "Mosquito", tsp: "Can We Cheat NP-Hardness?",
+    tsp_lab: "TSP Lab", portfolio: "Website case study",
+  },
+  open_document: {
+    cv: "CV", football_report: "Parallel Football Report",
+    football_statement: "Football Problem Statement", organisms_report: "Organisms Report",
+    organisms_statement: "Organisms Problem Statement", spy_report: "Spy Report",
+    spy_statement: "Spy Problem Statement", mosquito_report: "Mosquito Report",
+    mosquito_statement: "Mosquito Problem Statement", tsp_theory: "Theoretical Report",
+    tsp_practical: "Practical Report",
+  },
+  open_external: {
+    github: "GitHub", linkedin: "LinkedIn", instagram: "Instagram",
+    tsp_lab: "TSP Lab (live)", local_apk: "Local APK",
+  },
+};
+
+const PROPOSAL_STRINGS = {
+  ro: { question: (n) => `Vrei să deschid „${n}”?`, yes: "Da, deschide", no: "Nu acum" },
+  de: { question: (n) => `Soll ich „${n}“ öffnen?`, yes: "Ja, öffnen", no: "Jetzt nicht" },
+  en: { question: (n) => `Want me to open “${n}”?`, yes: "Yes, open it", no: "Not now" },
+};
+
+function detectLanguage(text) {
+  if (/[ăîâșțĂÎÂȘȚ]|\b(ce|cum|este|să|sa|vrei|despre|unde|când|cand|poți|poti|îmi|imi|mulțumesc|multumesc|salut)\b/i.test(text)) return "ro";
+  if (/[äöüß]|\b(der|die|das|ist|und|wie|was|wer|zeig|öffne|bitte|danke)\b/i.test(text)) return "de";
+  return "en";
+}
+
+function directActionToProposal(action, lang) {
+  const strings = PROPOSAL_STRINGS[lang] || PROPOSAL_STRINGS.en;
+  const args = action.args || {};
+  let target, name;
+  if (action.tool === "open_section") { target = args.section; }
+  else if (action.tool === "open_project") { target = args.project; }
+  else if (action.tool === "open_document") { target = args.document; }
+  else if (action.tool === "open_external") { target = args.target; }
+  else if (action.tool === "open_teaching_file") { target = args.url; name = String(args.url || "").split("/").pop(); }
+  if (!target) return null;
+  name = name || TARGET_NAMES[action.tool]?.[target] || String(target);
+  return {
+    tool: "propose_navigation",
+    args: {
+      tool: action.tool,
+      target,
+      find: args.find,
+      name: args.name,
+      question: strings.question(name),
+      yes_label: strings.yes,
+      no_label: strings.no,
+    },
+  };
+}
+
+const DIRECT_NAV_TOOLS = new Set([
+  "open_section", "open_project", "open_document", "open_external", "open_teaching_file",
+]);
+
+function enforceProposals(userMessage, actions) {
+  if (NAV_VERB.test(userMessage)) return actions; // explicit request → open directly
+  const lang = detectLanguage(userMessage);
+  const result = [];
+  let hasProposal = actions.some((a) => a.tool === "propose_navigation");
+  for (const action of actions) {
+    if (action.tool === "propose_navigation") {
+      result.push(action);
+    } else if (DIRECT_NAV_TOOLS.has(action.tool)) {
+      if (!hasProposal) {
+        const proposal = directActionToProposal(action, lang);
+        if (proposal) { result.push(proposal); hasProposal = true; }
+      }
+      // extra direct navigations are dropped — never open uninvited
+    } else if (action.tool === "close_windows") {
+      // closing uninvited is just as rude — drop it
+    } else {
+      result.push(action);
+    }
+  }
+  return result;
+}
+
 /* ---------------- request plumbing ---------------- */
 
 const ALLOWED_ORIGINS = new Set([
@@ -700,18 +798,33 @@ function withTimeout(promise, ms) {
   ]);
 }
 
-/* Try each model in order until one accepts the request (errors AND timeouts fail over). */
+/* Errors that typically vanish if you simply try again a moment later. */
+const TRANSIENT_ERROR = /capacity|rate ?limit|429|3040|overload|temporar|try again|busy|unavailable/i;
+
+/* Try each model in order until one accepts the request.
+ * Transient fast failures (capacity blips, rate limits) get one retry on the
+ * same model after a short pause; slow failures (timeouts) fail over directly. */
 async function runAI(env, payload, state) {
   let lastError;
   for (let i = state.modelIndex; i < MODELS.length; i++) {
-    try {
-      const result = await withTimeout(env.AI.run(MODELS[i], payload), AI_CALL_TIMEOUT_MS);
-      state.modelIndex = i;
-      return result;
-    } catch (error) {
-      lastError = error;
-      state.modelIndex = i + 1; // don't retry a slow/broken model within this request
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const started = Date.now();
+      try {
+        const result = await withTimeout(env.AI.run(MODELS[i], payload), AI_CALL_TIMEOUT_MS);
+        state.modelIndex = i;
+        return result;
+      } catch (error) {
+        lastError = error;
+        const failedFast = Date.now() - started < 5000;
+        const transient = TRANSIENT_ERROR.test(String(error?.message || error));
+        if (attempt === 0 && failedFast && transient) {
+          await new Promise((resolve) => setTimeout(resolve, 700));
+          continue; // one retry on the same model
+        }
+        break; // give up on this model, try the next
+      }
     }
+    state.modelIndex = i + 1;
   }
   throw lastError;
 }
@@ -781,22 +894,44 @@ async function handleHealth(request, env) {
     models: MODELS,
     ai_binding_present: !!env.AI,
   };
-  if (new URL(request.url).searchParams.get("ping")) {
-    const started = Date.now();
-    try {
-      const result = await withTimeout(
-        env.AI.run(MODELS[0], {
-          messages: [{ role: "user", content: "Reply with exactly: OK" }],
-          max_tokens: 5,
-        }),
-        AI_CALL_TIMEOUT_MS
-      );
-      info.ping_ms = Date.now() - started;
-      info.ping_reply = (result.response || "").slice(0, 40);
-    } catch (error) {
-      info.ok = false;
-      info.ping_ms = Date.now() - started;
-      info.ping_error = String(error?.message || error).slice(0, 300);
+  const ping = new URL(request.url).searchParams.get("ping");
+  if (ping) {
+    const stage = async (label, payload) => {
+      const started = Date.now();
+      try {
+        const result = await withTimeout(env.AI.run(MODELS[0], payload), AI_CALL_TIMEOUT_MS);
+        info[`${label}_ms`] = Date.now() - started;
+        info[`${label}_reply`] = (result.response || "").slice(0, 60);
+        if (result.tool_calls?.length) info[`${label}_tool_calls`] = result.tool_calls.length;
+      } catch (error) {
+        info.ok = false;
+        info[`${label}_ms`] = Date.now() - started;
+        info[`${label}_error`] = String(error?.message || error).slice(0, 300);
+      }
+    };
+
+    // Stage 1: bare model, tiny prompt.
+    await stage("ping", {
+      messages: [{ role: "user", content: "Reply with exactly: OK" }],
+      max_tokens: 5,
+    });
+
+    if (ping === "full") {
+      // Stage 2: tiny prompt + the full tools array (isolates tool-schema issues).
+      await stage("tools", {
+        messages: [{ role: "user", content: "Reply with exactly: OK" }],
+        tools: TOOLS,
+        max_tokens: 20,
+      });
+      // Stage 3: the real production shape — full system prompt + tools.
+      await stage("full", {
+        messages: [
+          { role: "system", content: buildSystemPrompt("", "the desktop (no window open)") },
+          { role: "user", content: "In one short sentence, who is Mihnea?" },
+        ],
+        tools: TOOLS,
+        max_tokens: 80,
+      });
     }
   }
   return new Response(JSON.stringify(info, null, 2), { headers: corsHeaders(request) });
@@ -875,6 +1010,13 @@ async function handleSolvy(request, env, waitUntil) {
             ok: true,
             note: "Proposal shown to the visitor with Yes/No buttons. The page has NOT changed — phrase your reply as an offer, do not claim you opened anything.",
           };
+        } else if (DIRECT_NAV_TOOLS.has(call.name) && !NAV_VERB.test(lastUserMessage)) {
+          // Will be converted into a Yes/No proposal by enforceProposals below.
+          actions.push({ tool: call.name, args: call.args });
+          result = {
+            ok: true,
+            note: "The visitor did not explicitly ask for this, so it will be OFFERED with Yes/No buttons instead of opened. Phrase your reply as an offer — do not claim anything is open.",
+          };
         } else {
           actions.push({ tool: call.name, args: call.args });
           result = { ok: true, opened: call.args };
@@ -902,7 +1044,8 @@ async function handleSolvy(request, env, waitUntil) {
     }
 
     navigationSafetyNet(lastUserMessage, actions);
-    const meta = { v: 2, actions };
+    const finalActions = enforceProposals(lastUserMessage, actions);
+    const meta = { v: 2, actions: finalActions };
 
     if (needFinalPass) {
       // One last call, streamed and without tools: write the reply.

@@ -681,7 +681,7 @@ function answer(question) {
     openPanel("welcome");
     return "I've opened Welcome, where you can reach Mihnea at mihdavid@ethz.ch or find him on Instagram and LinkedIn.";
   }
-  return "Ask me about Mihnea's research, engineering, background, teaching, community work, or journal and I'll open the right folder.";
+  return "I'm having trouble reaching my AI brain right now — give it a few seconds and ask again. Meanwhile I can still navigate: ask about Mihnea's research, projects, teaching, community work or journal and I'll open the right folder.";
 }
 
 const SOLVY_ENDPOINT = "/api/solvy";
@@ -841,6 +841,12 @@ function renderProposal(proposalAction) {
   const args = proposalAction.args || {};
   const action = proposalToAction(args);
   if (!action) return false;
+
+  // A second chat bubble: the offer text plus Yes/No buttons inside it.
+  const message = addMessage(
+    String(args.question || `Open ${args.target}?`).slice(0, 160),
+    "ai proposal"
+  );
   const wrap = document.createElement("div");
   wrap.className = "suggestions dynamic confirm";
 
@@ -862,7 +868,7 @@ function renderProposal(proposalAction) {
   });
 
   wrap.append(yes, no);
-  chat.append(wrap);
+  message.append(wrap);
   chat.scrollTop = chat.scrollHeight;
   return true;
 }
@@ -900,17 +906,28 @@ async function ask(question) {
   const abort = new AbortController();
   const abortTimer = setTimeout(() => abort.abort(), 75_000);
   try {
-    const response = await fetch(SOLVY_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: abort.signal,
-      body: JSON.stringify({
-        messages: solvyHistory.slice(-10),
-        context: teachingLibrarySummary(),
-        state: currentViewLabel(),
-      }),
-    });
-    if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
+    // One automatic retry: transient Workers AI hiccups usually clear in a second.
+    let response = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        response = await fetch(SOLVY_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: abort.signal,
+          body: JSON.stringify({
+            messages: solvyHistory.slice(-10),
+            context: teachingLibrarySummary(),
+            state: currentViewLabel(),
+          }),
+        });
+        if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
+        break;
+      } catch (attemptError) {
+        if (attempt === 1 || abort.signal.aborted) throw attemptError;
+        console.warn("Solvy attempt 1 failed, retrying:", attemptError);
+        await new Promise((resolve) => setTimeout(resolve, 1200));
+      }
+    }
 
     // v2 protocol: one JSON meta line ({v, actions}), then the reply text, streamed.
     const reader = response.body.getReader();

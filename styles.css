@@ -2341,3 +2341,9 @@ h1 em, h2 em { color: #4f8b2e; font-weight: 400; }
 .suggestions.confirm { flex-wrap: nowrap; gap: 6px; animation: appear .25s ease; }
 .suggestions.confirm button { flex: 1; padding: 9px 12px; border-radius: 18px; text-align: center; }
 .suggestions.confirm button:first-child { border-color: rgba(79,139,46,.35); background: linear-gradient(145deg,rgba(201,246,157,.75),rgba(158,233,80,.5)); font-weight: 600; }
+
+/* Solvy proposal bubble (second message with Yes/No inside) */
+.message.proposal { border-color: rgba(79,139,46,.22); background: linear-gradient(145deg,rgba(222,247,193,.5),rgba(255,255,255,.82)); }
+.message.proposal small { display: none; }
+.message.proposal p { font-weight: 500; }
+.message .suggestions.confirm { margin-top: 9px; }
