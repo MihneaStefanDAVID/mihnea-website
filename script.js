@@ -644,6 +644,7 @@ function addMessage(text, type) {
   message.append(author, body);
   chat.append(message);
   chat.scrollTop = chat.scrollHeight;
+  return message;
 }
 
 function answer(question) {
@@ -680,24 +681,312 @@ function answer(question) {
     openPanel("welcome");
     return "I've opened Welcome, where you can reach Mihnea at mihdavid@ethz.ch or find him on Instagram and LinkedIn.";
   }
-  return "Ask me about Mihnea's research, engineering, background, teaching, community work, or journal and I'll open the right folder.";
+  return "I'm having trouble reaching my AI brain right now — give it a few seconds and ask again. Meanwhile I can still navigate: ask about Mihnea's research, projects, teaching, community work or journal and I'll open the right folder.";
 }
 
-function ask(question) {
+const SOLVY_ENDPOINT = "/api/solvy";
+const solvyHistory = [];
+let solvyPending = false;
+
+const SOLVY_EXTERNAL_LINKS = {
+  github: "https://github.com/MihneaStefanDAVID",
+  github_football: "https://github.com/MihneaStefanDAVID/PPS_football",
+  github_mosquito: "https://github.com/MihneaStefanDAVID/PPS_mosquito",
+  github_organisms: "https://github.com/MihneaStefanDAVID/PPS_organisms",
+  github_spy: "https://github.com/MihneaStefanDAVID/PPS_spy",
+  github_tsp: "https://github.com/MihneaStefanDAVID/TSP_visualisation",
+  linkedin: "https://www.linkedin.com/in/mihnea-stefan-david-950893268/",
+  instagram: "https://www.instagram.com/david_mihnea/",
+  tsp_lab: "https://lab.mihdavid.com",
+  local_apk: "https://polybox.ethz.ch/index.php/s/JarNcdEZiCSbRYJ",
+};
+
+const solvyActionRunners = {
+  open_section(args) {
+    const section = args.section === "journal" ? "notes" : args.section;
+    if (!titles[section]) return;
+    openPanel(section);
+    const find = String(args.find || "").trim().toLowerCase();
+    if (!find) return;
+    // Give the panel a moment to render, then scroll to the matching heading.
+    setTimeout(() => {
+      const panel = document.querySelector(".panel.active");
+      if (!panel) return;
+      const headings = panel.querySelectorAll("h2, h3, h4, h5, strong, small, span, b");
+      for (const el of headings) {
+        if (el.textContent.toLowerCase().includes(find)) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          break;
+        }
+      }
+    }, 400);
+  },
+  open_external(args) {
+    const url = SOLVY_EXTERNAL_LINKS[args.target];
+    if (url) window.open(url, "_blank", "noopener");
+  },
+  compose_email(args) {
+    const subject = encodeURIComponent(String(args.subject || "Hello from your website"));
+    const emailBody = encodeURIComponent(String(args.body || ""));
+    window.open(`mailto:mihdavid@ethz.ch?subject=${subject}&body=${emailBody}`, "_self");
+  },
+  close_windows() {
+    document.querySelectorAll(".app-window.open").forEach((w) => w.classList.remove("open"));
+    desktopIntro.classList.remove("hidden");
+  },
+  open_project(args) {
+    const projects = {
+      local: openLocalProject,
+      football: openFootballProject,
+      organisms: openOrganismsProject,
+      spy: openSpyProject,
+      mosquito: openMosquitoProject,
+      tsp: openTspProject,
+      tsp_lab: openTspLab,
+      portfolio: openPortfolioProject,
+    };
+    projects[args.project]?.();
+  },
+  open_teaching_file(args) {
+    const url = String(args.url || "");
+    // Only files that actually live on this site can be opened.
+    if (url.startsWith("teaching-materials/") || url.startsWith("documents/")) {
+      openPdf(url, String(args.name || url.split("/").pop()));
+    }
+  },
+  open_document(args) {
+    const documents = {
+      cv: ["documents/CV_David_Mihnea_Stefan.pdf", "CV.pdf"],
+      football_report: ["documents/Parallel_Football_G7_Report.pdf", "Parallel Football · Team Report.pdf"],
+      football_statement: ["documents/Parallel_Football_Problem_Statement.pdf", "Parallel Football · Problem Statement.pdf"],
+      organisms_report: ["documents/Organisms_G8_Report.pdf", "Organisms · Team Report.pdf"],
+      organisms_statement: ["documents/Organisms_Problem_Statement.pdf", "Organisms · Problem Statement.pdf"],
+      spy_report: ["documents/Spy_G7_Report.pdf", "Soldier, Soldier, Soldier, Spy · Team Report.pdf"],
+      spy_statement: ["documents/Spy_Problem_Statement.pdf", "Soldier, Soldier, Soldier, Spy · Problem Statement.pdf"],
+      mosquito_report: ["documents/Mosquito_G1_Report.pdf", "Mosquito · Team Report.pdf"],
+      mosquito_statement: ["documents/Mosquito_Problem_Statement.pdf", "Mosquito · Problem Statement.pdf"],
+      tsp_theory: ["documents/SHPP_Theoretical_Report.pdf", "Can We Cheat NP-Hardness · Theoretical Report.pdf"],
+      tsp_practical: ["documents/SHPP_Practical_Report_TSP.pdf", "TSP Laboratory · Practical Report.pdf"],
+    };
+    const doc = documents[args.document];
+    if (doc) openPdf(doc[0], doc[1]);
+  },
+};
+
+function runSolvyActions(actions) {
+  if (!Array.isArray(actions)) return;
+  actions.forEach((action) => {
+    try {
+      solvyActionRunners[action.tool]?.(action.args || {});
+    } catch {
+      /* a failed navigation should never break the chat */
+    }
+  });
+}
+
+function teachingLibrarySummary() {
+  const library = window.TEACHING_LIBRARY;
+  if (!library) return "";
+  const lines = [];
+  const walk = (node, path) => {
+    (node.children || []).forEach((item) => {
+      if (lines.length >= 80) return;
+      if (item.type === "folder") {
+        lines.push(`[folder] ${path}${item.name}/${item.description ? " — " + item.description : ""}`);
+        walk(item, `${path}${item.name}/`);
+      } else {
+        lines.push(`[file] ${path}${item.name} (url: ${item.url})${item.description ? " — " + item.description : ""}`);
+      }
+    });
+  };
+  walk(library, "");
+  if (!lines.length) return "The teaching library is currently empty (materials in preparation for Autumn 2026).";
+  return lines.join("\n").slice(0, 3800);
+}
+
+function currentViewLabel() {
+  if (document.querySelector("#pdf-window.open")) return "the PDF viewer";
+  const openWindow = [...document.querySelectorAll(".app-window.open")].find((w) => w.id !== "ai-window");
+  if (!openWindow) return "the desktop (no window open)";
+  if (openWindow.id === "content-window") {
+    const panel = document.querySelector(".panel.active");
+    const name = panel ? titles[panel.id.replace("panel-", "")] : null;
+    return name ? `the "${name}" section` : "a section window";
+  }
+  return openWindow.getAttribute("aria-label") || "a project window";
+}
+
+function proposalToAction(args) {
+  const tool = String(args.tool || "");
+  if (tool === "compose_email") {
+    return { tool, args: { subject: args.subject, body: args.body } };
+  }
+  const target = String(args.target || "");
+  if (!target) return null;
+  if (tool === "open_section") return { tool, args: { section: target, find: args.find } };
+  if (tool === "open_project") return { tool, args: { project: target } };
+  if (tool === "open_document") return { tool, args: { document: target } };
+  if (tool === "open_external") return { tool, args: { target } };
+  if (tool === "open_teaching_file") return { tool, args: { url: target, name: args.name } };
+  return null;
+}
+
+function annotateLastReply(note) {
+  for (let i = solvyHistory.length - 1; i >= 0; i--) {
+    if (solvyHistory[i].role === "assistant") {
+      solvyHistory[i].content += ` ${note}`;
+      return;
+    }
+  }
+}
+
+function renderProposal(proposalAction) {
+  const args = proposalAction.args || {};
+  const action = proposalToAction(args);
+  if (!action) return false;
+
+  // A second chat bubble: the offer text plus Yes/No buttons inside it.
+  const message = addMessage(
+    String(args.question || `Open ${args.target}?`).slice(0, 160),
+    "ai proposal"
+  );
+  const wrap = document.createElement("div");
+  wrap.className = "suggestions dynamic confirm";
+
+  const yes = document.createElement("button");
+  yes.type = "button";
+  yes.textContent = `✓ ${String(args.yes_label || "Yes, open it").slice(0, 40)}`;
+  yes.addEventListener("click", () => {
+    wrap.remove();
+    runSolvyActions([action]);
+    annotateLastReply("[The visitor accepted — it is now open.]");
+  });
+
+  const no = document.createElement("button");
+  no.type = "button";
+  no.textContent = String(args.no_label || "Not now").slice(0, 40);
+  no.addEventListener("click", () => {
+    wrap.remove();
+    annotateLastReply("[The visitor declined the offer to open it.]");
+  });
+
+  wrap.append(yes, no);
+  message.append(wrap);
+  chat.scrollTop = chat.scrollHeight;
+  return true;
+}
+
+function clearDynamicChips() {
+  document.querySelectorAll("#chat .suggestions.dynamic").forEach((el) => el.remove());
+}
+
+function showTyping() {
+  const message = document.createElement("div");
+  message.className = "message ai typing";
+  const body = document.createElement("p");
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement("span");
+    dot.className = "typing-dot";
+    body.append(dot);
+  }
+  message.append(body);
+  chat.append(message);
+  chat.scrollTop = chat.scrollHeight;
+  return message;
+}
+
+async function ask(question) {
   const text = question.trim();
-  if (!text) return;
+  if (!text || solvyPending) return;
+  solvyPending = true;
+  clearDynamicChips();
   addMessage(text, "user");
   chatField.value = "";
-  setTimeout(() => addMessage(answer(text), "ai"), 320);
+  solvyHistory.push({ role: "user", content: text });
+
+  const typing = showTyping();
+  // Never let the chat hang on "..." — abort and fall back after 75s.
+  const abort = new AbortController();
+  const abortTimer = setTimeout(() => abort.abort(), 75_000);
+  try {
+    // One automatic retry: transient Workers AI hiccups usually clear in a second.
+    let response = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        response = await fetch(SOLVY_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: abort.signal,
+          body: JSON.stringify({
+            messages: solvyHistory.slice(-10),
+            context: teachingLibrarySummary(),
+            state: currentViewLabel(),
+          }),
+        });
+        if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
+        break;
+      } catch (attemptError) {
+        if (attempt === 1 || abort.signal.aborted) throw attemptError;
+        console.warn("Solvy attempt 1 failed, retrying:", attemptError);
+        await new Promise((resolve) => setTimeout(resolve, 1200));
+      }
+    }
+
+    // v2 protocol: one JSON meta line ({v, actions}), then the reply text, streamed.
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let meta = null;
+    let replyParagraph = null;
+    let replyText = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      if (!meta) {
+        const newline = buffer.indexOf("\n");
+        if (newline < 0) continue;
+        meta = JSON.parse(buffer.slice(0, newline));
+        buffer = buffer.slice(newline + 1);
+        typing.remove();
+        const allActions = Array.isArray(meta.actions) ? meta.actions : [];
+        runSolvyActions(allActions.filter((a) => a.tool !== "propose_navigation"));
+        meta.proposals = allActions.filter((a) => a.tool === "propose_navigation");
+        replyParagraph = addMessage("", "ai").querySelector("p");
+      }
+      if (meta && buffer) {
+        replyText += buffer;
+        buffer = "";
+        replyParagraph.textContent = replyText;
+        chat.scrollTop = chat.scrollHeight;
+      }
+    }
+    if (!meta) throw new Error("bad response");
+
+    replyText = replyText.trim() || "Done! Have a look around — and ask me anything else.";
+    replyParagraph.textContent = replyText;
+    solvyHistory.push({ role: "assistant", content: replyText });
+    (meta.proposals || []).some((p) => renderProposal(p));
+    chat.scrollTop = chat.scrollHeight;
+  } catch (error) {
+    // Offline / not yet deployed: fall back to the built-in keyword guide.
+    console.warn("Solvy API failed, using offline fallback:", error);
+    typing.remove();
+    document.querySelector("#chat .message.ai:last-child p:empty")?.closest(".message")?.remove();
+    const fallback = answer(text);
+    addMessage(fallback, "ai");
+    solvyHistory.push({ role: "assistant", content: fallback });
+  } finally {
+    clearTimeout(abortTimer);
+    solvyPending = false;
+  }
 }
 
 document.querySelector("#chat-form").addEventListener("submit", (event) => {
   event.preventDefault();
   ask(chatField.value);
-});
-
-document.querySelectorAll(".suggestions button").forEach((button) => {
-  button.addEventListener("click", () => ask(button.textContent));
 });
 
 document.addEventListener("keydown", (event) => {
